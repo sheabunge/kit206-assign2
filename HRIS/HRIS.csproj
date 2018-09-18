@@ -55,7 +55,10 @@
     <Compile Include="Teaching\Staff.cs" />
     <Compile Include="Teaching\Unit.cs" />
     <Compile Include="Teaching\UnitClass.cs" />
+    <Compile Include="View\HeatMapsTab.cs" />
     <Compile Include="View\MainView.cs" />
+    <Compile Include="View\StaffTab.cs" />
+    <Compile Include="View\UnitTab.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
