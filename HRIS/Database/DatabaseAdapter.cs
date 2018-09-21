@@ -15,8 +15,8 @@ namespace HRIS.Database {
 		private MySqlConnection Connection;
 
 		public DatabaseAdapter() {
-			Connection =
-				new MySqlConnection($"Database={DB};Data Source={Server};User Id={User};Password={Pass};SslMode=none;");
+			var details = $"Database={DB};Data Source={Server};User Id={User};Password={Pass};SslMode=none;";
+			Connection = new MySqlConnection(details);
 		}
 
 		private static T ParseEnum<T>(string value) {
@@ -61,7 +61,7 @@ namespace HRIS.Database {
 
 			try {
 				Connection.Open();
-				
+
 				var command = new MySqlCommand("SELECT * FROM staff WHERE id = @staffid");
 				command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
 				reader = command.ExecuteReader();
@@ -77,9 +77,9 @@ namespace HRIS.Database {
 					staff.Photo = reader.GetString("photo");
 					staff.Category = ParseEnum<Category>(reader.GetString("category"));
 				}
-				
+
 				reader.Close();
-				
+
 				command = new MySqlCommand("SELECT * FROM consultation WHERE staff_id = @staffid");
 				command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
 				reader = command.ExecuteReader();
@@ -91,7 +91,6 @@ namespace HRIS.Database {
 						End = reader.GetTimeSpan("end"),
 					});
 				}
-
 			}
 			finally {
 				reader?.Close();
@@ -114,7 +113,7 @@ namespace HRIS.Database {
 					units.Add(new Unit {
 						Code = reader.GetString("code"),
 						Title = reader.GetString("title"),
-						Coordinator = new Staff{ ID = reader.GetInt32("coordinator") },
+						Coordinator = new Staff {ID = reader.GetInt32("coordinator")},
 					});
 				}
 			}
@@ -129,13 +128,13 @@ namespace HRIS.Database {
 		public IEnumerable<UnitClass> FetchClasses(Unit unit) {
 			MySqlDataReader reader = null;
 			var classes = new List<UnitClass>();
-			
+
 			try {
 				Connection.Open();
 				var command = new MySqlCommand("SELECT * FROM class WHERE unit_code = @unitcode", Connection);
 				command.Parameters.AddWithValue("@unitcode", unit.Code);
 				reader = command.ExecuteReader();
-				
+
 				while (reader.Read()) {
 					classes.Add(new UnitClass {
 						Campus = ParseEnum<Campus>(reader.GetString("campus")),
@@ -144,7 +143,7 @@ namespace HRIS.Database {
 						End = reader.GetTimeSpan("end"),
 						Type = ParseEnum<UnitClassType>(reader.GetString("type")),
 						Room = reader.GetString("room"),
-						Staff = new Staff { ID = reader.GetInt32("staff") },
+						Staff = new Staff {ID = reader.GetInt32("staff")},
 					});
 				}
 			}
