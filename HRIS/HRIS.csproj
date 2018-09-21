@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=8.0.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d">
+      <HintPath>..\..\..\..\..\Downloads\mysql-connector-net-8.0.12-noinstall\v4.5.2\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,7 +47,7 @@
   <ItemGroup>
     <Compile Include="Control\StaffController.cs" />
     <Compile Include="Control\UnitController.cs" />
-    <Compile Include="Database\SchoolDBAdapter.cs" />
+    <Compile Include="Database\DatabaseAdapter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Teaching\Availability.cs" />
