@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Odbc;
 using HRIS.Teaching;
 using MySql.Data.MySqlClient;
 
@@ -61,7 +59,6 @@ namespace HRIS.Database {
 
 			try {
 				Connection.Open();
-
 				var command = new MySqlCommand("SELECT * FROM staff WHERE id = @staffid");
 				command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
 				reader = command.ExecuteReader();
