@@ -27,7 +27,7 @@ namespace HRIS.Database {
 
 			try {
 				Connection.Open();
-				var command = new MySqlCommand("SELECT * FROM staff");
+				var command = new MySqlCommand("SELECT id, given_name, family_name, title, campus, category FROM staff");
 				reader = command.ExecuteReader();
 
 				while (reader.Read()) {
@@ -37,9 +37,6 @@ namespace HRIS.Database {
 						FamilyName = reader.GetString("family_name"),
 						Title = reader.GetString("title"),
 						Campus = ParseEnum<Campus>(reader.GetString("campus")),
-						Room = reader.GetString("room"),
-						Email = reader.GetString("email"),
-						Photo = reader.GetString("photo"),
 						Category = ParseEnum<Category>(reader.GetString("category")),
 					};
 

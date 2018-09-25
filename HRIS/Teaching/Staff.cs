@@ -10,7 +10,7 @@ namespace HRIS.Teaching {
 		public string GivenName { get; set; }
 
 		public string Title { get; set; }
-		
+
 		public Campus Campus { get; set; }
 
 		public string Room { get; set; }
