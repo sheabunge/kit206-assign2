@@ -59,6 +59,7 @@ namespace HRIS.Database {
 
 			try {
 				Connection.Open();
+
 				var command = new MySqlCommand("SELECT * FROM staff WHERE id = @staffid");
 				command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
 				reader = command.ExecuteReader();
