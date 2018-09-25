@@ -27,7 +27,7 @@ namespace HRIS.Database {
 
 			try {
 				Connection.Open();
-				var command = new MySqlCommand("SELECT id, given_name, family_name, title, campus, category FROM staff");
+				var command = new MySqlCommand("SELECT id, given_name, family_name, title, campus, category FROM staff", Connection);
 				reader = command.ExecuteReader();
 
 				while (reader.Read()) {
@@ -57,7 +57,7 @@ namespace HRIS.Database {
 			try {
 				Connection.Open();
 
-				var command = new MySqlCommand("SELECT * FROM staff WHERE id = @staffid");
+				var command = new MySqlCommand("SELECT * FROM staff WHERE id = @staffid", Connection);
 				command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
 				reader = command.ExecuteReader();
 
