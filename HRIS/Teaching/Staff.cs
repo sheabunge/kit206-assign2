@@ -20,14 +20,14 @@ namespace HRIS.Teaching {
 		public string Photo { get; set; }
 
 		public Category Category { get; set; }
-		
+
 		public List<Event> Consultations { get; set; }
 
-        public override string ToString() {
-            return $"{Title} {GivenName} {FamilyName}";
-        }
+		public override string ToString() {
+			return $"{Title} {GivenName} {FamilyName}";
+		}
 
-        public Availability Availability(DateTime when) {
+		public Availability Availability(DateTime when) {
 			return Teaching.Availability.Free;
 		}
 	}

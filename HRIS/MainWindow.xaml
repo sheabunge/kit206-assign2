@@ -6,22 +6,21 @@
         xmlns:local="clr-namespace:HRIS"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Button x:Name="tabButton1" Content="Tab 1" Grid.Row="0" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="75" Height="25"/>
-        <Button x:Name="tabButton2" Content="Tab 2" Grid.Row="0" HorizontalAlignment="Left" Margin="75,0,0,0" VerticalAlignment="Top" Width="75" Height="25"/>
-        <Button x:Name="tabButton3" Content="Tab 3" Grid.Row="0" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Top" Width="75" Height="25"/>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150*"/>
-                <ColumnDefinition Width="375*"/>
-            </Grid.ColumnDefinitions>
-            <ListBox x:Name="sampleListBox" ItemsSource="{Binding Source={StaticResource StaffList}}" HorizontalAlignment="Left" Width="148"
-                />
-            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="123,115,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Source={StaticResource categoryValues}}" SelectedIndex="0" SelectionChanged="SelectCategory"  />
-        </Grid>
-    </Grid>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="25" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Button x:Name="tabButton1" Content="Tab 1" Grid.Row="0" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="75" Height="25" />
+		<Button x:Name="tabButton2" Content="Tab 2" Grid.Row="0" HorizontalAlignment="Left" Margin="75,0,0,0" VerticalAlignment="Top" Width="75" Height="25" />
+		<Button x:Name="tabButton3" Content="Tab 3" Grid.Row="0" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Top" Width="75" Height="25" />
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="150*" />
+				<ColumnDefinition Width="375*" />
+			</Grid.ColumnDefinitions>
+			<ListBox x:Name="sampleListBox" ItemsSource="{Binding Source={StaticResource StaffList}}" HorizontalAlignment="Left" Width="148" />
+			<ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="123,115,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Source={StaticResource categoryValues}}" SelectedIndex="0" SelectionChanged="SelectCategory" />
+		</Grid>
+	</Grid>
 </Window>

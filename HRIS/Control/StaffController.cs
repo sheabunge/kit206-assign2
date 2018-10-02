@@ -6,35 +6,44 @@ using System.Linq;
 
 namespace HRIS.Control {
 	public class StaffController {
+		private readonly List<Staff> _staffList;
 
-        private List<Staff> staffmembers;
+		public List<Staff> StaffList => _staffList;
 
-        public List<Staff> StaffList { get => staffmembers; private set { } }
+		private readonly ObservableCollection<Staff> _viewableStaff;
 
-        private ObservableCollection<Staff> viewableStaff;
-        public ObservableCollection<Staff> VisibleStaff { get => viewableStaff; private set { } }
+		public ObservableCollection<Staff> VisibleStaff => _viewableStaff;
 
 		public StaffController() {
-            var db = new DatabaseAdapter();
-            staffmembers = db.FetchBasicStaffDetails();
+			var db = new DatabaseAdapter();
+			_staffList = db.FetchBasicStaffDetails();
+			_viewableStaff = new ObservableCollection<Staff>(_staffList);
+		}
 
-            viewableStaff = new ObservableCollection<Staff>(staffmembers);
-        }
+		public ObservableCollection<Staff> GetViewableList() {
+			return VisibleStaff;
+		}
 
-        public ObservableCollection<Staff> GetViewableList() {
-            return VisibleStaff;
-        }
+		private void SetViewableStaff(IEnumerable<Staff> selected) {
+			_viewableStaff.Clear();
+			selected.ToList().ForEach(_viewableStaff.Add);
+		}
 
-        public void FilterBy(Category category) {
-            var selected = from Staff staff in staffmembers
-                           where category == Category.Any || category == staff.Category
-                           select staff;
+		public void FilterByCategory(Category category) {
+			var selected = from Staff staff in _staffList
+				where category == Category.Any || category == staff.Category
+				select staff;
 
-            viewableStaff.Clear();
-            selected.ToList().ForEach(viewableStaff.Add);
-        }
+			SetViewableStaff(selected);
+		}
 
-		public void FilterByName(string name) { }
+		public void FilterByName(string name) {
+			var selected = from Staff staff in _staffList
+				where staff.ToString().Contains(name)
+				select staff;
+
+			SetViewableStaff(selected);
+		}
 
 		public void ShowStaffDetails(Staff staff) { }
 	}
