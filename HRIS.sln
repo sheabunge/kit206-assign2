@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRIS", "HRIS\HRIS.csproj", "{F71194E8-4C39-4CFF-A52A-D537E33BC3C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRIS.Console", "HRIS\HRIS.Console.csproj", "{F71194E8-4C39-4CFF-A52A-D537E33BC3C9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRISUI", "HRISUI\HRISUI.csproj", "{BC58334D-C7D4-4760-9A54-6DE471B3ACCB}"
 EndProject
