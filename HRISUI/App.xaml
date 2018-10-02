@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:HRISUI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <local:Boss x:Key="boss"/>
+        <ObjectDataProvider x:Key="staffList"
+                            ObjectInstance="{StaticResource boss}"
+                            MethodName="GetViewableList">
+        </ObjectDataProvider>
     </Application.Resources>
 </Application>
