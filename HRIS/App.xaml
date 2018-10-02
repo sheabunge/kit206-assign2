@@ -2,24 +2,22 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:local="clr-namespace:HRIS"
              xmlns:control="clr-namespace:HRIS.Control"
              xmlns:teaching="clr-namespace:HRIS.Teaching"
              StartupUri="MainWindow.xaml">
-    <Application.Resources>
-        <control:StaffController x:Key="StaffController"/>
-        <ObjectDataProvider x:Key="StaffList"
-                            ObjectInstance="{StaticResource StaffController}"
-                            MethodName="GetViewableList">
-        </ObjectDataProvider>
+	<Application.Resources>
+		<control:StaffController x:Key="StaffController" />
+		<ObjectDataProvider x:Key="StaffList"
+		                    ObjectInstance="{StaticResource StaffController}"
+		                    MethodName="GetViewableList" />
 
-        <ObjectDataProvider x:Key="categoryValues"
-                            ObjectType="{x:Type sys:Enum}"
-                            MethodName="GetValues">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="teaching:Category"></x:Type>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+		<ObjectDataProvider x:Key="categoryValues"
+		                    ObjectType="{x:Type sys:Enum}"
+		                    MethodName="GetValues">
+			<ObjectDataProvider.MethodParameters>
+				<x:Type TypeName="teaching:Category" />
+			</ObjectDataProvider.MethodParameters>
+		</ObjectDataProvider>
 
-    </Application.Resources>
+	</Application.Resources>
 </Application>

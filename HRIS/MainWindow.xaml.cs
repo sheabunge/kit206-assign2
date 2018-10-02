@@ -15,22 +15,21 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace HRIS {
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window {
+		StaffController staffController;
 
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window {
+		public MainWindow() {
+			staffController = (StaffController) Application.Current.FindResource("StaffController");
+			InitializeComponent();
+		}
 
-        StaffController staffController;
-        public MainWindow() {
-            staffController = (StaffController)Application.Current.FindResource("StaffController");
-            InitializeComponent();
-        }
-
-        private void SelectCategory(object sender, SelectionChangedEventArgs e) {
-            Teaching.Category currentCategory = (Teaching.Category) e.AddedItems[0];
-            Console.WriteLine();
-           staffController.FilterBy(currentCategory);
-        }
-    }
+		private void SelectCategory(object sender, SelectionChangedEventArgs e) {
+			Teaching.Category currentCategory = (Teaching.Category) e.AddedItems[0];
+			Console.WriteLine();
+			staffController.FilterByCategory(currentCategory);
+		}
+	}
 }

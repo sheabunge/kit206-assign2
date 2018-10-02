@@ -1,6 +1,6 @@
 ﻿namespace HRIS.Teaching {
 	public enum Category {
-        Any,
+		Any,
 		Academic,
 		Technical,
 		Admin,

@@ -1,5 +1,3 @@
 ﻿namespace HRIS.View {
-	public class StaffTab {
-		
-	}
+	public class StaffTab { }
 }
