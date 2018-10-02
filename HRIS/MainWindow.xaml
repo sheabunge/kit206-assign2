@@ -19,8 +19,9 @@
                 <ColumnDefinition Width="150*"/>
                 <ColumnDefinition Width="375*"/>
             </Grid.ColumnDefinitions>
-            <ListBox x:Name="sampleListBox" Margin="0" ItemsSource="{Binding Source={StaticResource StaffList}}"
+            <ListBox x:Name="sampleListBox" ItemsSource="{Binding Source={StaticResource StaffList}}" HorizontalAlignment="Left" Width="148"
                 />
+            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="123,115,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Source={StaticResource categoryValues}}" SelectedIndex="0" SelectionChanged="SelectCategory"  />
         </Grid>
     </Grid>
 </Window>

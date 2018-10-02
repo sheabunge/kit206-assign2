@@ -1,29 +1,38 @@
 ﻿using HRIS.Database;
 using HRIS.Teaching;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace HRIS.Control {
 	public class StaffController {
 
-        private List<Staff> StaffList;
-		public string CurrentNameFilter { get; private set; }
+        private List<Staff> staffmembers;
 
-		public string CurrentCategoryFilter { get; private set; }
+        public List<Staff> StaffList { get => staffmembers; private set { } }
 
-		private void LoadStaff() {
+        private ObservableCollection<Staff> viewableStaff;
+        public ObservableCollection<Staff> VisibleStaff { get => viewableStaff; private set { } }
+
+		public StaffController() {
             var db = new DatabaseAdapter();
-            StaffList = db.FetchBasicStaffDetails();
+            staffmembers = db.FetchBasicStaffDetails();
+
+            viewableStaff = new ObservableCollection<Staff>(staffmembers);
         }
 
-        public List<Staff> GetViewableList() {
-            if (StaffList == null) {
-                LoadStaff();
-            }
-
-            return StaffList;
+        public ObservableCollection<Staff> GetViewableList() {
+            return VisibleStaff;
         }
 
-        public void FilterBy(Category category) { }
+        public void FilterBy(Category category) {
+            var selected = from Staff staff in staffmembers
+                           where category == Category.Any || category == staff.Category
+                           select staff;
+
+            viewableStaff.Clear();
+            selected.ToList().ForEach(viewableStaff.Add);
+        }
 
 		public void FilterByName(string name) { }
 
