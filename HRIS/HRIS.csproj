@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BC58334D-C7D4-4760-9A54-6DE471B3ACCB}</ProjectGuid>
+    <ProjectGuid>{B4BC036B-4990-4450-B47E-93C9E9CD153E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>HRISUI</RootNamespace>
-    <AssemblyName>HRISUI</AssemblyName>
+    <RootNamespace>HRIS</RootNamespace>
+    <AssemblyName>HRIS</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\MySQL\MySQL Connector Net 6.9.9\Assemblies\v4.5\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -54,7 +58,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Staff.cs" />
+    <Compile Include="Teaching\Availability.cs" />
+    <Compile Include="Teaching\Campus.cs" />
+    <Compile Include="Teaching\Category.cs" />
+    <Compile Include="Teaching\Event.cs" />
+    <Compile Include="Teaching\EventTable.cs" />
+    <Compile Include="Teaching\Staff.cs" />
+    <Compile Include="Teaching\Unit.cs" />
+    <Compile Include="Teaching\UnitClass.cs" />
+    <Compile Include="View\HeatMapsTab.cs" />
+    <Compile Include="View\MainView.cs" />
+    <Compile Include="View\StaffTab.cs" />
+    <Compile Include="View\UnitTab.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,7 +78,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Boss.cs" />
+    <Compile Include="Control\StaffController.cs" />
+    <Compile Include="Control\UnitController.cs" />
+    <Compile Include="Database\DatabaseAdapter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

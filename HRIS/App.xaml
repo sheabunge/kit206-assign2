@@ -1,12 +1,13 @@
-﻿<Application x:Class="HRISUI.App"
+﻿<Application x:Class="HRIS.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:HRISUI"
+             xmlns:local="clr-namespace:HRIS"
+             xmlns:control="clr-namespace:HRIS.Control"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <local:Boss x:Key="boss"/>
-        <ObjectDataProvider x:Key="staffList"
-                            ObjectInstance="{StaticResource boss}"
+        <control:StaffController x:Key="StaffController"/>
+        <ObjectDataProvider x:Key="StaffList"
+                            ObjectInstance="{StaticResource StaffController}"
                             MethodName="GetViewableList">
         </ObjectDataProvider>
     </Application.Resources>

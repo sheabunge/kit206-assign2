@@ -1,14 +1,29 @@
-﻿using HRIS.Teaching;
+﻿using HRIS.Database;
+using HRIS.Teaching;
+using System.Collections.Generic;
 
 namespace HRIS.Control {
 	public class StaffController {
+
+        private List<Staff> StaffList;
 		public string CurrentNameFilter { get; private set; }
 
 		public string CurrentCategoryFilter { get; private set; }
 
-		public void LoadStaff() { }
+		private void LoadStaff() {
+            var db = new DatabaseAdapter();
+            StaffList = db.FetchBasicStaffDetails();
+        }
 
-		public void FilterBy(Category category) { }
+        public List<Staff> GetViewableList() {
+            if (StaffList == null) {
+                LoadStaff();
+            }
+
+            return StaffList;
+        }
+
+        public void FilterBy(Category category) { }
 
 		public void FilterByName(string name) { }
 

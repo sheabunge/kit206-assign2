@@ -1,9 +1,9 @@
-﻿<Window x:Class="HRISUI.MainWindow"
+﻿<Window x:Class="HRIS.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HRISUI"
+        xmlns:local="clr-namespace:HRIS"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
@@ -19,7 +19,7 @@
                 <ColumnDefinition Width="150*"/>
                 <ColumnDefinition Width="375*"/>
             </Grid.ColumnDefinitions>
-            <ListBox x:Name="sampleListBox" Margin="0" ItemsSource="{Binding Source={StaticResource staffList}}"
+            <ListBox x:Name="sampleListBox" Margin="0" ItemsSource="{Binding Source={StaticResource StaffList}}"
                 />
         </Grid>
     </Grid>

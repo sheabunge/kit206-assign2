@@ -23,7 +23,11 @@ namespace HRIS.Teaching {
 		
 		public List<Event> Consultations { get; set; }
 
-		public Availability Availability(DateTime when) {
+        public override string ToString() {
+            return $"{Title} {GivenName} {FamilyName}";
+        }
+
+        public Availability Availability(DateTime when) {
 			return Teaching.Availability.Free;
 		}
 	}
