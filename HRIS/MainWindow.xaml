@@ -3,24 +3,34 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HRIS"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="25" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-		<Button x:Name="tabButton1" Content="Tab 1" Grid.Row="0" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="75" Height="25" />
-		<Button x:Name="tabButton2" Content="Tab 2" Grid.Row="0" HorizontalAlignment="Left" Margin="75,0,0,0" VerticalAlignment="Top" Width="75" Height="25" />
-		<Button x:Name="tabButton3" Content="Tab 3" Grid.Row="0" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Top" Width="75" Height="25" />
-		<Grid Grid.Row="1">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="150*" />
-				<ColumnDefinition Width="375*" />
-			</Grid.ColumnDefinitions>
-			<ListBox x:Name="sampleListBox" ItemsSource="{Binding Source={StaticResource StaffList}}" HorizontalAlignment="Left" Width="148" />
-			<ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="123,115,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Source={StaticResource categoryValues}}" SelectedIndex="0" SelectionChanged="SelectCategory" />
-		</Grid>
-	</Grid>
+        Title="Human Resources Information System" Height="350" Width="525">
+
+	<TabControl Margin="0, 0, 0, 10">
+		<TabItem Name="StaffTab" Header="Staff">
+			<TabItem.Content>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="103*" />
+						<ColumnDefinition Width="43*" />
+						<ColumnDefinition Width="365*" />
+					</Grid.ColumnDefinitions>
+					<ListBox x:Name="StaffListBox" ItemsSource="{Binding Source={StaticResource StaffList}}" HorizontalAlignment="Left" Width="148" Grid.ColumnSpan="3" />
+					<ComboBox Grid.Column="2" HorizontalAlignment="Left" Margin="123,115,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Source={StaticResource CategoryValues}}" SelectedIndex="0" SelectionChanged="SelectCategory" />
+				</Grid>
+			</TabItem.Content>
+		</TabItem>
+
+		<TabItem Name="UnitsTab" Header="Units">
+			<TabItem.Content>
+				<TextBlock>Tab content</TextBlock>
+			</TabItem.Content>
+		</TabItem>
+
+		<TabItem Name="HeatMapsTab" Header="Heat Maps">
+			<TabItem.Content>
+				<TextBlock>Tab content</TextBlock>
+			</TabItem.Content>
+		</TabItem>
+	</TabControl>
 </Window>
