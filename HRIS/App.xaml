@@ -11,7 +11,7 @@
 		                    ObjectInstance="{StaticResource StaffController}"
 		                    MethodName="GetViewableList" />
 
-		<ObjectDataProvider x:Key="categoryValues"
+		<ObjectDataProvider x:Key="CategoryValues"
 		                    ObjectType="{x:Type sys:Enum}"
 		                    MethodName="GetValues">
 			<ObjectDataProvider.MethodParameters>
