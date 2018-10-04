@@ -4,7 +4,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:control="clr-namespace:HRIS.Control"
              xmlns:teaching="clr-namespace:HRIS.Teaching"
-             StartupUri="MainWindow.xaml">
+             StartupUri="View/MainWindow.xaml">
 	<Application.Resources>
 		<control:StaffController x:Key="StaffController" />
 		<ObjectDataProvider x:Key="StaffList"

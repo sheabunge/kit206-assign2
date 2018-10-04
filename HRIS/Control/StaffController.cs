@@ -1,5 +1,6 @@
 ﻿using HRIS.Database;
 using HRIS.Teaching;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,37 +15,33 @@ namespace HRIS.Control {
 
 		public ObservableCollection<Staff> VisibleStaff => _viewableStaff;
 
+		public string CurrentNameFilter { get; set; }
+
+		public Category CurrentCategoryFilter { get; set; }
+
 		public StaffController() {
 			var db = new DatabaseAdapter();
 			_staffList = db.FetchBasicStaffDetails();
 			_viewableStaff = new ObservableCollection<Staff>(_staffList);
+			CurrentNameFilter = "";
+			CurrentCategoryFilter = Category.Any;
 		}
 
 		public ObservableCollection<Staff> GetViewableList() {
 			return VisibleStaff;
 		}
 
-		private void SetViewableStaff(IEnumerable<Staff> selected) {
+		public void ApplyFilters() {
 			_viewableStaff.Clear();
+
+			var selected =
+				from Staff staff in _staffList
+				where
+					(CurrentCategoryFilter == Category.Any || CurrentCategoryFilter == staff.Category) &&
+					(CurrentNameFilter == "" || staff.ToString().IndexOf(CurrentNameFilter, StringComparison.OrdinalIgnoreCase) >= 0)
+				select staff;
+
 			selected.ToList().ForEach(_viewableStaff.Add);
 		}
-
-		public void FilterByCategory(Category category) {
-			var selected = from Staff staff in _staffList
-				where category == Category.Any || category == staff.Category
-				select staff;
-
-			SetViewableStaff(selected);
-		}
-
-		public void FilterByName(string name) {
-			var selected = from Staff staff in _staffList
-				where staff.ToString().Contains(name)
-				select staff;
-
-			SetViewableStaff(selected);
-		}
-
-		public void ShowStaffDetails(Staff staff) { }
 	}
 }

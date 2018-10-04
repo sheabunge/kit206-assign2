@@ -1,0 +1,49 @@
+﻿<Window x:Class="HRIS.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Human Resources Information System" Height="350" Width="600">
+
+	<TabControl Margin="0, 0, 0, 10">
+		<TabItem Name="StaffTab" Header="Staff">
+			<TabItem.Content>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="150*" />
+						<ColumnDefinition Width="400*" />
+					</Grid.ColumnDefinitions>
+					
+					<DockPanel Grid.Column="0" Margin="1,1,1,1">
+						<DockPanel DockPanel.Dock="Top">
+							<Label>Filter by name:</Label>
+							<TextBox Name="NameFilter" DockPanel.Dock="Right" Height="20" Margin="0,0,0,0" TextChanged="FilterByName"></TextBox>
+						</DockPanel>
+
+						<DockPanel DockPanel.Dock="Top">
+							<Label>Show:</Label>
+							<ComboBox Name="CategoryFilter" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right"
+								  ItemsSource="{Binding Source={StaticResource CategoryValues}}" SelectedIndex="0" SelectionChanged="SelectCategory" />
+						</DockPanel>
+
+						<ListBox x:Name="StaffListBox" ItemsSource="{Binding Source={StaticResource StaffList}}"
+								 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" />
+					</DockPanel>
+				</Grid>
+			</TabItem.Content>
+		</TabItem>
+
+		<TabItem Name="UnitsTab" Header="Units">
+			<TabItem.Content>
+				<TextBlock>Tab content</TextBlock>
+			</TabItem.Content>
+		</TabItem>
+
+		<TabItem Name="HeatMapsTab" Header="Heat Maps">
+			<TabItem.Content>
+				<TextBlock>Tab content</TextBlock>
+			</TabItem.Content>
+		</TabItem>
+	</TabControl>
+</Window>
