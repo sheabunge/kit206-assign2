@@ -72,13 +72,9 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="View\StaffTab.xaml.cs">
       <DependentUpon>StaffTab.xaml</DependentUpon>
     </Compile>
-=======
-    <Compile Include="View\StaffTab.cs" />
->>>>>>> f4f2277fcbc28811f70691402ab65fdfe16b64bb
     <Compile Include="View\UnitTab.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
