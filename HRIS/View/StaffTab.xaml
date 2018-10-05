@@ -8,8 +8,8 @@
 
 	<Grid Background="White">
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="150*" />
-			<ColumnDefinition Width="400*" />
+			<ColumnDefinition Width="200*" />
+			<ColumnDefinition Width="500*" />
 		</Grid.ColumnDefinitions>
 
 		<DockPanel Grid.Column="0" Margin="1,1,1,1">
@@ -24,8 +24,15 @@
 						  ItemsSource="{Binding Source={StaticResource CategoryValues}}" SelectedIndex="0" SelectionChanged="SelectCategory" />
 			</DockPanel>
 
-			<ListBox x:Name="StaffList" ItemsSource="{Binding Source={StaticResource StaffList}}"
-					 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" />
+			<DataGrid x:Name="StaffList" Margin="0,5,0,0"
+			          AutoGenerateColumns="False" GridLinesVisibility="None" RowHeaderWidth="0"
+			          IsReadOnly="True" SelectionMode="Single"
+			          ItemsSource="{Binding Source={StaticResource StaffList}}">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Name" Binding="{Binding Path=FullName}" Width="*" />
+					<DataGridTextColumn Header="Category" Binding="{Binding Path=Category}" />
+				</DataGrid.Columns>
+			</DataGrid>
 		</DockPanel>
 
 		<DockPanel Grid.Column="1" Margin="1,1,1,1">

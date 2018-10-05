@@ -23,8 +23,10 @@ namespace HRIS.Teaching {
 
 		public List<Event> Consultations { get; set; }
 
+		public string FullName => $"{Title} {GivenName} {FamilyName}";
+
 		public override string ToString() {
-			return $"{Title} {GivenName} {FamilyName}";
+			return FullName;
 		}
 
 		public Availability Availability(DateTime when) {
