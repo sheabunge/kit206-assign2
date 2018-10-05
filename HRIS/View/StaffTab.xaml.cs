@@ -4,13 +4,11 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace HRIS.View
-{
+namespace HRIS.View {
 	/// <summary>
 	/// Interaction logic for StaffTab.xaml
 	/// </summary>
 	public partial class StaffTab : UserControl {
-
 		private readonly StaffController controller;
 
 		public StaffTab() {
@@ -19,7 +17,7 @@ namespace HRIS.View
 		}
 
 		private void SelectCategory(object sender, SelectionChangedEventArgs e) {
-			controller.CurrentCategoryFilter = (Teaching.Category)CategoryFilter.SelectedItem;
+			controller.CurrentCategoryFilter = (Category) CategoryFilter.SelectedItem;
 			controller.ApplyFilters();
 		}
 
@@ -36,7 +34,7 @@ namespace HRIS.View
 				NoneSelected.Visibility = Visibility.Visible;
 				return;
 			}
-		
+
 			controller.CompleteStaffDetails(staff);
 			NoneSelected.Visibility = Visibility.Hidden;
 			BasicDetails.DataContext = staff;
