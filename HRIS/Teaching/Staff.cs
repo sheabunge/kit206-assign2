@@ -17,6 +17,8 @@ namespace HRIS.Teaching {
 
 		public string Email { get; set; }
 
+		public string Phone { get; set; }
+
 		public string Photo { get; set; }
 
 		public Category Category { get; set; }

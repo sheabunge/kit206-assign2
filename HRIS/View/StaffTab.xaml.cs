@@ -1,4 +1,5 @@
 ﻿using HRIS.Control;
+using HRIS.Teaching;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,6 +26,21 @@ namespace HRIS.View
 		private void FilterByName(object sender, TextChangedEventArgs e) {
 			controller.CurrentNameFilter = NameFilter.Text;
 			controller.ApplyFilters();
+		}
+
+		private void SelectStaffMember(object sender, SelectionChangedEventArgs e) {
+			Staff staff = (Staff) StaffList.SelectedItem;
+
+			if (staff == null) {
+				BasicDetails.Visibility = Visibility.Hidden;
+				NoneSelected.Visibility = Visibility.Visible;
+				return;
+			}
+		
+			controller.CompleteStaffDetails(staff);
+			NoneSelected.Visibility = Visibility.Hidden;
+			BasicDetails.DataContext = staff;
+			BasicDetails.Visibility = Visibility.Visible;
 		}
 	}
 }

@@ -15,12 +15,18 @@ namespace HRIS.Control {
 
 		public Category CurrentCategoryFilter { get; set; }
 
+		private readonly DatabaseAdapter _db;
+
 		public StaffController() {
-			var db = new DatabaseAdapter();
-			CompleteList = db.FetchBasicStaffDetails();
+			_db = new DatabaseAdapter();
+			CompleteList = _db.FetchBasicStaffDetails();
 			VisibleList = new ObservableCollection<Staff>(CompleteList);
 			CurrentNameFilter = "";
 			CurrentCategoryFilter = Category.Any;
+		}
+
+		public void CompleteStaffDetails(Staff staff) {
+			_db.CompleteStaffDetails(staff);
 		}
 
 		public ObservableCollection<Staff> GetVisibleList() {
