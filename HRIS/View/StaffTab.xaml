@@ -45,7 +45,7 @@
 			          ItemsSource="{Binding Source={StaticResource StaffList}}"
 			          SelectionChanged="SelectStaffMember">
 				<DataGrid.Columns>
-					<DataGridTextColumn Header="Name" Binding="{Binding Path=FormalName}" Width="*"  />
+					<DataGridTextColumn Header="Name" Binding="{Binding Path=FormalName}" Width="*" />
 					<DataGridTextColumn Header="Category" Binding="{Binding Path=Category}" />
 				</DataGrid.Columns>
 			</DataGrid>
@@ -117,8 +117,7 @@
 				          HorizontalAlignment="Left" Padding="2,2,2,2">
 					<DataGrid.Columns>
 						<DataGridTextColumn Binding="{Binding Path=Day}" />
-						<DataGridTextColumn Binding="{Binding Path=StartDate,StringFormat={StaticResource TimeStringFormat}}"
-						                    CellStyle="{StaticResource CenterCells}" />
+						<DataGridTextColumn Binding="{Binding Path=StartDate,StringFormat={StaticResource TimeStringFormat}}" CellStyle="{StaticResource CenterCells}" />
 						<DataGridTemplateColumn>
 							<DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
@@ -127,8 +126,7 @@
 							</DataGridTemplateColumn.CellTemplate>
 						</DataGridTemplateColumn>
 
-						<DataGridTextColumn Binding="{Binding Path=EndDate,StringFormat={StaticResource TimeStringFormat}}"
-						                    CellStyle="{StaticResource CenterCells}" />
+						<DataGridTextColumn Binding="{Binding Path=EndDate,StringFormat={StaticResource TimeStringFormat}}" CellStyle="{StaticResource CenterCells}" />
 					</DataGrid.Columns>
 				</DataGrid>
 			</StackPanel>
