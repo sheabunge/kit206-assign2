@@ -42,14 +42,14 @@
 		<DockPanel x:Name="BasicDetails" Visibility="Hidden" Grid.Column="1" Margin="1,1,1,1">
 			<Grid DockPanel.Dock="Top" VerticalAlignment="Top" Margin="10,10,10,10">
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition />
-					<ColumnDefinition />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition MaxWidth="200"/>
 				</Grid.ColumnDefinitions>
 
-				<Grid Grid.Column="0" VerticalAlignment="Top">
+				<Grid Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />
-						<ColumnDefinition />
+						<ColumnDefinition Width="*" />
 					</Grid.ColumnDefinitions>
 					<Grid.RowDefinitions>
 						<RowDefinition />
