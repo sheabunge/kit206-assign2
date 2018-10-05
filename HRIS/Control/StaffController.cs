@@ -7,13 +7,9 @@ using System.Linq;
 
 namespace HRIS.Control {
 	public class StaffController {
-		private readonly List<Staff> _staffList;
+		public List<Staff> CompleteList { get; private set; }
 
-		public List<Staff> StaffList => _staffList;
-
-		private readonly ObservableCollection<Staff> _viewableStaff;
-
-		public ObservableCollection<Staff> VisibleStaff => _viewableStaff;
+		public ObservableCollection<Staff> VisibleList { get; private set; }
 
 		public string CurrentNameFilter { get; set; }
 
@@ -21,27 +17,27 @@ namespace HRIS.Control {
 
 		public StaffController() {
 			var db = new DatabaseAdapter();
-			_staffList = db.FetchBasicStaffDetails();
-			_viewableStaff = new ObservableCollection<Staff>(_staffList);
+			CompleteList = db.FetchBasicStaffDetails();
+			VisibleList = new ObservableCollection<Staff>(CompleteList);
 			CurrentNameFilter = "";
 			CurrentCategoryFilter = Category.Any;
 		}
 
-		public ObservableCollection<Staff> GetViewableList() {
-			return VisibleStaff;
+		public ObservableCollection<Staff> GetVisibleList() {
+			return VisibleList;
 		}
 
 		public void ApplyFilters() {
-			_viewableStaff.Clear();
+			VisibleList.Clear();
 
 			var selected =
-				from Staff staff in _staffList
+				from Staff staff in CompleteList
 				where
 					(CurrentCategoryFilter == Category.Any || CurrentCategoryFilter == staff.Category) &&
 					(CurrentNameFilter == "" || staff.ToString().IndexOf(CurrentNameFilter, StringComparison.OrdinalIgnoreCase) >= 0)
 				select staff;
 
-			selected.ToList().ForEach(_viewableStaff.Add);
+			selected.ToList().ForEach(VisibleList.Add);
 		}
 	}
 }

@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HRIS.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+			 mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="700">
+
 	<Grid Background="White">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="150*" />
@@ -15,17 +15,20 @@
 		<DockPanel Grid.Column="0" Margin="1,1,1,1">
 			<DockPanel DockPanel.Dock="Top">
 				<Label>Filter by name:</Label>
-				<TextBox Name="NameFilter" DockPanel.Dock="Right" Height="20" Margin="0,0,0,0" TextChanged="FilterByName"></TextBox>
+				<TextBox x:Name="NameFilter" DockPanel.Dock="Right" Height="20" Margin="0,0,0,0" TextChanged="FilterByName"></TextBox>
 			</DockPanel>
 
 			<DockPanel DockPanel.Dock="Top">
 				<Label>Show:</Label>
-				<ComboBox Name="CategoryFilter" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right"
-								  ItemsSource="{Binding Source={StaticResource CategoryValues}}" SelectedIndex="0" SelectionChanged="SelectCategory" />
+				<ComboBox x:Name="CategoryFilter" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right"
+						  ItemsSource="{Binding Source={StaticResource CategoryValues}}" SelectedIndex="0" SelectionChanged="SelectCategory" />
 			</DockPanel>
 
-			<ListBox x:Name="StaffListBox" ItemsSource="{Binding Source={StaticResource StaffList}}"
-								 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" />
+			<ListBox x:Name="StaffList" ItemsSource="{Binding Source={StaticResource StaffList}}"
+					 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" />
+		</DockPanel>
+
+		<DockPanel Grid.Column="1" Margin="1,1,1,1">
 		</DockPanel>
 	</Grid>
 </UserControl>

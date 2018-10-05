@@ -66,8 +66,9 @@
     <Compile Include="Teaching\Unit.cs" />
     <Compile Include="Teaching\UnitClass.cs" />
     <Compile Include="Database\DatabaseAdapter.cs" />
-    <Compile Include="View\HeatMapsTab.cs" />
-    <Compile Include="View\MainView.cs" />
+    <Compile Include="View\HeatMapTab.xaml.cs">
+      <DependentUpon>HeatMapTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -75,13 +76,15 @@
     <Compile Include="View\StaffTab.xaml.cs">
       <DependentUpon>StaffTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UnitTab.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Control\StaffController.cs" />
     <Compile Include="Control\UnitController.cs" />
+    <Compile Include="View\UnitTab.xaml.cs">
+      <DependentUpon>UnitTab.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -107,14 +110,24 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\HeatMapTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\StaffTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UnitTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

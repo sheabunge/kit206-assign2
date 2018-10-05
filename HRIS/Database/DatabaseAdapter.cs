@@ -95,7 +95,7 @@ namespace HRIS.Database {
 			return staff;
 		}
 
-		public IEnumerable<Unit> FetchUnits() {
+		public List<Unit> FetchUnits() {
 			MySqlDataReader reader = null;
 			var units = new List<Unit>();
 

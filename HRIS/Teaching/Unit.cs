@@ -5,5 +5,9 @@
 		public string Title { get; set; }
 
 		public Staff Coordinator { get; set; }
+
+		public override string ToString() {
+			return $"{Code} {Title}";
+		}
 	}
 }
