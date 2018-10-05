@@ -51,7 +51,7 @@ namespace HRIS.Database {
 			return staff;
 		}
 
-		public Staff CompleteStaffDetails(Staff staff) {
+		public void CompleteStaffDetails(Staff staff) {
 			MySqlDataReader reader = null;
 
 			try {
@@ -69,30 +69,32 @@ namespace HRIS.Database {
 					staff.Campus = ParseEnum<Campus>(reader.GetString("campus"));
 					staff.Room = reader.GetString("room");
 					staff.Email = reader.GetString("email");
+					staff.Phone = reader.GetString("phone");
 					staff.Photo = reader.GetString("photo");
 					staff.Category = ParseEnum<Category>(reader.GetString("category"));
 				}
 
 				reader.Close();
 
-				command = new MySqlCommand("SELECT * FROM consultation WHERE staff_id = @staffid");
+				command = new MySqlCommand("SELECT day, start, end FROM consultation WHERE staff_id = @staffid", Connection);
 				command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
 				reader = command.ExecuteReader();
 
+				staff.Consultations = new List<Event>();
+
 				while (reader.Read()) {
-					staff.Consultations.Add(new Event {
+					var consultation = new Event() {
 						Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
 						Start = reader.GetTimeSpan("start"),
 						End = reader.GetTimeSpan("end"),
-					});
+					};
+					staff.Consultations.Add(consultation);
 				}
 			}
 			finally {
 				reader?.Close();
 				Connection?.Close();
 			}
-
-			return staff;
 		}
 
 		public List<Unit> FetchUnits() {
