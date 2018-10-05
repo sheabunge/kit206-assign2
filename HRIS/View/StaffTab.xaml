@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:teaching="clr-namespace:HRIS.Teaching"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="700">
@@ -58,7 +58,7 @@
 			<Grid DockPanel.Dock="Top" VerticalAlignment="Top">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*" />
-					<ColumnDefinition MaxWidth="200"/>
+					<ColumnDefinition MaxWidth="200" />
 				</Grid.ColumnDefinitions>
 
 				<Grid Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left">
@@ -98,7 +98,7 @@
 					<Style TargetType="{x:Type StackPanel}">
 						<Style.Triggers>
 							<DataTrigger Binding="{Binding Path=Consultations.Count}" Value="0">
-								<Setter Property="Visibility" Value="Hidden"/>
+								<Setter Property="Visibility" Value="Hidden" />
 							</DataTrigger>
 						</Style.Triggers>
 					</Style>
@@ -107,14 +107,14 @@
 					</Style>
 				</StackPanel.Resources>
 
-				<Label Content="Consultation Times" Style="{StaticResource Heading}"/>
+				<Label Content="Consultation Times" Style="{StaticResource Heading}" />
 				<DataGrid x:Name="ConsultationTimes" ItemsSource="{Binding Path=Consultations}" AutoGenerateColumns="False"
-						  Style="{StaticResource SimpleTable}"  GridLinesVisibility="None"	
-						  HorizontalAlignment="Left" Padding="2,2,2,2">
+				          Style="{StaticResource SimpleTable}" GridLinesVisibility="None"
+				          HorizontalAlignment="Left" Padding="2,2,2,2">
 					<DataGrid.Columns>
 						<DataGridTextColumn Binding="{Binding Path=Day}" />
 						<DataGridTextColumn Binding="{Binding Path=Start,StringFormat={StaticResource TimeStringFormat}}"
-											CellStyle="{StaticResource CenterCells}"/>
+						                    CellStyle="{StaticResource CenterCells}" />
 						<DataGridTemplateColumn>
 							<DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
@@ -123,7 +123,7 @@
 							</DataGridTemplateColumn.CellTemplate>
 						</DataGridTemplateColumn>
 						<DataGridTextColumn Binding="{Binding Path=End,StringFormat={StaticResource TimeStringFormat}}"
-											CellStyle="{StaticResource CenterCells}"/>
+						                    CellStyle="{StaticResource CenterCells}" />
 					</DataGrid.Columns>
 				</DataGrid>
 			</StackPanel>
