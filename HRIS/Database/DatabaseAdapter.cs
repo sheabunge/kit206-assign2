@@ -42,8 +42,7 @@ namespace HRIS.Database {
 
 					staff.Add(staffMember);
 				}
-			}
-			finally {
+			} finally {
 				reader?.Close();
 				Connection?.Close();
 			}
@@ -90,8 +89,7 @@ namespace HRIS.Database {
 					};
 					staff.Consultations.Add(consultation);
 				}
-			}
-			finally {
+			} finally {
 				reader?.Close();
 				Connection?.Close();
 			}
@@ -113,8 +111,7 @@ namespace HRIS.Database {
 						Coordinator = new Staff {ID = reader.GetInt32("coordinator")},
 					});
 				}
-			}
-			finally {
+			} finally {
 				reader?.Close();
 				Connection?.Close();
 			}
@@ -122,7 +119,7 @@ namespace HRIS.Database {
 			return units;
 		}
 
-		public IEnumerable<UnitClass> FetchClasses(Unit unit) {
+		public List<UnitClass> FetchClasses(Unit unit) {
 			MySqlDataReader reader = null;
 			var classes = new List<UnitClass>();
 
@@ -143,8 +140,7 @@ namespace HRIS.Database {
 						Staff = new Staff {ID = reader.GetInt32("staff")},
 					});
 				}
-			}
-			finally {
+			} finally {
 				reader?.Close();
 				Connection?.Close();
 			}

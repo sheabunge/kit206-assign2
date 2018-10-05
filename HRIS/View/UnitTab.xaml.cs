@@ -7,7 +7,6 @@ namespace HRIS.View {
 	/// Interaction logic for UnitTab.xaml
 	/// </summary>
 	public partial class UnitTab : UserControl {
-
 		private readonly UnitController controller;
 
 		public UnitTab() {

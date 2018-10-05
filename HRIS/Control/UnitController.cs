@@ -7,7 +7,6 @@ using HRIS.Teaching;
 
 namespace HRIS.Control {
 	public class UnitController {
-
 		public List<Unit> CompleteList { get; private set; }
 
 		public ObservableCollection<Unit> VisibleList { get; private set; }
