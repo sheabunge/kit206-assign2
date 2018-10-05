@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 	====== =
 	>>>>>>> Fix spacing
 
+
 namespace HRIS.View {
 	/// <summary>
 	/// Interaction logic for HeatMapTab.xaml
