@@ -109,6 +109,7 @@ namespace HRIS.Database {
 						Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
 						Start = reader.GetTimeSpan("start"),
 						End = reader.GetTimeSpan("end"),
+						<<<<<<< HEAD
 					});
 				}
 
