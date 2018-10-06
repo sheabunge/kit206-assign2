@@ -14,5 +14,9 @@
 			Unit other = (Unit) obj;
 			return other.Code == Code;
 		}
+
+		public override int GetHashCode() {
+			return Code.GetHashCode();
+		}
 	}
 }

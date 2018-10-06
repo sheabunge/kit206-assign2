@@ -26,7 +26,6 @@
 			<Setter Property="IsEnabled" Value="False" />
 			<Setter Property="HeadersVisibility" Value="None" />
 			<Setter Property="RowHeaderWidth" Value="0" />
-			<Setter Property="Foreground" Value="Black" />
 
 			<Style.Resources>
 				<Style TargetType="DataGridCell">
