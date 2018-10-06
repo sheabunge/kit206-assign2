@@ -117,7 +117,7 @@
 				          HorizontalAlignment="Left" Padding="2,2,2,2">
 					<DataGrid.Columns>
 						<DataGridTextColumn Binding="{Binding Path=Day}" />
-						<DataGridTextColumn Binding="{Binding Path=Start,StringFormat={StaticResource TimeStringFormat}}"
+						<DataGridTextColumn Binding="{Binding Path=StartDate,StringFormat={StaticResource TimeStringFormat}}"
 						                    CellStyle="{StaticResource CenterCells}" />
 						<DataGridTemplateColumn>
 							<DataGridTemplateColumn.CellTemplate>
@@ -126,7 +126,8 @@
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
 						</DataGridTemplateColumn>
-						<DataGridTextColumn Binding="{Binding Path=End,StringFormat={StaticResource TimeStringFormat}}"
+
+						<DataGridTextColumn Binding="{Binding Path=EndDate,StringFormat={StaticResource TimeStringFormat}}"
 						                    CellStyle="{StaticResource CenterCells}" />
 					</DataGrid.Columns>
 				</DataGrid>
