@@ -1,12 +1,11 @@
 ﻿<Application x:Class="HRIS.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:control="clr-namespace:HRIS.Control"
              StartupUri="View/MainWindow.xaml">
 	<Application.Resources>
 		<control:StaffController x:Key="StaffController" />
-<<<<<<< HEAD
 		<control:UnitController x:Key="UnitController" />
 
 		<sys:String x:Key="TimeStringFormat">{0:hh\:mm tt}</sys:String>
@@ -29,26 +28,5 @@
 				</Style>
 			</Style.Resources>
 		</Style>
-=======
-
-		<ObjectDataProvider x:Key="StaffList"
-		                    ObjectInstance="{StaticResource StaffController}"
-		                    MethodName="GetVisibleList" />
-
-		<ObjectDataProvider x:Key="CategoryValues"
-							ObjectType="{x:Type sys:Enum}"
-							MethodName="GetValues">
-			<ObjectDataProvider.MethodParameters>
-				<x:Type TypeName="teaching:Category" />
-			</ObjectDataProvider.MethodParameters>
-		</ObjectDataProvider>
-
-		<control:UnitController x:Key="UnitController" />
-
-		<ObjectDataProvider x:Key="UnitsList"
-		                    ObjectInstance="{StaticResource UnitController}"
-		                    MethodName="GetVisibleList" />
-
->>>>>>> Add initial content for unit tab
 	</Application.Resources>
 </Application>
