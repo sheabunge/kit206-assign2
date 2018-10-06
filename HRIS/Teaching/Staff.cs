@@ -43,16 +43,15 @@ namespace HRIS.Teaching {
 		}
 
 		private static IEnumerable<Event> CurrentEvents(IEnumerable<Event> events, DateTime when) {
-
 			if (events == null) {
 				return events;
 			}
 
 			var results = from _event in events
-			              where _event.Day == when.DayOfWeek &&
-			                    _event.Start <= when.TimeOfDay && when.TimeOfDay <= _event.End
-			              select _event;
-			
+				where _event.Day == when.DayOfWeek &&
+				      _event.Start <= when.TimeOfDay && when.TimeOfDay <= _event.End
+				select _event;
+
 			return results;
 		}
 
@@ -64,7 +63,6 @@ namespace HRIS.Teaching {
 			if (consultations != null && consultations.Any()) {
 				availability = Teaching.Availability.Consulting;
 				currentEvent = consultations.First();
-
 			} else {
 				var classes = CurrentEvents(Classes, when);
 				if (classes != null && classes.Any()) {
