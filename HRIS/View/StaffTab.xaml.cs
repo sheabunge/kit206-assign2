@@ -14,6 +14,7 @@ namespace HRIS.View {
 		public StaffTab() {
 			controller = (StaffController) Application.Current.FindResource("StaffController");
 			InitializeComponent();
+			BasicDetails.Visibility = Visibility.Hidden;
 		}
 
 		private void SelectCategory(object sender, SelectionChangedEventArgs e) {

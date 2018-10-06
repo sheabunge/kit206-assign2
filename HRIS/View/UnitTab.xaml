@@ -7,6 +7,11 @@
              xmlns:model="clr-namespace:HRIS.Teaching"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="900">
+	<UserControl.Resources>
+		<ObjectDataProvider x:Key="UnitsList"
+		                    ObjectInstance="{StaticResource UnitController}"
+		                    MethodName="GetVisibleList" />
+	</UserControl.Resources>
 	<Grid Background="White">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="200*" />
