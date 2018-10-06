@@ -21,6 +21,10 @@ namespace HRIS.Database {
 			return (T) Enum.Parse(typeof(T), value);
 		}
 
+		private static DateTime ParseTime(TimeSpan time) {
+			return DateTime.MinValue.Add(time);
+		}
+
 		public List<Staff> FetchBasicStaffDetails() {
 			MySqlDataReader reader = null;
 			var staff = new List<Staff>();
@@ -72,7 +76,6 @@ namespace HRIS.Database {
 					staff.Photo = reader.GetString("photo");
 					staff.Category = ParseEnum<Category>(reader.GetString("category"));
 				}
-
 			} finally {
 				reader?.Close();
 				Connection?.Close();
@@ -177,7 +180,6 @@ namespace HRIS.Database {
 						});
 					}
 				}
-			
 			} finally {
 				reader?.Close();
 				Connection.Close();
