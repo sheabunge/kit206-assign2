@@ -21,6 +21,10 @@ namespace HRIS.Database {
 			return (T) Enum.Parse(typeof(T), value);
 		}
 
+		private static DateTime ParseTime(TimeSpan time) {
+			return DateTime.MinValue.Add(time);
+		}
+
 		public List<Staff> FetchBasicStaffDetails() {
 			MySqlDataReader reader = null;
 			var staff = new List<Staff>();
@@ -84,8 +88,8 @@ namespace HRIS.Database {
 				while (reader.Read()) {
 					var consultation = new Event() {
 						Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
-						Start = reader.GetTimeSpan("start"),
-						End = reader.GetTimeSpan("end"),
+						Start = ParseTime(reader.GetTimeSpan("start")),
+						End = ParseTime(reader.GetTimeSpan("end")),
 					};
 					staff.Consultations.Add(consultation);
 				}
@@ -133,8 +137,8 @@ namespace HRIS.Database {
 					classes.Add(new UnitClass {
 						Campus = ParseEnum<Campus>(reader.GetString("campus")),
 						Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
-						Start = reader.GetTimeSpan("start"),
-						End = reader.GetTimeSpan("end"),
+						Start = ParseTime(reader.GetTimeSpan("start")),
+						End = ParseTime(reader.GetTimeSpan("end")),
 						Type = ParseEnum<UnitClassType>(reader.GetString("type")),
 						Room = reader.GetString("room"),
 						Staff = new Staff {ID = reader.GetInt32("staff")},
