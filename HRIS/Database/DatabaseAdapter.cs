@@ -88,8 +88,8 @@ namespace HRIS.Database {
 				while (reader.Read()) {
 					var consultation = new Event() {
 						Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
-						Start = reader.GetTimeSpan("start"),
-						End = reader.GetTimeSpan("end"),
+						Start = ParseTime(reader.GetTimeSpan("start")),
+						End = ParseTime(reader.GetTimeSpan("end")),
 					};
 					staff.Consultations.Add(consultation);
 				}
