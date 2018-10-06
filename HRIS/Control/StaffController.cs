@@ -27,6 +27,7 @@ namespace HRIS.Control {
 
 		public void CompleteStaffDetails(Staff staff) {
 			_db.CompleteStaffDetails(staff);
+			_db.FetchStaffEvents(staff);
 		}
 
 		public ObservableCollection<Staff> GetVisibleList() {
