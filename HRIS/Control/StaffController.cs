@@ -17,17 +17,27 @@ namespace HRIS.Control {
 
 		private readonly DatabaseAdapter _db;
 
+		public Staff CurrentlySelected { get; private set; }
+
 		public StaffController() {
 			_db = new DatabaseAdapter();
 			CompleteList = _db.FetchBasicStaffDetails();
 			VisibleList = new ObservableCollection<Staff>(CompleteList);
+
 			CurrentNameFilter = "";
 			CurrentCategoryFilter = Category.Any;
 		}
 
-		public void CompleteStaffDetails(Staff staff) {
-			_db.CompleteStaffDetails(staff);
-			_db.FetchStaffEvents(staff);
+		public void SelectItem(Staff staff) {
+			CurrentlySelected = staff;
+
+			if (staff.Email == null) {
+				_db.CompleteStaffDetails(CurrentlySelected);
+			}
+
+			if (staff.Consultations == null) {
+				_db.FetchStaffTeaching(CurrentlySelected);
+			}
 		}
 
 		public ObservableCollection<Staff> GetVisibleList() {
