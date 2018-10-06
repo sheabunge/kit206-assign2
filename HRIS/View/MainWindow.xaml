@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:view="clr-namespace:HRIS.View"
         mc:Ignorable="d"
-        Title="Human Resources Information System" Height="450" Width="800">
+        Title="Human Resources Information System" Height="500" Width="800">
 
 	<TabControl Margin="0, 0, 0, 10">
 		<TabItem Name="StaffTab" Header="Staff">
 			<TabItem.Content>
-				<view:StaffTab />
+				<ScrollViewer VerticalScrollBarVisibility="Auto">
+					<view:StaffTab />
+				</ScrollViewer>
 			</TabItem.Content>
 		</TabItem>
 

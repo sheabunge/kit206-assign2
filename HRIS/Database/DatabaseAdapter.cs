@@ -92,12 +92,13 @@ namespace HRIS.Database {
 			};
 		}
 
-		public void FetchStaffEvents(Staff staff) {
+		public void FetchStaffTeaching(Staff staff) {
 			MySqlDataReader reader = null;
 
 			try {
 				Connection.Open();
 
+				// begin by fetching staff consultation times
 				var command = new MySqlCommand("SELECT day, start, end FROM consultation WHERE staff_id = @staffid", Connection);
 				command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
 				reader = command.ExecuteReader();
@@ -112,37 +113,92 @@ namespace HRIS.Database {
 					});
 				}
 
-				staff.Classes = new List<UnitClass>();
-
 				reader.Close();
 
+				// while fetching classes, keep track of the units that are taught by this staff member
+				var teachingUnitCodes = new HashSet<string>();
+
+				// next, fetch the classes that are taught by this staff member
 				command = new MySqlCommand("SELECT * FROM class WHERE staff = @staffid", Connection);
 				command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
 				reader = command.ExecuteReader();
 
+				staff.Classes = new List<UnitClass>();
+				staff.UnitsTeaching = new List<Unit>();
+
 				while (reader.Read()) {
-					staff.Classes.Add(ReadUnitClass(reader));
+					var unitClass = ReadUnitClass(reader);
+					staff.Classes.Add(unitClass);
+					teachingUnitCodes.Add(unitClass.UnitCode);
 				}
+
+				reader.Close();
+
+				// next, fetch the units that are coordinated by this staff member
+				command = new MySqlCommand("SELECT code, title FROM unit WHERE coordinator = @staffid", Connection);
+				command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
+				reader = command.ExecuteReader();
+
+				staff.UnitsCoordinating = new List<Unit>();
+
+				while (reader.Read()) {
+					var unit = new Unit {
+						Code = reader.GetString("code"),
+						Title = reader.GetString("title"),
+						CoordinatorID = staff.ID,
+					};
+
+					staff.UnitsCoordinating.Add(unit);
+
+					// if the staff member also teaches for this unit, add it to the Staff object
+					if (teachingUnitCodes.Contains(unit.Code)) {
+						staff.UnitsTeaching.Add(unit);
+						teachingUnitCodes.Remove(unit.Code);
+					}
+				}
+
+				reader.Close();
+
+				// finally, fetch the units that are taught but not coordinated by the staff member
+				if (teachingUnitCodes.Count > 0) {
+					reader.Close();
+
+					command = new MySqlCommand("SELECT code, title FROM unit WHERE coordinator = @staffid AND code IN (@unitcodes)", Connection);
+					command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
+					command.Parameters.AddWithValue("@unitcodes", String.Join(",", teachingUnitCodes));
+
+					reader = command.ExecuteReader();
+
+					while (reader.Read()) {
+						staff.UnitsTeaching.Add(new Unit {
+							Code = reader.GetString("code"),
+							Title = reader.GetString("title"),
+							CoordinatorID = staff.ID,
+						});
+					}
+				}
+			
 			} finally {
 				reader?.Close();
 				Connection.Close();
 			}
 		}
 
-		public List<Unit> FetchUnits() {
+		public List<Unit> FetchAllUnits() {
 			MySqlDataReader reader = null;
 			var units = new List<Unit>();
 
 			try {
 				Connection.Open();
-				var command = new MySqlCommand("SELECT * FROM unit", Connection);
+				MySqlCommand command;
+				command = new MySqlCommand("SELECT code, title, coordinator FROM unit", Connection);
 				reader = command.ExecuteReader();
 
 				while (reader.Read()) {
 					units.Add(new Unit {
 						Code = reader.GetString("code"),
 						Title = reader.GetString("title"),
-						Coordinator = new Staff {ID = reader.GetInt32("coordinator")},
+						CoordinatorID = reader.GetInt32("coordinator"),
 					});
 				}
 			} finally {
@@ -153,7 +209,7 @@ namespace HRIS.Database {
 			return units;
 		}
 
-		public List<UnitClass> FetchClasses(Unit unit) {
+		public List<UnitClass> FetchUnitClasses(Unit unit) {
 			MySqlDataReader reader = null;
 			var classes = new List<UnitClass>();
 

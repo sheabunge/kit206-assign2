@@ -15,7 +15,7 @@ namespace HRIS.Control {
 
 		public UnitController() {
 			var db = new DatabaseAdapter();
-			CompleteList = db.FetchUnits();
+			CompleteList = db.FetchAllUnits();
 			VisibleList = new ObservableCollection<Unit>(CompleteList);
 			CurrentFilter = "";
 		}

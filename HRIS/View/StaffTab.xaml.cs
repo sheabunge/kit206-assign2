@@ -14,7 +14,7 @@ namespace HRIS.View {
 		public StaffTab() {
 			controller = (StaffController) Application.Current.FindResource("StaffController");
 			InitializeComponent();
-			BasicDetails.Visibility = Visibility.Hidden;
+			StaffDetails.Visibility = Visibility.Hidden;
 		}
 
 		private void SelectCategory(object sender, SelectionChangedEventArgs e) {
@@ -31,15 +31,15 @@ namespace HRIS.View {
 			Staff staff = (Staff) StaffList.SelectedItem;
 
 			if (staff == null) {
-				BasicDetails.Visibility = Visibility.Hidden;
+				StaffDetails.Visibility = Visibility.Hidden;
 				NoneSelected.Visibility = Visibility.Visible;
 				return;
 			}
 
-			controller.CompleteStaffDetails(staff);
+			controller.SelectItem(staff);
 			NoneSelected.Visibility = Visibility.Hidden;
-			BasicDetails.DataContext = staff;
-			BasicDetails.Visibility = Visibility.Visible;
+			StaffDetails.DataContext = staff;
+			StaffDetails.Visibility = Visibility.Visible;
 		}
 	}
 }
