@@ -72,7 +72,6 @@ namespace HRIS.Database {
 					staff.Photo = reader.GetString("photo");
 					staff.Category = ParseEnum<Category>(reader.GetString("category"));
 				}
-
 			} finally {
 				reader?.Close();
 				Connection?.Close();
@@ -177,7 +176,7 @@ namespace HRIS.Database {
 						});
 					}
 				}
-			
+
 			} finally {
 				reader?.Close();
 				Connection.Close();
@@ -190,8 +189,7 @@ namespace HRIS.Database {
 
 			try {
 				Connection.Open();
-				MySqlCommand command;
-				command = new MySqlCommand("SELECT code, title, coordinator FROM unit", Connection);
+				MySqlCommand command = new MySqlCommand("SELECT code, title, coordinator FROM unit", Connection);
 				reader = command.ExecuteReader();
 
 				while (reader.Read()) {
