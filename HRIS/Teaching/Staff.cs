@@ -28,9 +28,13 @@ namespace HRIS.Teaching {
 
 		public List<UnitClass> Classes { get; set; }
 
+		public List<Unit> UnitsTeaching { get; set; }
+
+		public List<Unit> UnitsCoordinating { get; set; }
+
 		public string FullName => $"{Title} {GivenName} {FamilyName}";
 
-		public Availability CurrentAvalability => Availability(DateTime.Now);
+		public Availability CurrentAvalability => Availability(DateTime.Now).Item1;
 
 		public override string ToString() {
 			return FullName;
@@ -50,17 +54,24 @@ namespace HRIS.Teaching {
 			return results;
 		}
 
-		public Availability Availability(DateTime when) {
-			
-			if (CurrentEvents(Consultations, when).Any()) {
-				return Teaching.Availability.Consulting;
+		public Tuple<Availability, Event> Availability(DateTime when) {
+			Availability availability = Teaching.Availability.Free;
+			Event currentEvent = null;
+
+			var consultations = CurrentEvents(Consultations, when);
+			if (consultations != null && consultations.Any()) {
+				availability = Teaching.Availability.Consulting;
+				currentEvent = consultations.First();
+
+			} else {
+				var classes = CurrentEvents(Classes, when);
+				if (classes != null && classes.Any()) {
+					availability = Teaching.Availability.Teaching;
+					currentEvent = classes.First();
+				}
 			}
 
-			if (CurrentEvents(Classes, when).Any()) {
-				return Teaching.Availability.Teaching;
-			}
-
-			return Teaching.Availability.Free;
+			return Tuple.Create(availability, currentEvent);
 		}
 	}
 }

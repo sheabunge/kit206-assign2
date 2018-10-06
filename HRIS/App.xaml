@@ -8,6 +8,8 @@
 		<control:StaffController x:Key="StaffController" />
 		<control:UnitController x:Key="UnitController" />
 
+		<SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent"/>
+
 		<sys:String x:Key="TimeStringFormat">{0:hh\:mm tt}</sys:String>
 
 		<Style x:Key="Heading" TargetType="Label">
@@ -15,11 +17,26 @@
 			<Setter Property="Margin" Value="0,2,0,1" />
 		</Style>
 
-		<Style x:Key="SimpleTable" TargetType="DataGrid">
+		<Style x:Key="CenterCells" TargetType="{x:Type DataGridCell}">
+			<Setter Property="TextBlock.TextAlignment" Value="Center" />
+		</Style>
+
+		<Style x:Key="UnselectableGrid" TargetType="{x:Type DataGrid}">
 			<Setter Property="IsReadOnly" Value="True" />
-			<Setter Property="IsEnabled" Value="True" />
+			<Setter Property="IsEnabled" Value="False" />
 			<Setter Property="HeadersVisibility" Value="None" />
 			<Setter Property="RowHeaderWidth" Value="0" />
+			<Setter Property="Foreground" Value="Black" />
+
+			<Style.Resources>
+				<Style TargetType="DataGridCell">
+					<Setter Property="Foreground" Value="Black" />
+				</Style>
+			</Style.Resources>
+		</Style>
+
+		<Style x:Key="UnselectableList" TargetType="{x:Type ListBox}">
+			<Setter Property="IsEnabled" Value="False" />
 			<Setter Property="Foreground" Value="Black" />
 
 			<Style.Resources>
