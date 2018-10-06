@@ -54,8 +54,8 @@
 		<Label Grid.Column="1" x:Name="NoneSelected"
 		       Content="Select a staff member from the list to view their details." />
 
-		<DockPanel x:Name="BasicDetails" Grid.Column="1" Margin="10,10,10,10">
-			<Grid DockPanel.Dock="Top" VerticalAlignment="Top">
+		<StackPanel x:Name="BasicDetails" Grid.Column="1" Margin="10,10,10,10">
+			<Grid VerticalAlignment="Top">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*" />
 					<ColumnDefinition MaxWidth="200" />
@@ -93,7 +93,12 @@
 				<Image Source="{Binding Path=Photo}" Grid.Column="1" Width="120" VerticalAlignment="Top" />
 			</Grid>
 
-			<StackPanel DockPanel.Dock="Top">
+			<StackPanel Orientation="Horizontal">
+				<Label Content="Current Avalability:" />
+				<Label Content="{Binding Path=CurrentAvalability}" />
+			</StackPanel>
+
+			<StackPanel>
 				<StackPanel.Resources>
 					<Style TargetType="{x:Type StackPanel}">
 						<Style.Triggers>
@@ -127,6 +132,6 @@
 					</DataGrid.Columns>
 				</DataGrid>
 			</StackPanel>
-		</DockPanel>
+		</StackPanel>
 	</Grid>
 </UserControl>

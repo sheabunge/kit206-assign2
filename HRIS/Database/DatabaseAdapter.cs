@@ -21,10 +21,6 @@ namespace HRIS.Database {
 			return (T) Enum.Parse(typeof(T), value);
 		}
 
-		private static DateTime ParseTime(TimeSpan time) {
-			return DateTime.MinValue.Add(time);
-		}
-
 		public List<Staff> FetchBasicStaffDetails() {
 			MySqlDataReader reader = null;
 			var staff = new List<Staff>();
@@ -77,25 +73,59 @@ namespace HRIS.Database {
 					staff.Category = ParseEnum<Category>(reader.GetString("category"));
 				}
 
-				reader.Close();
+			} finally {
+				reader?.Close();
+				Connection?.Close();
+			}
+		}
 
-				command = new MySqlCommand("SELECT day, start, end FROM consultation WHERE staff_id = @staffid", Connection);
+		private UnitClass ReadUnitClass(MySqlDataReader reader) {
+			return new UnitClass {
+				UnitCode = reader.GetString("unit_code"),
+				Campus = ParseEnum<Campus>(reader.GetString("campus")),
+				Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
+				Start = reader.GetTimeSpan("start"),
+				End = reader.GetTimeSpan("end"),
+				Type = ParseEnum<UnitClassType>(reader.GetString("type")),
+				Room = reader.GetString("room"),
+				StaffID = reader.GetInt32("staff"),
+			};
+		}
+
+		public void FetchStaffEvents(Staff staff) {
+			MySqlDataReader reader = null;
+
+			try {
+				Connection.Open();
+
+				var command = new MySqlCommand("SELECT day, start, end FROM consultation WHERE staff_id = @staffid", Connection);
 				command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
 				reader = command.ExecuteReader();
 
 				staff.Consultations = new List<Event>();
 
 				while (reader.Read()) {
-					var consultation = new Event() {
+					staff.Consultations.Add(new Event {
 						Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
-						Start = ParseTime(reader.GetTimeSpan("start")),
-						End = ParseTime(reader.GetTimeSpan("end")),
-					};
-					staff.Consultations.Add(consultation);
+						Start = reader.GetTimeSpan("start"),
+						End = reader.GetTimeSpan("end"),
+					});
+				}
+
+				staff.Classes = new List<UnitClass>();
+
+				reader.Close();
+
+				command = new MySqlCommand("SELECT * FROM class WHERE staff = @staffid", Connection);
+				command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
+				reader = command.ExecuteReader();
+
+				while (reader.Read()) {
+					staff.Classes.Add(ReadUnitClass(reader));
 				}
 			} finally {
 				reader?.Close();
-				Connection?.Close();
+				Connection.Close();
 			}
 		}
 
@@ -134,15 +164,7 @@ namespace HRIS.Database {
 				reader = command.ExecuteReader();
 
 				while (reader.Read()) {
-					classes.Add(new UnitClass {
-						Campus = ParseEnum<Campus>(reader.GetString("campus")),
-						Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
-						Start = ParseTime(reader.GetTimeSpan("start")),
-						End = ParseTime(reader.GetTimeSpan("end")),
-						Type = ParseEnum<UnitClassType>(reader.GetString("type")),
-						Room = reader.GetString("room"),
-						Staff = new Staff {ID = reader.GetInt32("staff")},
-					});
+					classes.Add(ReadUnitClass(reader));
 				}
 			} finally {
 				reader?.Close();
