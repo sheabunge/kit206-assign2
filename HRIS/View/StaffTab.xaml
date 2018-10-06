@@ -3,8 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:teaching="clr-namespace:HRIS.Teaching"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="700">
+	<UserControl.Resources>
+		<ObjectDataProvider x:Key="StaffList"
+		                    ObjectInstance="{StaticResource StaffController}"
+		                    MethodName="GetVisibleList" />
+
+		<ObjectDataProvider x:Key="CategoryValues"
+		                    ObjectType="{x:Type sys:Enum}"
+		                    MethodName="GetValues">
+			<ObjectDataProvider.MethodParameters>
+				<x:Type TypeName="teaching:Category" />
+			</ObjectDataProvider.MethodParameters>
+		</ObjectDataProvider>
+	</UserControl.Resources>
 
 	<Grid Background="White">
 		<Grid.ColumnDefinitions>
@@ -36,11 +51,11 @@
 			</DataGrid>
 		</DockPanel>
 
-		<Label Grid.Column="1" x:Name="NoneSelected" Visibility="Visible"
+		<Label Grid.Column="1" x:Name="NoneSelected"
 		       Content="Select a staff member from the list to view their details." />
 
-		<DockPanel x:Name="BasicDetails" Visibility="Hidden" Grid.Column="1" Margin="1,1,1,1">
-			<Grid DockPanel.Dock="Top" VerticalAlignment="Top" Margin="10,10,10,10">
+		<DockPanel x:Name="BasicDetails" Grid.Column="1" Margin="10,10,10,10">
+			<Grid DockPanel.Dock="Top" VerticalAlignment="Top">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*" />
 					<ColumnDefinition MaxWidth="200"/>
@@ -77,6 +92,41 @@
 
 				<Image Source="{Binding Path=Photo}" Grid.Column="1" Width="120" VerticalAlignment="Top" />
 			</Grid>
+
+			<StackPanel DockPanel.Dock="Top">
+				<StackPanel.Resources>
+					<Style TargetType="{x:Type StackPanel}">
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding Path=Consultations.Count}" Value="0">
+								<Setter Property="Visibility" Value="Hidden"/>
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+					<Style x:Key="CenterCells" TargetType="{x:Type DataGridCell}">
+						<Setter Property="TextBlock.TextAlignment" Value="Center" />
+					</Style>
+				</StackPanel.Resources>
+
+				<Label Content="Consultation Times" Style="{StaticResource Heading}"/>
+				<DataGrid x:Name="ConsultationTimes" ItemsSource="{Binding Path=Consultations}" AutoGenerateColumns="False"
+						  Style="{StaticResource SimpleTable}"  GridLinesVisibility="None"	
+						  HorizontalAlignment="Left" Padding="2,2,2,2">
+					<DataGrid.Columns>
+						<DataGridTextColumn Binding="{Binding Path=Day}" />
+						<DataGridTextColumn Binding="{Binding Path=Start,StringFormat={StaticResource TimeStringFormat}}"
+											CellStyle="{StaticResource CenterCells}"/>
+						<DataGridTemplateColumn>
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<Label Content="-" VerticalAlignment="Top" HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0" />
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTextColumn Binding="{Binding Path=End,StringFormat={StaticResource TimeStringFormat}}"
+											CellStyle="{StaticResource CenterCells}"/>
+					</DataGrid.Columns>
+				</DataGrid>
+			</StackPanel>
 		</DockPanel>
 	</Grid>
 </UserControl>
