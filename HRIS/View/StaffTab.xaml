@@ -45,7 +45,7 @@
 			          ItemsSource="{Binding Source={StaticResource StaffList}}"
 			          SelectionChanged="SelectStaffMember">
 				<DataGrid.Columns>
-					<DataGridTextColumn Header="Name" Binding="{Binding Path=FullName}" Width="*" />
+					<DataGridTextColumn Header="Name" Binding="{Binding Path=FormalName}" Width="*"  />
 					<DataGridTextColumn Header="Category" Binding="{Binding Path=Category}" />
 				</DataGrid.Columns>
 			</DataGrid>

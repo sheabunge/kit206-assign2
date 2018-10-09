@@ -34,6 +34,8 @@ namespace HRIS.Teaching {
 
 		public string FullName => $"{Title} {GivenName} {FamilyName}";
 
+		public string FormalName => $"{FamilyName}, {GivenName} ({Title})";
+
 		public Availability CurrentAvalability => Availability(DateTime.Now).Item1;
 
 		public override string ToString() {

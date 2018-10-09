@@ -29,7 +29,8 @@ namespace HRIS.Control {
 
 			var selected =
 				from Unit unit in CompleteList
-				where CurrentFilter == "" || unit.ToString().IndexOf(CurrentFilter, StringComparison.OrdinalIgnoreCase) >= 0
+				where unit.ToString().IndexOf(CurrentFilter, StringComparison.OrdinalIgnoreCase) >= 0
+				orderby unit
 				select unit;
 
 			selected.ToList().ForEach(VisibleList.Add);
