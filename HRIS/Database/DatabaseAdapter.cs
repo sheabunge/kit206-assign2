@@ -176,7 +176,6 @@ namespace HRIS.Database {
 						});
 					}
 				}
-
 			} finally {
 				reader?.Close();
 				Connection.Close();

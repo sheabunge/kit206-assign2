@@ -34,7 +34,13 @@ namespace HRIS.View {
 			UnitDetails.DataContext = unit;
 			UnitDetails.Visibility = Visibility.Visible;
 
-			Timetable.ItemsSource = controller.GetClasses(unit);
+			controller.SelectUnit(unit);
+		}
+
+		private void FilterClassesByCampus(object sender, SelectionChangedEventArgs e) {
+			if (CampusFilter.SelectedItem != null) {
+				controller.FilterClassesByCampus((Campus) CampusFilter.SelectedItem);
+			}
 		}
 	}
 }

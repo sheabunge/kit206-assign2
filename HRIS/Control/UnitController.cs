@@ -7,39 +7,67 @@ using HRIS.Teaching;
 
 namespace HRIS.Control {
 	public class UnitController {
-		public List<Unit> CompleteList { get; private set; }
+		private readonly DatabaseAdapter _db;
 
-		public ObservableCollection<Unit> VisibleList { get; private set; }
+		public List<Unit> UnitsList { get; private set; }
+
+		public ObservableCollection<Unit> VisibleUnits { get; private set; }
 
 		public string CurrentFilter { get; set; }
 
-		private readonly DatabaseAdapter _db;
+		public List<UnitClass> UnitClasses { get; private set; }
+
+		public ObservableCollection<UnitClass> VisibleUnitClasses { get; private set; }
+
+		public ObservableCollection<UnitClass> GetUnitClasses() => VisibleUnitClasses;
 
 		public UnitController() {
 			_db = new DatabaseAdapter();
-			CompleteList = _db.FetchAllUnits();
-			VisibleList = new ObservableCollection<Unit>(CompleteList);
+			UnitsList = _db.FetchAllUnits();
+			VisibleUnits = new ObservableCollection<Unit>(UnitsList);
 			CurrentFilter = "";
+
+			VisibleUnitClasses = new ObservableCollection<UnitClass>();
 		}
 
 		public ObservableCollection<Unit> GetVisibleList() {
-			return VisibleList;
+			return VisibleUnits;
 		}
 
-		public List<UnitClass> GetClasses(Unit unit) {
-			return _db.FetchUnitClasses(unit);
+		public void SelectUnit(Unit unit) {
+			UnitClasses = _db.FetchUnitClasses(unit);
+			VisibleUnitClasses.Clear();
+			UnitClasses.ForEach(VisibleUnitClasses.Add);
+		}
+
+		public void FilterClassesByCampus(Campus campus) {
+			if (UnitClasses == null) {
+				return;
+			}
+
+			VisibleUnitClasses.Clear();
+
+			if (campus == Campus.Any) {
+				UnitClasses.ForEach(VisibleUnitClasses.Add);
+			} else {
+				var results = from UnitClass unitclass in UnitClasses
+					where unitclass.Campus == campus
+					select unitclass;
+
+				results.ToList().ForEach(VisibleUnitClasses.Add);
+			}
 		}
 
 		public void ApplyFilter() {
-			VisibleList.Clear();
+			VisibleUnits.Clear();
 
 			var selected =
-				from Unit unit in CompleteList
+				from Unit unit in UnitsList
 				where unit.ToString().IndexOf(CurrentFilter, StringComparison.OrdinalIgnoreCase) >= 0
 				orderby unit
 				select unit;
 
-			selected.ToList().ForEach(VisibleList.Add);
+			selected.ToList().ForEach(VisibleUnits.Add);
 		}
 
 		public void UnitsFor(Staff staff) { }

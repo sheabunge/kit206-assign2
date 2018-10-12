@@ -3,14 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:view="clr-namespace:HRIS.View"
-             xmlns:model="clr-namespace:HRIS.Teaching"
+             xmlns:teaching="clr-namespace:HRIS.Teaching"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="900">
 	<UserControl.Resources>
 		<ObjectDataProvider x:Key="UnitsList"
 		                    ObjectInstance="{StaticResource UnitController}"
 		                    MethodName="GetVisibleList" />
+
+		<ObjectDataProvider x:Key="CampusValues"
+		                    ObjectType="{x:Type sys:Enum}"
+		                    MethodName="GetValues">
+			<ObjectDataProvider.MethodParameters>
+				<x:Type TypeName="teaching:Campus" />
+			</ObjectDataProvider.MethodParameters>
+		</ObjectDataProvider>
 	</UserControl.Resources>
 	<Grid Background="White">
 		<Grid.ColumnDefinitions>
@@ -48,7 +57,7 @@
 			          AutoGenerateColumns="False" RowHeaderWidth="0"
 			          IsReadOnly="True" GridLinesVisibility="None" SelectionMode="Single"
 			          ItemsSource="{Binding Source={StaticResource UnitsList}}"
-					  SelectionChanged="SelectUnit">
+			          SelectionChanged="SelectUnit">
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Code" Binding="{Binding Path=Code}" />
 					<DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" />
@@ -58,9 +67,13 @@
 
 		<Label Grid.Column="1" x:Name="NoneSelected"
 		       Content="Select a unit from the list to view its details." />
-		
-		<StackPanel Grid.Column="1" x:Name="UnitDetails" Margin="5,5,5,5" VerticalAlignment="Top">
 
+		<StackPanel Grid.Column="1" x:Name="UnitDetails" Margin="5,5,5,5" VerticalAlignment="Top">
+			<StackPanel.Resources>
+				<ObjectDataProvider x:Key="ClassesList"
+				                    ObjectInstance="{StaticResource UnitController}"
+				                    MethodName="GetUnitClasses" />
+			</StackPanel.Resources>
 			<Label Style="{StaticResource Heading}">
 				<TextBlock>
 					<TextBlock.Text>
@@ -72,8 +85,15 @@
 				</TextBlock>
 			</Label>
 
+			<StackPanel Orientation="Horizontal">
+				<Label>Campus:</Label>
+				<ComboBox x:Name="CampusFilter" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right"
+				          ItemsSource="{Binding Source={StaticResource CampusValues}}" SelectedIndex="0"
+				          SelectionChanged="FilterClassesByCampus" />
+			</StackPanel>
+
 			<DataGrid x:Name="Timetable" AutoGenerateColumns="False" RowHeaderWidth="0" IsReadOnly="True"
-					  Margin="0,5,0,5" HorizontalAlignment="Left">
+			          Margin="0,5,0,5" HorizontalAlignment="Left" ItemsSource="{Binding Source={StaticResource ClassesList}}">
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Day" Binding="{Binding Path=Day}" />
 					<DataGridTemplateColumn Header="Time">
