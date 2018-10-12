@@ -1,4 +1,5 @@
 ﻿namespace HRIS.Teaching {
+
 	public enum UnitClassType {
 		Lecture,
 		Tutorial,
