@@ -90,6 +90,7 @@ namespace HRIS.Database {
 				StaffID = reader.GetInt32("staff"),
 			};
 		}
+
 		public void FetchStaffTeaching(Staff staff) {
 			MySqlDataReader reader = null;
 

@@ -8,7 +8,12 @@
 		<control:StaffController x:Key="StaffController" />
 		<control:UnitController x:Key="UnitController" />
 
+<<<<<<< HEAD
 		<SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+=======
+		<SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent"/>
+
+>>>>>>> Add unit lists to staff details
 		<sys:String x:Key="TimeStringFormat">{0:hh\:mm tt}</sys:String>
 
 		<Style x:Key="Heading" TargetType="Label">
@@ -33,5 +38,18 @@
 			</Style.Resources>
 		</Style>
 
+<<<<<<< HEAD
+=======
+		<Style x:Key="UnselectableList" TargetType="{x:Type ListBox}">
+			<Setter Property="IsEnabled" Value="False" />
+			<Setter Property="Foreground" Value="Black" />
+
+			<Style.Resources>
+				<Style TargetType="DataGridCell">
+					<Setter Property="Foreground" Value="Black" />
+				</Style>
+			</Style.Resources>
+		</Style>
+>>>>>>> Add unit lists to staff details
 	</Application.Resources>
 </Application>
