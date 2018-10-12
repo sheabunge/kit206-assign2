@@ -9,7 +9,6 @@
 		<control:UnitController x:Key="UnitController" />
 
 		<SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
-
 		<sys:String x:Key="TimeStringFormat">{0:hh\:mm tt}</sys:String>
 
 		<Style x:Key="Heading" TargetType="Label">
