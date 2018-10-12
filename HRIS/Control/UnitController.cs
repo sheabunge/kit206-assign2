@@ -13,15 +13,21 @@ namespace HRIS.Control {
 
 		public string CurrentFilter { get; set; }
 
+		private readonly DatabaseAdapter _db;
+
 		public UnitController() {
-			var db = new DatabaseAdapter();
-			CompleteList = db.FetchAllUnits();
+			_db = new DatabaseAdapter();
+			CompleteList = _db.FetchAllUnits();
 			VisibleList = new ObservableCollection<Unit>(CompleteList);
 			CurrentFilter = "";
 		}
 
 		public ObservableCollection<Unit> GetVisibleList() {
 			return VisibleList;
+		}
+
+		public List<UnitClass> GetClasses(Unit unit) {
+			return _db.FetchUnitClasses(unit);
 		}
 
 		public void ApplyFilter() {

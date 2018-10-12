@@ -1,7 +1,10 @@
 ﻿namespace HRIS.Teaching {
+
 	public enum UnitClassType {
-		Tutorial,
 		Lecture,
+		Tutorial,
+		Practical,
+		Workshop,
 	}
 
 	public class UnitClass : Event {
