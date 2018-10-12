@@ -44,15 +44,5 @@
 			</Style.Resources>
 		</Style>
 
-		<Style x:Key="UnselectableList" TargetType="{x:Type ListBox}">
-			<Setter Property="IsEnabled" Value="False" />
-			<Setter Property="Foreground" Value="Black" />
-
-			<Style.Resources>
-				<Style TargetType="DataGridCell">
-					<Setter Property="Foreground" Value="Black" />
-				</Style>
-			</Style.Resources>
-		</Style>
 	</Application.Resources>
 </Application>
