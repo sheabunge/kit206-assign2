@@ -47,7 +47,8 @@
 			<DataGrid x:Name="UnitsList" Margin="0,5,0,0"
 			          AutoGenerateColumns="False" RowHeaderWidth="0"
 			          IsReadOnly="True" GridLinesVisibility="None" SelectionMode="Single"
-			          ItemsSource="{Binding Source={StaticResource UnitsList}}">
+			          ItemsSource="{Binding Source={StaticResource UnitsList}}"
+					  SelectionChanged="SelectUnit">
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Code" Binding="{Binding Path=Code}" />
 					<DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" />
@@ -55,8 +56,46 @@
 			</DataGrid>
 		</DockPanel>
 
-		<DockPanel Grid.Column="1" Margin="1,1,1,1">
-			<ListView Name="BasicDetails" />
-		</DockPanel>
+		<Label Grid.Column="1" x:Name="NoneSelected"
+		       Content="Select a unit from the list to view its details." />
+		
+		<StackPanel Grid.Column="1" x:Name="UnitDetails" Margin="5,5,5,5" VerticalAlignment="Top">
+
+			<Label Style="{StaticResource Heading}">
+				<TextBlock>
+					<TextBlock.Text>
+						<MultiBinding StringFormat="{}{0} {1}">
+							<Binding Path="Code" />
+							<Binding Path="Title" />
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+			</Label>
+
+			<DataGrid x:Name="Timetable" AutoGenerateColumns="False" RowHeaderWidth="0" IsReadOnly="True"
+					  Margin="0,5,0,5" HorizontalAlignment="Left">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Day" Binding="{Binding Path=Day}" />
+					<DataGridTemplateColumn Header="Time">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<TextBlock>
+									<TextBlock.Text>
+										<MultiBinding StringFormat="{}{0:hh}:{0:mm} - {1:hh}:{1:mm}">
+											<Binding Path="Start" />
+											<Binding Path="End" />
+										</MultiBinding>
+									</TextBlock.Text>
+								</TextBlock>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+					<DataGridTextColumn Header="Type" Binding="{Binding Path=Type}" />
+					<DataGridTextColumn Header="Location" Binding="{Binding Path=Room}" />
+					<DataGridTextColumn Header="Campus" Binding="{Binding Path=Campus}" />
+					<DataGridTextColumn Header="Staff Member" Binding="{Binding Path=StaffID}" />
+				</DataGrid.Columns>
+			</DataGrid>
+		</StackPanel>
 	</Grid>
 </UserControl>
