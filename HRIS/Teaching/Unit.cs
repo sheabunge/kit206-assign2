@@ -11,8 +11,8 @@
 		}
 
 		public override bool Equals(object obj) {
-			Unit other = (Unit) obj;
-			return other.Code == Code;
+			var other = (Unit) obj;
+			return other != null && other.Code == Code;
 		}
 
 		public override int GetHashCode() {
