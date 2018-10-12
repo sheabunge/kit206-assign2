@@ -58,6 +58,10 @@ namespace HRIS.Control {
 			}
 		}
 
+		public List<UnitClass> GetClasses(Unit unit) {
+			return _db.FetchUnitClasses(unit);
+		}
+
 		public void ApplyFilter() {
 			VisibleUnits.Clear();
 
