@@ -23,14 +23,18 @@ namespace HRIS.View {
 			UnitListPanel.UnitSelected += SelectUnit;
 		}
 
-		private void SelectUnit(object sender, EventArgs e) {
-			var unit = UnitListPanel.SelectedUnit;
+		public void SelectUnit(object sender, EventArgs e) {
+			var eventArgs = (SelectionChangedEventArgs) e;
 
-			if (unit == null) {
+			if (eventArgs.AddedItems.Count < 1) {
 				UnitDetails.Visibility = Visibility.Hidden;
 				NoneSelected.Visibility = Visibility.Visible;
 				return;
 			}
+
+			var unit = (Unit) eventArgs.AddedItems[0];
+
+			UnitListPanel.SelectUnit(unit);
 
 			NoneSelected.Visibility = Visibility.Hidden;
 			UnitDetails.DataContext = unit;

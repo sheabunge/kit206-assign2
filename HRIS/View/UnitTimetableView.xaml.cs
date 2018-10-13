@@ -33,5 +33,4 @@ namespace HRIS.View {
 			}
 		}
 	}
-
 }

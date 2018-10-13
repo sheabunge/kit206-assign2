@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:view="clr-namespace:HRIS.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="500">
 	<StackPanel x:Name="StaffDetails" Grid.Column="1" Margin="10,10,10,10">
@@ -96,7 +95,8 @@
 			</StackPanel.Resources>
 
 			<Label Content="Units Coordinating" Style="{StaticResource Heading}" />
-			<ListBox ItemsSource="{Binding Path=UnitsCoordinating}" HorizontalAlignment="Left"  />
+			<ListBox ItemsSource="{Binding Path=UnitsCoordinating}" HorizontalAlignment="Left"
+					 x:Name="UnitsCoordinating" SelectionChanged="SelectUnit"/>
 		</StackPanel>
 
 		<StackPanel>
@@ -111,7 +111,8 @@
 			</StackPanel.Resources>
 
 			<Label Content="Units Teaching" Style="{StaticResource Heading}" />
-			<ListBox ItemsSource="{Binding Path=UnitsTeaching}" HorizontalAlignment="Left" />
+			<ListBox ItemsSource="{Binding Path=UnitsTeaching}" HorizontalAlignment="Left"
+					 SelectionChanged="SelectUnit" x:Name="UnitsTeaching" />
 		</StackPanel>
 	</StackPanel>
 </UserControl>
