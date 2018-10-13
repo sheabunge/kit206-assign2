@@ -42,7 +42,9 @@
 		</StackPanel>
 
 		<DataGrid x:Name="Timetable" AutoGenerateColumns="False" RowHeaderWidth="0" IsReadOnly="True"
-		          Margin="0,5,0,5" HorizontalAlignment="Left" ItemsSource="{Binding Source={StaticResource ClassesList}}">
+		          Margin="0,5,0,5" BorderThickness="1,1,1,0"
+		          HorizontalAlignment="Left" Style="{StaticResource UnselectableGrid}"
+		          ItemsSource="{Binding Source={StaticResource ClassesList}}">
 
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Day" Binding="{Binding Path=Day}" />
