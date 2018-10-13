@@ -10,9 +10,12 @@ namespace HRIS.View {
 	public partial class UnitTab : UserControl {
 		private readonly UnitController controller;
 
+		private readonly Panel UnitDetails;
+
 		public UnitTab() {
 			controller = (UnitController) Application.Current.FindResource("UnitController");
 			InitializeComponent();
+			UnitDetails = (Panel) UnitDetailsPanel.FindName("UnitDetails");
 			UnitDetails.Visibility = Visibility.Hidden;
 		}
 
@@ -35,12 +38,6 @@ namespace HRIS.View {
 			UnitDetails.Visibility = Visibility.Visible;
 
 			controller.SelectUnit(unit);
-		}
-
-		private void FilterClassesByCampus(object sender, SelectionChangedEventArgs e) {
-			if (CampusFilter.SelectedItem != null) {
-				controller.FilterClassesByCampus((Campus) CampusFilter.SelectedItem);
-			}
 		}
 	}
 }
