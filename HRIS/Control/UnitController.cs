@@ -34,6 +34,18 @@ namespace HRIS.Control {
 			return VisibleUnits;
 		}
 
+		public void ApplyFilter() {
+			VisibleUnits.Clear();
+
+			var selected =
+				from Unit unit in UnitsList
+				where unit.ToString().IndexOf(CurrentFilter, StringComparison.OrdinalIgnoreCase) >= 0
+				orderby unit.ToString()
+				select unit;
+
+			selected.ToList().ForEach(VisibleUnits.Add);
+		}
+
 		public void SelectUnit(Unit unit) {
 			UnitClasses = _db.FetchUnitClasses(unit);
 			VisibleUnitClasses.Clear();
@@ -60,18 +72,6 @@ namespace HRIS.Control {
 
 		public List<UnitClass> GetClasses(Unit unit) {
 			return _db.FetchUnitClasses(unit);
-		}
-
-		public void ApplyFilter() {
-			VisibleUnits.Clear();
-
-			var selected =
-				from Unit unit in UnitsList
-				where unit.ToString().IndexOf(CurrentFilter, StringComparison.OrdinalIgnoreCase) >= 0
-				orderby unit
-				select unit;
-
-			selected.ToList().ForEach(VisibleUnits.Add);
 		}
 
 		public void UnitsFor(Staff staff) { }

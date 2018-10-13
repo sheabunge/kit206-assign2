@@ -188,7 +188,7 @@ namespace HRIS.Database {
 
 			try {
 				Connection.Open();
-				var command = new MySqlCommand("SELECT code, title, coordinator FROM unit", Connection);
+				var command = new MySqlCommand("SELECT code, title, coordinator FROM unit ORDER BY code, title", Connection);
 				reader = command.ExecuteReader();
 
 				while (reader.Read()) {
