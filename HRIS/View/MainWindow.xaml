@@ -11,20 +11,20 @@
 		<TabItem Name="StaffTab" Header="Staff">
 			<TabItem.Content>
 				<ScrollViewer VerticalScrollBarVisibility="Auto">
-					<view:StaffTab />
+					<view:StaffTab x:Name="StaffTabContent" />
 				</ScrollViewer>
 			</TabItem.Content>
 		</TabItem>
 
 		<TabItem Name="UnitsTab" Header="Units">
 			<TabItem.Content>
-				<view:UnitTab />
+				<view:UnitTab x:Name="UnitTabContent" />
 			</TabItem.Content>
 		</TabItem>
 
 		<TabItem Name="HeatMapsTab" Header="Heat Maps">
 			<TabItem.Content>
-				<view:HeatMapTab />
+				<view:HeatMapTab x:Name="HeatMapsTabContent" />
 			</TabItem.Content>
 		</TabItem>
 	</TabControl>
