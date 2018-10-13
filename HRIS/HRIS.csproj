@@ -88,8 +88,8 @@
     </Compile>
     <Compile Include="Control\StaffController.cs" />
     <Compile Include="Control\UnitController.cs" />
-    <Compile Include="View\UnitDetailsView.xaml.cs">
-      <DependentUpon>UnitDetailsView.xaml</DependentUpon>
+    <Compile Include="View\UnitTimetableView.xaml.cs">
+      <DependentUpon>UnitTimetableView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UnitListView.xaml.cs">
       <DependentUpon>UnitListView.xaml</DependentUpon>
@@ -148,7 +148,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UnitDetailsView.xaml">
+    <Page Include="View\UnitTimetableView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

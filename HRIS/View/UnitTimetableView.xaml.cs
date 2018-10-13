@@ -17,12 +17,12 @@ using HRIS.Teaching;
 
 namespace HRIS.View {
 	/// <summary>
-	/// Interaction logic for UnitDetailsView.xaml
+	/// Interaction logic for UnitTimetableView.xaml
 	/// </summary>
-	public partial class UnitDetailsView : UserControl {
+	public partial class UnitTimetableView : UserControl {
 		private readonly UnitController controller;
 
-		public UnitDetailsView() {
+		public UnitTimetableView() {
 			controller = (UnitController) Application.Current.FindResource("UnitController");
 			InitializeComponent();
 		}

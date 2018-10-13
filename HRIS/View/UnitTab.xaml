@@ -18,6 +18,6 @@
 		<Label Grid.Column="1" x:Name="NoneSelected"
 		       Content="Select a unit from the list to view its details." />
 
-		<view:UnitDetailsView Grid.Column="1" x:Name="UnitDetailsPanel" />
+		<view:UnitTimetableView Grid.Column="1" x:Name="UnitDetailsPanel" />
 	</Grid>
 </UserControl>
