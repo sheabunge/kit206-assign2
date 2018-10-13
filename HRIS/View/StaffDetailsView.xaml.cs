@@ -22,6 +22,8 @@ namespace HRIS.View {
 	public partial class StaffDetailsView : UserControl {
 		private readonly StaffController controller;
 
+		public event EventHandler LoadUnitTimetable;
+
 		public StaffDetailsView() {
 			controller = (StaffController) Application.Current.FindResource("StaffController");
 			InitializeComponent();
@@ -29,6 +31,10 @@ namespace HRIS.View {
 
 		public void SetModel(Staff staff) {
 			StaffDetails.DataContext = staff;
+		}
+
+		private void SelectUnit(object sender, SelectionChangedEventArgs e) {
+			LoadUnitTimetable?.Invoke(sender, e);
 		}
 	}
 }
