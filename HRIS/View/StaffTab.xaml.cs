@@ -19,20 +19,12 @@ namespace HRIS.View {
 
 			StaffDetails = (Panel) StaffDetailsPanel.FindName("StaffDetails");
 			StaffDetails.Visibility = Visibility.Hidden;
+
+			StaffListPanel.StaffMemberSelected += SelectStaffMember;
 		}
 
-		private void SelectCategory(object sender, SelectionChangedEventArgs e) {
-			controller.CurrentCategoryFilter = (Category) CategoryFilter.SelectedItem;
-			controller.ApplyFilters();
-		}
-
-		private void FilterByName(object sender, TextChangedEventArgs e) {
-			controller.CurrentNameFilter = NameFilter.Text;
-			controller.ApplyFilters();
-		}
-
-		private void SelectStaffMember(object sender, SelectionChangedEventArgs e) {
-			Staff staff = (Staff) StaffList.SelectedItem;
+		private void SelectStaffMember(object sender, EventArgs e) {
+			Staff staff = StaffListPanel.SelectedStaffMember;
 
 			if (staff == null) {
 				StaffDetails.Visibility = Visibility.Hidden;

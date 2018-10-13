@@ -3,54 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:view="clr-namespace:HRIS.View"
-             xmlns:teaching="clr-namespace:HRIS.Teaching"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="700">
-	<UserControl.Resources>
-		<ObjectDataProvider x:Key="StaffList"
-		                    ObjectInstance="{StaticResource StaffController}"
-		                    MethodName="GetVisibleList" />
-
-		<ObjectDataProvider x:Key="CategoryValues"
-		                    ObjectType="{x:Type sys:Enum}"
-		                    MethodName="GetValues">
-			<ObjectDataProvider.MethodParameters>
-				<x:Type TypeName="teaching:Category" />
-			</ObjectDataProvider.MethodParameters>
-		</ObjectDataProvider>
-	</UserControl.Resources>
-
 	<Grid Background="White">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="200*" />
 			<ColumnDefinition Width="500*" />
 		</Grid.ColumnDefinitions>
 
-		<DockPanel Grid.Column="0" Margin="1,1,1,1">
-			<DockPanel DockPanel.Dock="Top">
-				<Label>Filter by name:</Label>
-				<TextBox x:Name="NameFilter" DockPanel.Dock="Right" Height="20" Margin="0,0,0,0" TextChanged="FilterByName" />
-			</DockPanel>
-
-			<DockPanel DockPanel.Dock="Top">
-				<Label>Show:</Label>
-				<ComboBox x:Name="CategoryFilter" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right"
-				          ItemsSource="{Binding Source={StaticResource CategoryValues}}" SelectedIndex="0" SelectionChanged="SelectCategory" />
-			</DockPanel>
-
-			<DataGrid x:Name="StaffList" Margin="0,5,0,0"
-			          AutoGenerateColumns="False" GridLinesVisibility="None" RowHeaderWidth="0"
-			          IsReadOnly="True" SelectionMode="Single"
-			          ItemsSource="{Binding Source={StaticResource StaffList}}"
-			          SelectionChanged="SelectStaffMember">
-				<DataGrid.Columns>
-					<DataGridTextColumn Header="Name" Binding="{Binding Path=FormalName}" Width="*" />
-					<DataGridTextColumn Header="Category" Binding="{Binding Path=Category}" />
-				</DataGrid.Columns>
-			</DataGrid>
-		</DockPanel>
+		<view:StaffListView x:Name="StaffListPanel" Grid.Column="0" />
 
 		<Label x:Name="NoneSelected" Grid.Column="1"
 		       Content="Select a staff member from the list to view their details." />

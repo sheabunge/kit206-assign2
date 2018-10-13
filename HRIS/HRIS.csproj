@@ -76,6 +76,9 @@
     <Compile Include="View\StaffDetailsView.xaml.cs">
       <DependentUpon>StaffDetailsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\StaffListView.xaml.cs">
+      <DependentUpon>StaffListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\StaffTab.xaml.cs">
       <DependentUpon>StaffTab.xaml</DependentUpon>
     </Compile>
@@ -131,6 +134,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\StaffDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StaffListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
