@@ -105,8 +105,7 @@ namespace HRIS.Database {
 				var teachingUnitCodes = new HashSet<string>();
 
 				// next, fetch the classes that are taught by this staff member
-				var sql = "SELECT unit_code, campus, day, start, end, type, room FROM class WHERE staff = @staffid";
-
+				const string sql = "SELECT unit_code, campus, day, start, end, type, room FROM class WHERE staff = @staffid";
 				command = new MySqlCommand(sql, Connection);
 				command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
 				reader = command.ExecuteReader();
@@ -117,7 +116,6 @@ namespace HRIS.Database {
 				var units = new Dictionary<String, Unit>();
 
 				while (reader.Read()) {
-
 					if (!units.TryGetValue(reader.GetString("unit_code"), out var unit)) {
 						unit = new Unit { Code = reader.GetString("unit_code") };
 						units.Add(unit.Code, unit);
@@ -201,7 +199,6 @@ namespace HRIS.Database {
 				var staffMembers = new Dictionary<int, Staff>();
 
 				while (reader.Read()) {
-
 					if (!staffMembers.TryGetValue(reader.GetInt32("coordinator"), out var staff)) {
 						staff = new Staff { ID = reader.GetInt32("coordinator") };
 						staffMembers.Add(staff.ID, staff);
@@ -239,7 +236,6 @@ namespace HRIS.Database {
 				var staffMembers = new Dictionary<int, Staff>();
 
 				while (reader.Read()) {
-
 					if (!staffMembers.TryGetValue(reader.GetInt32("staff"), out var staff)) {
 						staff = new Staff {
 							ID = reader.GetInt32("staff"),
