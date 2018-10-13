@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using HRIS.Control;
 using HRIS.Teaching;
@@ -15,17 +16,15 @@ namespace HRIS.View {
 		public UnitTab() {
 			controller = (UnitController) Application.Current.FindResource("UnitController");
 			InitializeComponent();
+
 			UnitDetails = (Panel) UnitDetailsPanel.FindName("UnitDetails");
 			UnitDetails.Visibility = Visibility.Hidden;
+
+			UnitListPanel.UnitSelected += SelectUnit;
 		}
 
-		private void FilterList(object sender, TextChangedEventArgs e) {
-			controller.CurrentFilter = SearchBox.Text;
-			controller.ApplyFilter();
-		}
-
-		private void SelectUnit(object sender, SelectionChangedEventArgs e) {
-			Unit unit = (Unit) UnitsList.SelectedItem;
+		private void SelectUnit(object sender, EventArgs e) {
+			var unit = UnitListPanel.SelectedUnit;
 
 			if (unit == null) {
 				UnitDetails.Visibility = Visibility.Hidden;
