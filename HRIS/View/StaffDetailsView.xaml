@@ -61,7 +61,7 @@
 
 			<Label Content="Consultation Times" Style="{StaticResource Heading}" />
 			<DataGrid x:Name="ConsultationTimes" ItemsSource="{Binding Path=Consultations}" AutoGenerateColumns="False"
-				          Style="{StaticResource UnselectableGrid}" GridLinesVisibility="None"
+				          Style="{StaticResource UnselectableGrid}" GridLinesVisibility="None" HeadersVisibility="None"
 				          HorizontalAlignment="Left" Padding="2,2,2,2">
 				<DataGrid.Columns>
 					<DataGridTextColumn Binding="{Binding Path=Day}" />

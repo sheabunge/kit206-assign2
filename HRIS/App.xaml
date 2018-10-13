@@ -22,11 +22,13 @@
 		<Style x:Key="UnselectableGrid" TargetType="{x:Type DataGrid}">
 			<Setter Property="IsReadOnly" Value="True" />
 			<Setter Property="IsEnabled" Value="False" />
-			<Setter Property="HeadersVisibility" Value="None" />
 			<Setter Property="RowHeaderWidth" Value="0" />
 
 			<Style.Resources>
 				<Style TargetType="DataGridCell">
+					<Setter Property="Foreground" Value="Black" />
+				</Style>
+				<Style TargetType="DataGridColumnHeader">
 					<Setter Property="Foreground" Value="Black" />
 				</Style>
 			</Style.Resources>
