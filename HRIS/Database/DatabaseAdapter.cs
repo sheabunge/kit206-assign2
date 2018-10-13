@@ -78,19 +78,6 @@ namespace HRIS.Database {
 			}
 		}
 
-		private UnitClass ReadUnitClass(MySqlDataReader reader) {
-			return new UnitClass {
-				UnitCode = reader.GetString("unit_code"),
-				Campus = ParseEnum<Campus>(reader.GetString("campus")),
-				Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
-				Start = reader.GetTimeSpan("start"),
-				End = reader.GetTimeSpan("end"),
-				Type = ParseEnum<UnitClassType>(reader.GetString("type")),
-				Room = reader.GetString("room"),
-				StaffID = reader.GetInt32("staff"),
-			};
-		}
-
 		public void FetchStaffTeaching(Staff staff) {
 			MySqlDataReader reader = null;
 
@@ -118,17 +105,36 @@ namespace HRIS.Database {
 				var teachingUnitCodes = new HashSet<string>();
 
 				// next, fetch the classes that are taught by this staff member
-				command = new MySqlCommand("SELECT * FROM class WHERE staff = @staffid", Connection);
+				var sql = "SELECT unit_code, campus, day, start, end, type, room FROM class WHERE staff = @staffid";
+
+				command = new MySqlCommand(sql, Connection);
 				command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
 				reader = command.ExecuteReader();
 
 				staff.Classes = new List<UnitClass>();
 				staff.UnitsTeaching = new List<Unit>();
 
+				var units = new Dictionary<String, Unit>();
+
 				while (reader.Read()) {
-					var unitClass = ReadUnitClass(reader);
+
+					if (!units.TryGetValue(reader.GetString("unit_code"), out var unit)) {
+						unit = new Unit { Code = reader.GetString("unit_code") };
+					}
+
+					var unitClass = new UnitClass {
+						Unit = unit,
+						Campus = ParseEnum<Campus>(reader.GetString("campus")),
+						Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
+						Start = reader.GetTimeSpan("start"),
+						End = reader.GetTimeSpan("end"),
+						Type = ParseEnum<UnitClassType>(reader.GetString("type")),
+						Room = reader.GetString("room"),
+						Staff = staff,
+					};
+
 					staff.Classes.Add(unitClass);
-					teachingUnitCodes.Add(unitClass.UnitCode);
+					teachingUnitCodes.Add(unitClass.Unit.Code);
 				}
 
 				reader.Close();
@@ -144,7 +150,7 @@ namespace HRIS.Database {
 					var unit = new Unit {
 						Code = reader.GetString("code"),
 						Title = reader.GetString("title"),
-						CoordinatorID = staff.ID,
+						Coordinator = staff,
 					};
 
 					staff.UnitsCoordinating.Add(unit);
@@ -172,7 +178,7 @@ namespace HRIS.Database {
 						staff.UnitsTeaching.Add(new Unit {
 							Code = reader.GetString("code"),
 							Title = reader.GetString("title"),
-							CoordinatorID = staff.ID,
+							Coordinator = staff,
 						});
 					}
 				}
@@ -191,11 +197,18 @@ namespace HRIS.Database {
 				var command = new MySqlCommand("SELECT code, title, coordinator FROM unit ORDER BY code, title", Connection);
 				reader = command.ExecuteReader();
 
+				var staffMembers = new Dictionary<int, Staff>();
+
 				while (reader.Read()) {
+
+					if (!staffMembers.TryGetValue(reader.GetInt32("coordinator"), out var staff)) {
+						staff = new Staff { ID = reader.GetInt32("coordinator") };
+					}
+
 					units.Add(new Unit {
 						Code = reader.GetString("code"),
 						Title = reader.GetString("title"),
-						CoordinatorID = reader.GetInt32("coordinator"),
+						Coordinator = staff,
 					});
 				}
 			} finally {
@@ -212,12 +225,40 @@ namespace HRIS.Database {
 
 			try {
 				Connection.Open();
-				var command = new MySqlCommand("SELECT * FROM class WHERE unit_code = @unitcode", Connection);
+				var command = new MySqlCommand(
+					"SELECT c.campus, c.day, c.start, c.end, c.type, c.room, c.staff, " +
+					"s.title, s.given_name, s.family_name FROM class AS c " +
+					"JOIN staff AS s ON c.staff = s.id WHERE c.unit_code = @unitcode;",
+					Connection
+				);
 				command.Parameters.AddWithValue("@unitcode", unit.Code);
 				reader = command.ExecuteReader();
 
+				var staffMembers = new Dictionary<int, Staff>();
+
 				while (reader.Read()) {
-					classes.Add(ReadUnitClass(reader));
+
+					if (!staffMembers.TryGetValue(reader.GetInt32("staff"), out var staff)) {
+						staff = new Staff {
+							ID = reader.GetInt32("staff"),
+							Title = reader.GetString("title"),
+							GivenName = reader.GetString("given_name"),
+							FamilyName = reader.GetString("family_name"),
+						};
+					}
+
+					var unitClass = new UnitClass {
+						Unit = unit,
+						Campus = ParseEnum<Campus>(reader.GetString("campus")),
+						Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
+						Start = reader.GetTimeSpan("start"),
+						End = reader.GetTimeSpan("end"),
+						Type = ParseEnum<UnitClassType>(reader.GetString("type")),
+						Room = reader.GetString("room"),
+						Staff = staff,
+					};
+
+					classes.Add(unitClass);
 				}
 			} finally {
 				reader?.Close();
