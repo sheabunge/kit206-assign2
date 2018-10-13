@@ -47,7 +47,7 @@ namespace HRIS.Control {
 		}
 
 		public void SelectUnit(Unit unit) {
-			UnitClasses = _db.FetchUnitClasses(unit);
+			UnitClasses = _db.FetchUnitClasses(unit).OrderBy(c => c.StartDate).ToList();
 			VisibleUnitClasses.Clear();
 			UnitClasses.ForEach(VisibleUnitClasses.Add);
 		}
