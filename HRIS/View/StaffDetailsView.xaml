@@ -58,9 +58,6 @@
 						</DataTrigger>
 					</Style.Triggers>
 				</Style>
-				<Style x:Key="CenterCells" TargetType="{x:Type DataGridCell}">
-					<Setter Property="TextBlock.TextAlignment" Value="Center" />
-				</Style>
 			</StackPanel.Resources>
 
 			<Label Content="Consultation Times" Style="{StaticResource Heading}" />
@@ -69,16 +66,20 @@
 				          HorizontalAlignment="Left" Padding="2,2,2,2">
 				<DataGrid.Columns>
 					<DataGridTextColumn Binding="{Binding Path=Day}" />
-					<DataGridTextColumn Binding="{Binding Path=StartDate,StringFormat={StaticResource TimeStringFormat}}" CellStyle="{StaticResource CenterCells}" />
 					<DataGridTemplateColumn>
 						<DataGridTemplateColumn.CellTemplate>
 							<DataTemplate>
-								<Label Content="-" VerticalAlignment="Top" HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0" />
+								<TextBlock>
+									<TextBlock.Text>
+										<MultiBinding StringFormat="{}{0:hh}:{0:mm tt} – {1:hh}:{1:mm tt}">
+											<Binding Path="StartDate" />
+											<Binding Path="EndDate" />
+										</MultiBinding>
+									</TextBlock.Text>
+								</TextBlock>
 							</DataTemplate>
 						</DataGridTemplateColumn.CellTemplate>
 					</DataGridTemplateColumn>
-
-					<DataGridTextColumn Binding="{Binding Path=EndDate,StringFormat={StaticResource TimeStringFormat}}" CellStyle="{StaticResource CenterCells}" />
 				</DataGrid.Columns>
 			</DataGrid>
 		</StackPanel>
@@ -95,7 +96,7 @@
 			</StackPanel.Resources>
 
 			<Label Content="Units Coordinating" Style="{StaticResource Heading}" />
-			<ListBox ItemsSource="{Binding Path=UnitsCoordinating}" HorizontalAlignment="Left" Style="{StaticResource UnselectableList}" />
+			<ListBox ItemsSource="{Binding Path=UnitsCoordinating}" HorizontalAlignment="Left"  />
 		</StackPanel>
 
 		<StackPanel>
@@ -110,7 +111,7 @@
 			</StackPanel.Resources>
 
 			<Label Content="Units Teaching" Style="{StaticResource Heading}" />
-			<ListBox ItemsSource="{Binding Path=UnitsTeaching}" HorizontalAlignment="Left" Style="{StaticResource UnselectableList}" />
+			<ListBox ItemsSource="{Binding Path=UnitsTeaching}" HorizontalAlignment="Left" />
 		</StackPanel>
 	</StackPanel>
 </UserControl>
