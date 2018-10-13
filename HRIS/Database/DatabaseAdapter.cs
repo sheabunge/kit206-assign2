@@ -120,6 +120,7 @@ namespace HRIS.Database {
 
 					if (!units.TryGetValue(reader.GetString("unit_code"), out var unit)) {
 						unit = new Unit { Code = reader.GetString("unit_code") };
+						units.Add(unit.Code, unit);
 					}
 
 					var unitClass = new UnitClass {
@@ -203,6 +204,7 @@ namespace HRIS.Database {
 
 					if (!staffMembers.TryGetValue(reader.GetInt32("coordinator"), out var staff)) {
 						staff = new Staff { ID = reader.GetInt32("coordinator") };
+						staffMembers.Add(staff.ID, staff);
 					}
 
 					units.Add(new Unit {
@@ -245,6 +247,7 @@ namespace HRIS.Database {
 							GivenName = reader.GetString("given_name"),
 							FamilyName = reader.GetString("family_name"),
 						};
+						staffMembers.Add(staff.ID, staff);
 					}
 
 					var unitClass = new UnitClass {
