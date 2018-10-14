@@ -23,8 +23,15 @@ namespace HRIS.View {
 			StaffListPanel.StaffMemberSelected += SelectStaffMember;
 		}
 
-		private void SelectStaffMember(object sender, EventArgs e) {
-			Staff staff = StaffListPanel.SelectedStaffMember;
+		public void SelectStaffMember(object sender, EventArgs e) {
+			SelectStaffMember(sender, (SelectionChangedEventArgs) e);
+		}
+
+		public void SelectStaffMember(object sender, SelectionChangedEventArgs e) {
+			SelectStaffMember(e.AddedItems.Count > 0 ? (Staff) e.AddedItems[0] : null);
+		}
+
+		public void SelectStaffMember(Staff staff) {
 
 			if (staff == null) {
 				StaffDetails.Visibility = Visibility.Hidden;
@@ -33,6 +40,7 @@ namespace HRIS.View {
 			}
 
 			controller.SelectItem(staff);
+			StaffListPanel.SelectedStaffMember = staff;
 			NoneSelected.Visibility = Visibility.Hidden;
 			StaffDetails.DataContext = staff;
 			StaffDetails.Visibility = Visibility.Visible;

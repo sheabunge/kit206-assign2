@@ -25,7 +25,14 @@ namespace HRIS.View {
 
 		public event EventHandler StaffMemberSelected;
 
-		public Staff SelectedStaffMember => (Staff) StaffList.SelectedItem;
+		public Staff SelectedStaffMember {
+			get {
+				return (Staff) StaffList.SelectedItem;
+			}
+			set {
+				StaffList.SelectedItem = value;
+			}
+		}
 
 		public StaffListView() {
 			controller = (StaffController) Application.Current.FindResource("StaffController");
@@ -42,7 +49,7 @@ namespace HRIS.View {
 			controller.ApplyFilters();
 		}
 
-		private void SelectStaffMember(object sender, SelectionChangedEventArgs e) {
+		private void StaffMemberSelectedHandler(object sender, SelectionChangedEventArgs e) {
 			StaffMemberSelected?.Invoke(sender, e);
 		}
 	}

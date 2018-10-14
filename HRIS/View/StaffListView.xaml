@@ -37,7 +37,7 @@
 			          AutoGenerateColumns="False" GridLinesVisibility="None" RowHeaderWidth="0"
 			          IsReadOnly="True" SelectionMode="Single"
 			          ItemsSource="{Binding Source={StaticResource StaffList}}"
-			          SelectionChanged="SelectStaffMember">
+			          SelectionChanged="StaffMemberSelectedHandler">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Name" Binding="{Binding Path=FormalName}" Width="*" />
 				<DataGridTextColumn Header="Category" Binding="{Binding Path=Category}" />

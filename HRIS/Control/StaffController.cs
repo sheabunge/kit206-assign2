@@ -51,7 +51,7 @@ namespace HRIS.Control {
 				from Staff staff in CompleteList
 				where
 					(CurrentCategoryFilter == Category.Any || CurrentCategoryFilter == staff.Category) &&
-					staff.ToString().IndexOf(CurrentNameFilter, StringComparison.OrdinalIgnoreCase) >= 0
+					staff.FullName.IndexOf(CurrentNameFilter, StringComparison.OrdinalIgnoreCase) >= 0
 				orderby staff.FamilyName, staff.GivenName
 				select staff;
 

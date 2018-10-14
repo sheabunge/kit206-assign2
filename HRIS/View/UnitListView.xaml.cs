@@ -24,15 +24,18 @@ namespace HRIS.View {
 
 		public event EventHandler UnitSelected;
 
-		public Unit SelectedUnit => (Unit) UnitsList.SelectedItem;
+		public Unit SelectedUnit {
+			get {
+				return (Unit) UnitsList.SelectedItem;
+			}
+			set {
+				UnitsList.SelectedItem = value;
+			}
+		}
 
 		public UnitListView() {
 			controller = (UnitController) Application.Current.FindResource("UnitController");
 			InitializeComponent();
-		}
-
-		public void SelectUnit(Unit unit) {
-			UnitsList.SelectedItem = unit;
 		}
 
 		private void FilterList(object sender, TextChangedEventArgs e) {

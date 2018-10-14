@@ -22,6 +22,8 @@ namespace HRIS.View {
 	public partial class UnitTimetableView : UserControl {
 		private readonly UnitController controller;
 
+		public event EventHandler LoadStaffDetails;
+
 		public UnitTimetableView() {
 			controller = (UnitController) Application.Current.FindResource("UnitController");
 			InitializeComponent();
@@ -31,6 +33,18 @@ namespace HRIS.View {
 			if (CampusFilter.SelectedItem != null) {
 				controller.FilterClassesByCampus((Campus) CampusFilter.SelectedItem);
 			}
+		}
+
+		private void RedirectToStaffDetails(object sender, RoutedEventArgs e) {
+			var cell = (DataGridCell) sender;
+			var unitClass = (UnitClass) cell.DataContext;
+			var eventArgs = new SelectionChangedEventArgs(e.RoutedEvent, new List<object>(0), new List<object>(1) { unitClass.Staff });
+			LoadStaffDetails?.Invoke(sender, eventArgs);
+		}
+
+		private void UnselectCell(object sender, RoutedEventArgs e) {
+			var cell = (DataGridCell) sender;
+			cell.IsSelected = false;
 		}
 	}
 }

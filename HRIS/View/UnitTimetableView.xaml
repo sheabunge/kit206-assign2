@@ -43,8 +43,14 @@
 
 		<DataGrid x:Name="Timetable" AutoGenerateColumns="False" RowHeaderWidth="0" IsReadOnly="True"
 		          Margin="0,5,0,5" GridLinesVisibility="None"
-		          HorizontalAlignment="Left" Style="{StaticResource UnselectableGrid}"
+		          HorizontalAlignment="Left"
 		          ItemsSource="{Binding Source={StaticResource ClassesList}}">
+			<DataGrid.Resources>
+				<Style TargetType="DataGridCell">
+					<Setter Property="Focusable" Value="False" />
+					<EventSetter Event="Selected" Handler="UnselectCell" />
+				</Style>
+			</DataGrid.Resources>
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Day" Binding="{Binding Path=Day}" />
 				<DataGridTemplateColumn Header="Time">
@@ -64,8 +70,16 @@
 				<DataGridTextColumn Header="Type" Binding="{Binding Path=Type}" />
 				<DataGridTextColumn Header="Location" Binding="{Binding Path=Room}" />
 				<DataGridTextColumn Header="Campus" Binding="{Binding Path=Campus}" />
-				<DataGridTextColumn Header="Staff Member" Binding="{Binding Path=Staff.FormalName}" />
+				<DataGridHyperlinkColumn Header="Staff Member" Binding="{Binding Path=Staff.FormalName}"
+				                         ContentBinding="{Binding Path=Staff}">
+					<DataGridHyperlinkColumn.CellStyle>
+						<Style>
+							<EventSetter Event="Hyperlink.Click" Handler="RedirectToStaffDetails" />
+						</Style>
+					</DataGridHyperlinkColumn.CellStyle>
+				</DataGridHyperlinkColumn>
 			</DataGrid.Columns>
 		</DataGrid>
+
 	</StackPanel>
 </UserControl>

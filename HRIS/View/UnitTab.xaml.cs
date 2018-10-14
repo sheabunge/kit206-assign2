@@ -24,23 +24,27 @@ namespace HRIS.View {
 		}
 
 		public void SelectUnit(object sender, EventArgs e) {
-			var eventArgs = (SelectionChangedEventArgs) e;
+			SelectUnit(sender, (SelectionChangedEventArgs) e);
+		}
 
-			if (eventArgs.AddedItems.Count < 1) {
+		public void SelectUnit(object sender, SelectionChangedEventArgs e) {
+			SelectUnit(e.AddedItems.Count > 0 ? (Unit) e.AddedItems[0] : null);
+		}
+
+		public void SelectUnit(Unit unit) {
+
+			if (unit == null) {
 				UnitDetails.Visibility = Visibility.Hidden;
 				NoneSelected.Visibility = Visibility.Visible;
 				return;
 			}
 
-			var unit = (Unit) eventArgs.AddedItems[0];
-
-			UnitListPanel.SelectUnit(unit);
+			controller.SelectUnit(unit);
+			UnitListPanel.SelectedUnit = unit;
 
 			NoneSelected.Visibility = Visibility.Hidden;
 			UnitDetails.DataContext = unit;
 			UnitDetails.Visibility = Visibility.Visible;
-
-			controller.SelectUnit(unit);
 		}
 	}
 }
