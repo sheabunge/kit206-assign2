@@ -1,0 +1,54 @@
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using HRIS.Database;
+using HRIS.Teaching;
+
+namespace HRIS.Control {
+	public class UnitController {
+		public List<Unit> CompleteList { get; private set; }
+
+		public ObservableCollection<Unit> VisibleList { get; private set; }
+
+		public string CurrentFilter { get; set; }
+
+		public UnitController() {
+			var db = new DatabaseAdapter();
+			CompleteList = db.FetchAllUnits();
+			VisibleList = new ObservableCollection<Unit>(CompleteList);
+			CurrentFilter = "";
+		}
+
+		public void SelectItem(Unit unit) {
+			CurrentlySelected = unit;
+
+			if (unit.classOnly == null) {
+				_db.FetchUnitClassOnly(CurrentlySelected);
+			}
+
+			if (unit.Consultation == null) {
+				_db.FetchUnitConsultation(CurrentlySelected);
+			}
+		}
+
+		public ObservableCollection<Unit> GetVisibleList() {
+			return VisibleList;
+		}
+
+		public void ApplyFilter() {
+			VisibleList.Clear();
+
+			var selected =
+				from Unit unit in CompleteList
+				where unit.ToString().IndexOf(CurrentFilter, StringComparison.OrdinalIgnoreCase) >= 0
+				orderby unit
+				select unit;
+
+			selected.ToList().ForEach(VisibleList.Add);
+		}
+
+		public void UnitsFor(Staff staff) { }
+	}
+}
+

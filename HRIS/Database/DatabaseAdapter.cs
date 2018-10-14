@@ -49,6 +49,7 @@ namespace HRIS.Database {
 
 			return staff;
 		}
+		
 
 		public void CompleteStaffDetails(Staff staff) {
 			MySqlDataReader reader = null;
@@ -77,6 +78,119 @@ namespace HRIS.Database {
 				Connection?.Close();
 			}
 		}
+
+		public void FetchUnitClassOnly(Unit unit) {
+			MySqlDataReader reader = null;
+
+			try {
+				Connection.Open();
+
+				// begin by fetching staff consultation times
+				var command = new MySqlCommand("select unit_code, campus, day, start, end  from class where unit_code = @unitcode", Connection);
+				command.Parameters.AddWithValue("@unitcode", unit.Code);
+				reader = command.ExecuteReader();
+
+				unit.classOnly = new List<Event>();
+
+				while (reader.Read()) {
+					unit.classOnly.Add(new Event {
+				        UnitCode = reader.GetString("unit_code"),
+				        Campus = ParseEnum<Campus>(reader.GetString("campus")),
+                        Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
+						Start = reader.GetTimeSpan("start"),
+						End = reader.GetTimeSpan("end"),
+						<<<<<<< HEAD
+					});
+				}
+
+				reader.Close();
+
+			} finally {
+				Connection.Close();
+			}
+		}
+
+		public void FetchUnitConsultation(Unit unit) {
+			MySqlDataReader reader = null;
+
+			try {
+				Connection.Open();
+
+				// begin by fetching staff consultation times
+				var command = new MySqlCommand("select class.unit_code, consultation.campus, consultation.day, consultation.start, consultation.end  from class inner join consultation on class.staff = consultation.staff_id where unit_code = @unitcode", Connection);
+				command.Parameters.AddWithValue("@unitcode", unit.Code);
+				reader = command.ExecuteReader();
+
+				unit.consultation = new List<Event>();
+
+				while (reader.Read()) {
+					unit.consultation.Add(new Event {
+				        UnitCode = reader.GetString("unit_code"),
+				        Campus = ParseEnum<Campus>(reader.GetString("campus")),
+                        Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
+						Start = reader.GetTimeSpan("start"),
+						End = reader.GetTimeSpan("end"),
+						<<<<<<< HEAD
+					});
+				}
+
+				reader.Close();
+
+			} finally {
+				Connection.Close();
+			}
+		}
+
+		public void FetchStaffSchedule(Staff staff) {
+			MySqlDataReader reader = null;
+
+			try {
+				Connection.Open();
+
+				// begin by fetching staff consultation times
+				var command = new MySqlCommand("SELECT day, start, end FROM consultation WHERE staff_id = @staffid", Connection);
+				command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
+				reader = command.ExecuteReader();
+
+				staff.Schedule = new List<Event>();
+
+				while (reader.Read()) {
+					staff.Schedule.Add(new Event {
+						Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
+						Start = reader.GetTimeSpan("start"),
+						End = reader.GetTimeSpan("end"),
+                        Type = "Consultation",
+						<<<<<<< HEAD
+					});
+				}
+
+				reader.Close();
+
+
+				// next, fetch the units that are coordinated by this staff member
+				command = new MySqlCommand("SELECT day, start, end, type FROM class WHERE staff = @staffid", Connection);
+				command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
+				reader = command.ExecuteReader();
+				
+                while (reader.Read()) {
+					staff.Schedule.Add(new Event {
+						Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
+						Start = reader.GetTimeSpan("start"),
+						End = reader.GetTimeSpan("end"),
+				        Type = ParseEnum<UnitClassType>(reader.GetString("type")),
+						<<<<<<< HEAD
+					});
+				}
+
+
+				reader.Close();
+
+			} finally {
+				Connection.Close();
+			}
+		}
+
+        
 
 		public void FetchStaffTeaching(Staff staff) {
 			MySqlDataReader reader = null;

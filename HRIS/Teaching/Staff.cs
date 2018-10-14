@@ -23,7 +23,7 @@ namespace HRIS.Teaching {
 		public string Photo { get; set; }
 
 		public Category Category { get; set; }
-
+		
 		public List<Event> Consultations { get; set; }
 
 		public List<UnitClass> Classes { get; set; }
