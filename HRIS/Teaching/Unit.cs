@@ -13,9 +13,12 @@
 		/// </summary>
 		public string Title { get; set; }
 
+<<<<<<< HEAD
 		/// <summary>
 		/// Staff member coordinating the unit
 		/// </summary>
+=======
+>>>>>>> Use actual objects to represent staff and unit properties instead of primatives
 		public Staff Coordinator { get; set; }
 
 		/// <summary>

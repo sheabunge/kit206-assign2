@@ -18,9 +18,12 @@
 		/// </summary>
 		public UnitClassType Type { get; set; }
 
+<<<<<<< HEAD
 		/// <summary>
 		/// Unit this class is associated with
 		/// </summary>
+=======
+>>>>>>> Use actual objects to represent staff and unit properties instead of primatives
 		public Unit Unit { get; set; }
 
 		/// <summary>
@@ -33,9 +36,12 @@
 		/// </summary>
 		public Campus Campus { get; set; }
 
+<<<<<<< HEAD
 		/// <summary>
 		/// The staff member that teaches this class
 		/// </summary>
+=======
+>>>>>>> Use actual objects to represent staff and unit properties instead of primatives
 		public Staff Staff { get; set; }
 	}
 }
