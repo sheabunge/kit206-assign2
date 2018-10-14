@@ -51,6 +51,7 @@
 					<EventSetter Event="Selected" Handler="UnselectCell" />
 				</Style>
 			</DataGrid.Resources>
+
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Day" Binding="{Binding Path=Day}" />
 				<DataGridTemplateColumn Header="Time">

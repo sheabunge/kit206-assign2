@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:teaching="clr-namespace:HRIS.Teaching"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="500">
 	<UserControl.Resources>
@@ -11,14 +10,14 @@
 			<TextBlock>
 				<Hyperlink Click="LoadUnitTimetableHandler">
 					<TextBlock Text="{Binding Path=Code}" />
-					<TextBlock Text="{Binding Path=Title}"/>
+					<TextBlock Text="{Binding Path=Title}" />
 				</Hyperlink>
 			</TextBlock>
 		</DataTemplate>
 
 		<Style TargetType="ListBoxItem">
 			<Setter Property="Background" Value="Transparent" />
-			<Setter Property="BorderBrush" Value="Transparent"/>
+			<Setter Property="BorderBrush" Value="Transparent" />
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -87,8 +86,8 @@
 
 			<Label Content="Consultation Times" Style="{StaticResource Heading}" />
 			<DataGrid x:Name="ConsultationTimes" ItemsSource="{Binding Path=Consultations}" AutoGenerateColumns="False"
-				          Style="{StaticResource UnselectableGrid}" GridLinesVisibility="None" HeadersVisibility="None"
-				          HorizontalAlignment="Left" Padding="2,2,2,2">
+			          Style="{StaticResource UnselectableGrid}" GridLinesVisibility="None" HeadersVisibility="None"
+			          HorizontalAlignment="Left" Padding="2,2,2,2">
 				<DataGrid.Columns>
 					<DataGridTextColumn Binding="{Binding Path=Day}" />
 					<DataGridTemplateColumn>
@@ -122,7 +121,7 @@
 
 			<Label Content="Units Coordinating" Style="{StaticResource Heading}" />
 			<ListBox ItemsSource="{Binding Path=UnitsCoordinating}" HorizontalAlignment="Left"
-					 x:Name="UnitsCoordinating" ItemTemplate="{StaticResource LinkedUnits}" />
+			         x:Name="UnitsCoordinating" ItemTemplate="{StaticResource LinkedUnits}" />
 		</StackPanel>
 
 		<StackPanel>
@@ -138,7 +137,7 @@
 
 			<Label Content="Units Teaching" Style="{StaticResource Heading}" />
 			<ListBox ItemsSource="{Binding Path=UnitsTeaching}" HorizontalAlignment="Left"
-					 x:Name="UnitsTeaching" ItemTemplate="{StaticResource LinkedUnits}" />
+			         x:Name="UnitsTeaching" ItemTemplate="{StaticResource LinkedUnits}" />
 		</StackPanel>
 	</StackPanel>
 </UserControl>

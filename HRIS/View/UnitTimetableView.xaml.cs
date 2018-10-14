@@ -39,7 +39,7 @@ namespace HRIS.View {
 		/// <summary>
 		/// Set the Unit model used for displaying the timetable
 		/// </summary>
-		/// <param name="staff">Unit object to use as model; null will reset the model</param>
+		/// <param name="unit">Unit object to use as model; null will reset the model</param>
 		public void SetModel(Unit unit) {
 			if (unit == null) {
 				// hide the details section if no unit is selected
