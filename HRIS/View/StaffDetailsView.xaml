@@ -35,7 +35,7 @@
 		<Grid VerticalAlignment="Top">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*" />
-				<ColumnDefinition MaxWidth="200" />
+				<ColumnDefinition MaxWidth="160" />
 			</Grid.ColumnDefinitions>
 
 			<Grid Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left">
@@ -68,7 +68,7 @@
 				<Label Grid.Row="4" Grid.Column="1" Content="{Binding Path=Email}" />
 
 				<Label Grid.Row="5" Grid.Column="0" Content="Current Avalability" />
-				<Label Grid.Row="5" Grid.Column="1" Content="{Binding Path=CurrentAvalability}" />
+				<Label Grid.Row="5" Grid.Column="1" Content="{Binding Path=CurrentAvalability.Item2}" />
 			</Grid>
 
 			<Image Source="{Binding Path=Photo}" Grid.Column="1" Width="120" VerticalAlignment="Top" />
