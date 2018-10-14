@@ -36,10 +36,7 @@ namespace HRIS.View {
 		}
 
 		private void RedirectToStaffDetails(object sender, RoutedEventArgs e) {
-			var cell = (DataGridCell) sender;
-			var unitClass = (UnitClass) cell.DataContext;
-			var eventArgs = new SelectionChangedEventArgs(e.RoutedEvent, new List<object>(0), new List<object>(1) { unitClass.Staff });
-			LoadStaffDetails?.Invoke(sender, eventArgs);
+			LoadStaffDetails?.Invoke(sender, e);
 		}
 
 		private void UnselectCell(object sender, RoutedEventArgs e) {

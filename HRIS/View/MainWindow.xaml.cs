@@ -17,12 +17,14 @@ namespace HRIS.View {
 		}
 
 		public void LoadUnitTimetable(object sender, EventArgs e) {
-			this.UnitsTab.IsSelected = true;
+			var element = sender as FrameworkElement;
+			Console.WriteLine("Loading unit timetable from " + sender + " " + element?.Name);
+			Navigation.SelectedItem = UnitsTabItem;
 			UnitTabContent.SelectUnit(sender, e);
 		}
 
 		public void LoadStaffDetails(object sender, EventArgs e) {
-			this.StaffTab.IsSelected = true;
+			Navigation.SelectedItem = StaffTabItem;
 			StaffTabContent.SelectStaffMember(sender, e);
 		}
 	}

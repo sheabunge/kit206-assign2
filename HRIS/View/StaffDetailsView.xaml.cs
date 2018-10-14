@@ -27,13 +27,26 @@ namespace HRIS.View {
 		public StaffDetailsView() {
 			controller = (StaffController) Application.Current.FindResource("StaffController");
 			InitializeComponent();
+			StaffDetails.Visibility = Visibility.Hidden;
 		}
 
 		public void SetModel(Staff staff) {
-			StaffDetails.DataContext = staff;
+			if (staff == null) {
+				// hide the details section if no staff member is selected
+				StaffDetails.Visibility = Visibility.Hidden;
+			} else {
+				controller.SelectItem(staff);
+				StaffDetails.DataContext = staff;
+				StaffDetails.Visibility = Visibility.Visible;
+			}
 		}
 
-		private void SelectUnit(object sender, SelectionChangedEventArgs e) {
+		private void DeselectItem(object sender, RoutedEventArgs e) {
+			var item = (ListBoxItem) sender;
+			item.IsSelected = false;
+		}
+
+		private void LoadUnitTimetableHandler(object sender, RoutedEventArgs e) {
 			LoadUnitTimetable?.Invoke(sender, e);
 		}
 	}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using HRIS.Control;
 using HRIS.Teaching;
 
@@ -20,28 +21,37 @@ namespace HRIS.View {
 			UnitDetails = (Panel) UnitDetailsPanel.FindName("UnitDetails");
 			UnitDetails.Visibility = Visibility.Hidden;
 
-			UnitListPanel.UnitSelected += SelectUnit;
+			UnitListPanel.UnitSelected += LoadUnitTimetable;
 		}
 
 		public void SelectUnit(object sender, EventArgs e) {
-			SelectUnit(sender, (SelectionChangedEventArgs) e);
-		}
-
-		public void SelectUnit(object sender, SelectionChangedEventArgs e) {
-			SelectUnit(e.AddedItems.Count > 0 ? (Unit) e.AddedItems[0] : null);
+			if (e is SelectionChangedEventArgs sel) {
+				Console.WriteLine("before select unit");
+				SelectUnit(sel.AddedItems.Count == 0 ? null : (Unit) sel.AddedItems[0]);
+			} else if (e is RoutedEventArgs) {
+				var element = (Hyperlink) sender;
+				var unit = (Unit) element.DataContext;
+				SelectUnit(unit);
+			}
 		}
 
 		public void SelectUnit(Unit unit) {
+			Console.WriteLine("Selecting unit "  + unit);
+			UnitListPanel.SelectedUnit = unit;
+		}
 
-			if (unit == null) {
+		private void LoadUnitTimetable(object sender, EventArgs ea) {
+			var e = (SelectionChangedEventArgs) ea;
+
+			if (e.AddedItems.Count == 0) {
 				UnitDetails.Visibility = Visibility.Hidden;
 				NoneSelected.Visibility = Visibility.Visible;
 				return;
 			}
 
-			controller.SelectUnit(unit);
-			UnitListPanel.SelectedUnit = unit;
+			var unit = (Unit) e.AddedItems[0];
 
+			controller.SelectUnit(unit);
 			NoneSelected.Visibility = Visibility.Hidden;
 			UnitDetails.DataContext = unit;
 			UnitDetails.Visibility = Visibility.Visible;

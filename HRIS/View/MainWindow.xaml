@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Human Resources Information System" Height="500" Width="800">
 
-	<TabControl Margin="0, 0, 0, 10">
-		<TabItem Name="StaffTab" Header="Staff">
+	<TabControl Margin="0, 0, 0, 10" x:Name="Navigation">
+		<TabItem x:Name="StaffTabItem" Header="Staff">
 			<TabItem.Content>
 				<ScrollViewer VerticalScrollBarVisibility="Auto">
 					<view:StaffTab x:Name="StaffTabContent" />
@@ -16,13 +16,13 @@
 			</TabItem.Content>
 		</TabItem>
 
-		<TabItem Name="UnitsTab" Header="Units">
+		<TabItem x:Name="UnitsTabItem" Header="Units">
 			<TabItem.Content>
 				<view:UnitTab x:Name="UnitTabContent" />
 			</TabItem.Content>
 		</TabItem>
 
-		<TabItem Name="HeatMapsTab" Header="Heat Maps">
+		<TabItem x:Name="HeatMapsTabItem" Header="Heat Maps">
 			<TabItem.Content>
 				<view:HeatMapTab x:Name="HeatMapsTabContent" />
 			</TabItem.Content>
