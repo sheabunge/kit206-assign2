@@ -286,7 +286,6 @@ namespace HRIS.Database {
 				var staffMembers = new Dictionary<int, Staff>();
 
 				while (reader.Read()) {
-
 					// attempt to read a staff object from the data storage, and fill in the necessary fields
 					var staff = dataStore.GetStaffMember(reader.GetInt32("staff"));
 					staff.Title = reader.GetString("title");
