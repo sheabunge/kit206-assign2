@@ -95,9 +95,6 @@
     <Compile Include="View\UnitListView.xaml.cs">
       <DependentUpon>UnitListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UnitListView.xaml.cs">
-      <DependentUpon>UnitListView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\UnitTab.xaml.cs">
       <DependentUpon>UnitTab.xaml</DependentUpon>
     </Compile>
@@ -153,10 +150,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UnitTimetableView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UnitListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
