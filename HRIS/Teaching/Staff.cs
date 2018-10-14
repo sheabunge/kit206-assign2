@@ -148,5 +148,22 @@ namespace HRIS.Teaching {
 			// otherwise, the staff member is freely available
 			return Tuple.Create(Teaching.Availability.Free, "Free");
 		}
+
+		/// <summary>
+		/// Determine whether one staff member is identical to another
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
+		public override bool Equals(object obj) {
+			return obj is Staff other && other.ID == ID;
+		}
+
+		/// <summary>
+		/// Generate a hash code for this staff member
+		/// </summary>
+		/// <returns></returns>
+		public override int GetHashCode() {
+			return ID.GetHashCode();
+		}
 	}
 }
