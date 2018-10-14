@@ -20,35 +20,49 @@ namespace HRIS.View {
 	/// Interaction logic for UnitListView.xaml
 	/// </summary>
 	public partial class UnitListView : UserControl {
+		/// <summary>
+		/// Controller class responsible for this section of the application
+		/// </summary>
 		private readonly UnitController controller;
 
-		public event EventHandler UnitSelected;
+		/// <summary>
+		/// Event handler that fires when a unit is selected to display its timetable
+		/// </summary>
+		public event EventHandler UnitSelectedEvent;
 
+		/// <summary>
+		/// Retrieve or set the unit currently selected in the list
+		/// </summary>
 		public Unit SelectedUnit {
-			get {
-				return (Unit) UnitsList.SelectedItem;
-			}
-			set {
-				UnitsList.SelectedItem = value;
-			}
+			get => (Unit) UnitsList.SelectedItem;
+			set => UnitsList.SelectedItem = value;
 		}
 
+		/// <summary>
+		/// Initialise this component
+		/// </summary>
 		public UnitListView() {
 			controller = (UnitController) Application.Current.FindResource("UnitController");
 			InitializeComponent();
 		}
 
-		public void SelectUnit(Unit unit) {
-			UnitsList.SelectedItem = unit;
-		}
-
+		/// <summary>
+		/// Filter the list of units displayed using search text
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void FilterList(object sender, TextChangedEventArgs e) {
-			controller.CurrentFilter = SearchBox.Text;
+			controller.SearchText = SearchBox.Text;
 			controller.ApplyFilter();
 		}
 
+		/// <summary>
+		/// Trigger an event when a unit is selected to display its timetable
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void UnitSelectedHandler(object sender, SelectionChangedEventArgs e) {
-			UnitSelected?.Invoke(sender, e);
+			UnitSelectedEvent?.Invoke(sender, e);
 		}
 	}
 }

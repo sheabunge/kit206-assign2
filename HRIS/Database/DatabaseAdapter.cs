@@ -4,25 +4,62 @@ using HRIS.Teaching;
 using MySql.Data.MySqlClient;
 
 namespace HRIS.Database {
+	/// <summary>
+	/// Adapter class used for fetching data from the MySQL database
+	/// </summary>
 	public class DatabaseAdapter {
+		/// <summary>
+		/// Database name
+		/// </summary>
 		private const string DB = "kit206";
+
+		/// <summary>
+		/// Name of user with permissions to access the database
+		/// </summary>
 		private const string User = "kit206";
+
+		/// <summary>
+		/// Password associated with the authorised user
+		/// </summary>
 		private const string Pass = "kit206";
+
+		/// <summary>
+		/// Remote server location of the database
+		/// </summary>
 		private const string Server = "alacritas.cis.utas.edu.au";
 
+		/// <summary>
+		/// Instance of data storage class used for caching certain types of data
+		/// </summary>
 		private readonly DataStore dataStore = DataStore.Instance;
 
+		/// <summary>
+		/// MySQL connection object
+		/// </summary>
 		private MySqlConnection Connection;
 
+		/// <summary>
+		/// Class constructor
+		/// </summary>
 		public DatabaseAdapter() {
 			var details = $"Database={DB};Data Source={Server};User Id={User};Password={Pass};SslMode=none;";
 			Connection = new MySqlConnection(details);
 		}
 
+		/// <summary>
+		/// Parse a string value into its matching enumerated value
+		/// </summary>
+		/// <param name="value">String value to convert</param>
+		/// <typeparam name="T">Enum type to convert to</typeparam>
+		/// <returns>Converted enumerated value</returns>
 		private static T ParseEnum<T>(string value) {
 			return (T) Enum.Parse(typeof(T), value);
 		}
 
+		/// <summary>
+		/// Fetch the basic details required to display a list of staff members
+		/// </summary>
+		/// <returns></returns>
 		public List<Staff> FetchBasicStaffDetails() {
 			MySqlDataReader reader = null;
 			var staffList = new List<Staff>();
@@ -33,8 +70,10 @@ namespace HRIS.Database {
 				reader = command.ExecuteReader();
 
 				while (reader.Read()) {
+					// attempt to fetch this staff member from the data storage, if it exists
 					var staff = dataStore.GetStaffMember(reader.GetInt32("id"));
 
+					// fill in additional data
 					staff.GivenName = reader.GetString("given_name");
 					staff.FamilyName = reader.GetString("family_name");
 					staff.Title = reader.GetString("title");
@@ -51,7 +90,10 @@ namespace HRIS.Database {
 			return staffList;
 		}
 
-
+		/// <summary>
+		/// Fetch and update a Staff object with all available basic information
+		/// </summary>
+		/// <param name="staff">Staff member to update</param>
 		public void CompleteStaffDetails(Staff staff) {
 			MySqlDataReader reader = null;
 
@@ -63,7 +105,6 @@ namespace HRIS.Database {
 				reader = command.ExecuteReader();
 
 				if (reader.Read()) {
-					staff.ID = reader.GetInt32("id");
 					staff.GivenName = reader.GetString("given_name");
 					staff.FamilyName = reader.GetString("family_name");
 					staff.Title = reader.GetString("title");
@@ -80,6 +121,10 @@ namespace HRIS.Database {
 			}
 		}
 
+		/// <summary>
+		/// Fetch and update a staff object with associated other objects, such as Units, UnitClasses, and Events
+		/// </summary>
+		/// <param name="staff">Staff member to update</param>
 		public void FetchStaffTeaching(Staff staff) {
 			MySqlDataReader reader = null;
 
@@ -185,6 +230,10 @@ namespace HRIS.Database {
 			}
 		}
 
+		/// <summary>
+		/// Fetch a list of all units with their basic information
+		/// </summary>
+		/// <returns>List of Unit obkects</returns>
 		public List<Unit> FetchAllUnits() {
 			MySqlDataReader reader = null;
 			var units = new List<Unit>();
@@ -197,6 +246,7 @@ namespace HRIS.Database {
 				var staffMembers = new Dictionary<int, Staff>();
 
 				while (reader.Read()) {
+					// attempt to fetch this unit from the data storage if it has already been retrieved
 					var unit = dataStore.GetUnit(reader.GetString("code"));
 					unit.Title = reader.GetString("title");
 					unit.Coordinator = dataStore.GetStaffMember(reader.GetInt32("coordinator"));
@@ -210,12 +260,20 @@ namespace HRIS.Database {
 			return units;
 		}
 
+		/// <summary>
+		/// Fetch the complete list of classes associated with a unit
+		/// </summary>
+		/// <param name="unit">Unit to fetch classes for</param>
+		/// <returns>List of UnitClass objects</returns>
 		public List<UnitClass> FetchUnitClasses(Unit unit) {
 			MySqlDataReader reader = null;
 			var classes = new List<UnitClass>();
 
 			try {
 				Connection.Open();
+
+				// fetch information from both the `class` and `staff` table, as very basic staff member information
+				// such as title, given name and surname are required for display
 				var command = new MySqlCommand(
 					"SELECT c.campus, c.day, c.start, c.end, c.type, c.room, c.staff, " +
 					"s.title, s.given_name, s.family_name FROM class AS c " +
@@ -228,6 +286,8 @@ namespace HRIS.Database {
 				var staffMembers = new Dictionary<int, Staff>();
 
 				while (reader.Read()) {
+
+					// attempt to read a staff object from the data storage, and fill in the necessary fields
 					var staff = dataStore.GetStaffMember(reader.GetInt32("staff"));
 					staff.Title = reader.GetString("title");
 					staff.GivenName = reader.GetString("given_name");

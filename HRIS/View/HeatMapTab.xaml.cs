@@ -18,6 +18,9 @@ namespace HRIS.View {
 	/// Interaction logic for HeatMapTab.xaml
 	/// </summary>
 	public partial class HeatMapTab : UserControl {
+		/// <summary>
+		/// Class constructor
+		/// </summary>
 		public HeatMapTab() {
 			InitializeComponent();
 		}

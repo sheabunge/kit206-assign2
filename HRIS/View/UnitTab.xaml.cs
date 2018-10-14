@@ -10,20 +10,25 @@ namespace HRIS.View {
 	/// Interaction logic for UnitTab.xaml
 	/// </summary>
 	public partial class UnitTab : UserControl {
+		/// <summary>
+		/// Controller class responsible for this section of the application
+		/// </summary>
 		private readonly UnitController controller;
 
-		private readonly Panel UnitDetails;
-
+		/// <summary>
+		/// Initialise this component
+		/// </summary>
 		public UnitTab() {
 			controller = (UnitController) Application.Current.FindResource("UnitController");
 			InitializeComponent();
-
-			UnitDetails = (Panel) UnitDetailsPanel.FindName("UnitDetails");
-			UnitDetails.Visibility = Visibility.Hidden;
-
-			UnitListPanel.UnitSelected += LoadUnitTimetable;
+			UnitListPanel.UnitSelectedEvent += LoadUnitTimetable;
 		}
 
+		/// <summary>
+		/// Respond to a request to select a specific unit in the list
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		public void SelectUnit(object sender, EventArgs e) {
 			if (e is SelectionChangedEventArgs sel) {
 				SelectUnit(sel.AddedItems.Count == 0 ? null : (Unit) sel.AddedItems[0]);
@@ -34,25 +39,24 @@ namespace HRIS.View {
 			}
 		}
 
+		/// <summary>
+		/// Select a specific unit in the list
+		/// </summary>
+		/// <param name="unit">Unit to select</param>
 		public void SelectUnit(Unit unit) {
 			UnitListPanel.SelectedUnit = unit;
 		}
 
+		/// <summary>
+		/// Load the timetable view for a unit
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="ea"></param>
 		private void LoadUnitTimetable(object sender, EventArgs ea) {
 			var e = (SelectionChangedEventArgs) ea;
-
-			if (e.AddedItems.Count == 0) {
-				UnitDetails.Visibility = Visibility.Hidden;
-				NoneSelected.Visibility = Visibility.Visible;
-				return;
-			}
-
-			var unit = (Unit) e.AddedItems[0];
-
-			controller.SelectUnit(unit);
-			NoneSelected.Visibility = Visibility.Hidden;
-			UnitDetails.DataContext = unit;
-			UnitDetails.Visibility = Visibility.Visible;
+			var unit = e.AddedItems.Count == 0 ? null : (Unit) e.AddedItems[0];
+			NoneSelected.Visibility = unit == null ? Visibility.Visible : Visibility.Hidden;
+			UnitDetailsPanel.SetModel(unit);
 		}
 	}
 }
