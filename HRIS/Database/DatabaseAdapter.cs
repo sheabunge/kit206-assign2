@@ -10,6 +10,8 @@ namespace HRIS.Database {
 		private const string Pass = "kit206";
 		private const string Server = "alacritas.cis.utas.edu.au";
 
+		private readonly DataStore dataStore = DataStore.Instance;
+
 		private MySqlConnection Connection;
 
 		public DatabaseAdapter() {
@@ -23,7 +25,7 @@ namespace HRIS.Database {
 
 		public List<Staff> FetchBasicStaffDetails() {
 			MySqlDataReader reader = null;
-			var staff = new List<Staff>();
+			var staffList = new List<Staff>();
 
 			try {
 				Connection.Open();
@@ -31,23 +33,22 @@ namespace HRIS.Database {
 				reader = command.ExecuteReader();
 
 				while (reader.Read()) {
-					var staffMember = new Staff {
-						ID = reader.GetInt32("id"),
-						GivenName = reader.GetString("given_name"),
-						FamilyName = reader.GetString("family_name"),
-						Title = reader.GetString("title"),
-						Campus = ParseEnum<Campus>(reader.GetString("campus")),
-						Category = ParseEnum<Category>(reader.GetString("category")),
-					};
+					var staff = dataStore.GetStaffMember(reader.GetInt32("id"));
 
-					staff.Add(staffMember);
+					staff.GivenName = reader.GetString("given_name");
+					staff.FamilyName = reader.GetString("family_name");
+					staff.Title = reader.GetString("title");
+					staff.Campus = ParseEnum<Campus>(reader.GetString("campus"));
+					staff.Category = ParseEnum<Category>(reader.GetString("category"));
+
+					staffList.Add(staff);
 				}
 			} finally {
 				reader?.Close();
 				Connection?.Close();
 			}
 
-			return staff;
+			return staffList;
 		}
 
 
@@ -114,13 +115,8 @@ namespace HRIS.Database {
 				staff.Classes = new List<UnitClass>();
 				staff.UnitsTeaching = new List<Unit>();
 
-				var units = new Dictionary<String, Unit>();
-
 				while (reader.Read()) {
-					if (!units.TryGetValue(reader.GetString("unit_code"), out var unit)) {
-						unit = new Unit { Code = reader.GetString("unit_code") };
-						units.Add(unit.Code, unit);
-					}
+					var unit = dataStore.GetUnit(reader.GetString("unit_code"));
 
 					var unitClass = new UnitClass {
 						Unit = unit,
@@ -147,11 +143,10 @@ namespace HRIS.Database {
 				staff.UnitsCoordinating = new List<Unit>();
 
 				while (reader.Read()) {
-					var unit = new Unit {
-						Code = reader.GetString("code"),
-						Title = reader.GetString("title"),
-						Coordinator = staff,
-					};
+					var unit = dataStore.GetUnit(reader.GetString("code"));
+
+					unit.Title = reader.GetString("title");
+					unit.Coordinator = staff;
 
 					staff.UnitsCoordinating.Add(unit);
 
@@ -175,11 +170,11 @@ namespace HRIS.Database {
 					reader = command.ExecuteReader();
 
 					while (reader.Read()) {
-						staff.UnitsTeaching.Add(new Unit {
-							Code = reader.GetString("code"),
-							Title = reader.GetString("title"),
-							Coordinator = staff,
-						});
+						var unit = dataStore.GetUnit(reader.GetString("code"));
+						unit.Title = reader.GetString("title");
+						unit.Coordinator = staff;
+
+						staff.UnitsTeaching.Add(unit);
 					}
 				}
 			} finally {
@@ -197,19 +192,11 @@ namespace HRIS.Database {
 				var command = new MySqlCommand("SELECT code, title, coordinator FROM unit ORDER BY code, title", Connection);
 				reader = command.ExecuteReader();
 
-				var staffMembers = new Dictionary<int, Staff>();
-
 				while (reader.Read()) {
-					if (!staffMembers.TryGetValue(reader.GetInt32("coordinator"), out var staff)) {
-						staff = new Staff { ID = reader.GetInt32("coordinator") };
-						staffMembers.Add(staff.ID, staff);
-					}
-
-					units.Add(new Unit {
-						Code = reader.GetString("code"),
-						Title = reader.GetString("title"),
-						Coordinator = staff,
-					});
+					var unit = dataStore.GetUnit(reader.GetString("code"));
+					unit.Title = reader.GetString("title");
+					unit.Coordinator = dataStore.GetStaffMember(reader.GetInt32("coordinator"));
+					units.Add(unit);
 				}
 			} finally {
 				reader?.Close();
@@ -234,18 +221,11 @@ namespace HRIS.Database {
 				command.Parameters.AddWithValue("@unitcode", unit.Code);
 				reader = command.ExecuteReader();
 
-				var staffMembers = new Dictionary<int, Staff>();
-
 				while (reader.Read()) {
-					if (!staffMembers.TryGetValue(reader.GetInt32("staff"), out var staff)) {
-						staff = new Staff {
-							ID = reader.GetInt32("staff"),
-							Title = reader.GetString("title"),
-							GivenName = reader.GetString("given_name"),
-							FamilyName = reader.GetString("family_name"),
-						};
-						staffMembers.Add(staff.ID, staff);
-					}
+					var staff = dataStore.GetStaffMember(reader.GetInt32("staff"));
+					staff.Title = reader.GetString("title");
+					staff.GivenName = reader.GetString("given_name");
+					staff.FamilyName = reader.GetString("family_name");
 
 					var unitClass = new UnitClass {
 						Unit = unit,

@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Database\DataStore.cs" />
     <Compile Include="Teaching\Availability.cs" />
     <Compile Include="Teaching\Campus.cs" />
     <Compile Include="Teaching\Category.cs" />
