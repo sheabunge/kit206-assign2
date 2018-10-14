@@ -50,7 +50,7 @@ namespace HRIS.Database {
 			}
 
 			// otherwise, construct a new Staff object using the given identifier
-			staff = new Staff {ID = staffID};
+			staff = new Staff(staffID);
 			staffMembers.Add(staff.ID, staff);
 			return staff;
 		}
@@ -68,7 +68,7 @@ namespace HRIS.Database {
 			}
 
 			// otherwise, construct a new Unit object using the given unit code
-			unit = new Unit {Code = unitCode};
+			unit = new Unit(unitCode);
 			units.Add(unit.Code, unit);
 			return unit;
 		}

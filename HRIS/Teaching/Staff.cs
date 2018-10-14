@@ -10,7 +10,7 @@ namespace HRIS.Teaching {
 		/// <summary>
 		/// The unique identifier for this staff member
 		/// </summary>
-		public int ID { get; set; }
+		public int ID { get; }
 
 		/// <summary>
 		/// The staff member's surname
@@ -98,8 +98,15 @@ namespace HRIS.Teaching {
 		/// Generate a string representation of this staff member
 		/// </summary>
 		/// <returns></returns>
-		public override string ToString() {
-			return FormalName;
+		public override string ToString() => FormalName;
+
+		/// <summary>
+		/// Class constructor
+		/// Ensures every Staff object at least has an ID property
+		/// </summary>
+		/// <param name="staffID">Unique identifier</param>
+		public Staff(int staffID) {
+			ID = staffID;
 		}
 
 		/// <summary>

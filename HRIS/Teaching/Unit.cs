@@ -6,7 +6,7 @@
 		/// <summary>
 		/// Uniquely identifiable unit code
 		/// </summary>
-		public string Code { get; set; }
+		public string Code { get; }
 
 		/// <summary>
 		/// Descriptive unit title
@@ -25,8 +25,15 @@
 		/// Retrieve a string representation of the unit
 		/// </summary>
 		/// <returns>The unit's full code and title</returns>
-		public override string ToString() {
-			return $"{Code} {Title}";
+		public override string ToString() => $"{Code} {Title}";
+
+		/// <summary>
+		/// Class constructor
+		/// Ensures every Unit object at least has a Code property
+		/// </summary>
+		/// <param name="unitCode">Unique code associated with this unit</param>
+		public Unit(string unitCode) {
+			Code = unitCode;
 		}
 
 		/// <summary>
