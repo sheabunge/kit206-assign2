@@ -43,8 +43,7 @@
 
 		<DataGrid x:Name="Timetable" AutoGenerateColumns="False" RowHeaderWidth="0" IsReadOnly="True"
 		          Margin="0,5,0,5" GridLinesVisibility="None"
-<<<<<<< HEAD
-		          HorizontalAlignment="Left"
+		          HorizontalAlignment="Left" Style="{StaticResource UnselectableGrid}"
 		          ItemsSource="{Binding Source={StaticResource ClassesList}}">
 			<DataGrid.Resources>
 				<Style TargetType="DataGridCell">
@@ -53,10 +52,6 @@
 				</Style>
 			</DataGrid.Resources>
 
-=======
-		          HorizontalAlignment="Left" Style="{StaticResource UnselectableGrid}"
-		          ItemsSource="{Binding Source={StaticResource ClassesList}}">
->>>>>>> Use actual objects to represent staff and unit properties instead of primatives
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Day" Binding="{Binding Path=Day}" />
 				<DataGridTemplateColumn Header="Time">
@@ -76,7 +71,6 @@
 				<DataGridTextColumn Header="Type" Binding="{Binding Path=Type}" />
 				<DataGridTextColumn Header="Location" Binding="{Binding Path=Room}" />
 				<DataGridTextColumn Header="Campus" Binding="{Binding Path=Campus}" />
-<<<<<<< HEAD
 				<DataGridHyperlinkColumn Header="Staff Member" Binding="{Binding Path=Staff.FormalName}"
 				                         ContentBinding="{Binding Path=Staff}">
 					<DataGridHyperlinkColumn.CellStyle>
@@ -85,9 +79,6 @@
 						</Style>
 					</DataGridHyperlinkColumn.CellStyle>
 				</DataGridHyperlinkColumn>
-=======
-				<DataGridTextColumn Header="Staff Member" Binding="{Binding Path=Staff.FormalName}" />
->>>>>>> Use actual objects to represent staff and unit properties instead of primatives
 			</DataGrid.Columns>
 		</DataGrid>
 
