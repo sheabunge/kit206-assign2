@@ -36,7 +36,7 @@ namespace HRIS.Teaching {
 
 		public string FormalName => $"{FamilyName}, {GivenName} ({Title})";
 
-		public Availability CurrentAvalability => Availability(DateTime.Now).Item1;
+		public Tuple<Availability, string> CurrentAvalability => Availability(DateTime.Now);
 
 		public override string ToString() {
 			return FullName;
@@ -55,23 +55,24 @@ namespace HRIS.Teaching {
 			return results;
 		}
 
-		public Tuple<Availability, Event> Availability(DateTime when) {
-			Availability availability = Teaching.Availability.Free;
-			Event currentEvent = null;
-
+		public Tuple<Availability, string> Availability(DateTime when) {
 			var consultations = CurrentEvents(Consultations, when);
+
 			if (consultations != null && consultations.Any()) {
-				availability = Teaching.Availability.Consulting;
-				currentEvent = consultations.First();
-			} else {
-				var classes = CurrentEvents(Classes, when);
-				if (classes != null && classes.Any()) {
-					availability = Teaching.Availability.Teaching;
-					currentEvent = classes.First();
-				}
+				return Tuple.Create(Teaching.Availability.Consulting, "Consulting");
 			}
 
-			return Tuple.Create(availability, currentEvent);
+			var classes = CurrentEvents(Classes, when);
+
+			if (classes != null && classes.Any()) {
+				var currentClass = (UnitClass) classes.First();
+				return Tuple.Create(
+					Teaching.Availability.Teaching,
+					$"Teaching {currentClass.Unit.Code} in Room {currentClass.Room}"
+				);
+			}
+
+			return Tuple.Create(Teaching.Availability.Free, "Free");
 		}
 	}
 }

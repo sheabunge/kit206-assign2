@@ -18,7 +18,6 @@ namespace HRIS.View {
 
 		public void LoadUnitTimetable(object sender, EventArgs e) {
 			var element = sender as FrameworkElement;
-			Console.WriteLine("Loading unit timetable from " + sender + " " + element?.Name);
 			Navigation.SelectedItem = UnitsTabItem;
 			UnitTabContent.SelectUnit(sender, e);
 		}

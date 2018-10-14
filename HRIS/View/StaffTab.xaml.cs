@@ -31,7 +31,6 @@ namespace HRIS.View {
 		public void SelectStaffMember(Staff staff) {
 			// attempt to select the identical staff object if it exists; otherwise just load the details directly
 			if (StaffListPanel.StaffList.Items.Contains(staff)) {
-				Console.WriteLine("Loading Staff tab for " + staff);
 				StaffListPanel.SelectedStaffMember = staff;
 			} else {
 				LoadStaffDetails(staff);

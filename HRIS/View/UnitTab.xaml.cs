@@ -26,7 +26,6 @@ namespace HRIS.View {
 
 		public void SelectUnit(object sender, EventArgs e) {
 			if (e is SelectionChangedEventArgs sel) {
-				Console.WriteLine("before select unit");
 				SelectUnit(sel.AddedItems.Count == 0 ? null : (Unit) sel.AddedItems[0]);
 			} else if (e is RoutedEventArgs) {
 				var element = (Hyperlink) sender;
@@ -36,8 +35,7 @@ namespace HRIS.View {
 		}
 
 		public void SelectUnit(Unit unit) {
-			Console.WriteLine("Selecting unit "  + unit);
-			UnitListPanel.SelectedUnit = unit;
+=			UnitListPanel.SelectedUnit = unit;
 		}
 
 		private void LoadUnitTimetable(object sender, EventArgs ea) {
