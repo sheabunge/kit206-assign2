@@ -35,7 +35,7 @@ namespace HRIS.View {
 		}
 
 		public void SelectUnit(Unit unit) {
-=			UnitListPanel.SelectedUnit = unit;
+			UnitListPanel.SelectedUnit = unit;
 		}
 
 		private void LoadUnitTimetable(object sender, EventArgs ea) {
