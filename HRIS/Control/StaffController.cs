@@ -44,6 +44,10 @@ namespace HRIS.Control {
 			return VisibleList;
 		}
 
+		private static bool StringContains(string haystack, string needle) {
+			return haystack.IndexOf(needle, StringComparison.OrdinalIgnoreCase) >= 0;
+		}
+
 		public void ApplyFilters() {
 			VisibleList.Clear();
 
@@ -51,7 +55,7 @@ namespace HRIS.Control {
 				from Staff staff in CompleteList
 				where
 					(CurrentCategoryFilter == Category.Any || CurrentCategoryFilter == staff.Category) &&
-					staff.FullName.IndexOf(CurrentNameFilter, StringComparison.OrdinalIgnoreCase) >= 0
+					(StringContains(staff.GivenName, CurrentNameFilter) || StringContains(staff.FamilyName, CurrentNameFilter))
 				orderby staff.FamilyName, staff.GivenName
 				select staff;
 
