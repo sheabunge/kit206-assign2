@@ -38,6 +38,10 @@ namespace HRIS.View {
 			InitializeComponent();
 		}
 
+		public void SelectUnit(Unit unit) {
+			UnitsList.SelectedItem = unit;
+		}
+
 		private void FilterList(object sender, TextChangedEventArgs e) {
 			controller.CurrentFilter = SearchBox.Text;
 			controller.ApplyFilter();

@@ -49,5 +49,9 @@ namespace HRIS.View {
 		private void LoadUnitTimetableHandler(object sender, RoutedEventArgs e) {
 			LoadUnitTimetable?.Invoke(sender, e);
 		}
+
+		private void SelectUnit(object sender, SelectionChangedEventArgs e) {
+			LoadUnitTimetable?.Invoke(sender, e);
+		}
 	}
 }
