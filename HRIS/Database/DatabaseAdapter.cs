@@ -115,6 +115,8 @@ namespace HRIS.Database {
 				staff.Classes = new List<UnitClass>();
 				staff.UnitsTeaching = new List<Unit>();
 
+				var units = new Dictionary<String, Unit>();
+
 				while (reader.Read()) {
 					var unit = dataStore.GetUnit(reader.GetString("unit_code"));
 
@@ -192,6 +194,8 @@ namespace HRIS.Database {
 				var command = new MySqlCommand("SELECT code, title, coordinator FROM unit ORDER BY code, title", Connection);
 				reader = command.ExecuteReader();
 
+				var staffMembers = new Dictionary<int, Staff>();
+
 				while (reader.Read()) {
 					var unit = dataStore.GetUnit(reader.GetString("code"));
 					unit.Title = reader.GetString("title");
@@ -220,6 +224,8 @@ namespace HRIS.Database {
 				);
 				command.Parameters.AddWithValue("@unitcode", unit.Code);
 				reader = command.ExecuteReader();
+
+				var staffMembers = new Dictionary<int, Staff>();
 
 				while (reader.Read()) {
 					var staff = dataStore.GetStaffMember(reader.GetInt32("staff"));
