@@ -48,7 +48,7 @@
 			<DataGrid.Resources>
 				<Style TargetType="DataGridCell">
 					<Setter Property="Focusable" Value="False" />
-					<EventSetter Event="Selected" Handler="UnselectCell" />
+					<EventSetter Event="Selected" Handler="DeselectCell" />
 				</Style>
 			</DataGrid.Resources>
 
@@ -81,6 +81,5 @@
 				</DataGridHyperlinkColumn>
 			</DataGrid.Columns>
 		</DataGrid>
-
 	</StackPanel>
 </UserControl>
