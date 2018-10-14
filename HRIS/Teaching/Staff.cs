@@ -129,6 +129,7 @@ namespace HRIS.Teaching {
 		public Tuple<Availability, string> Availability(DateTime when) {
 			// find any consultation times currently occurring
 			var consultations = CurrentEvents(Consultations, when);
+
 			if (consultations != null && consultations.Any()) {
 				return Tuple.Create(Teaching.Availability.Consulting, "Consulting");
 			}
@@ -144,7 +145,7 @@ namespace HRIS.Teaching {
 				);
 			}
 
-			// otherwise, the staff member is freely avaliable
+			// otherwise, the staff member is freely available
 			return Tuple.Create(Teaching.Availability.Free, "Free");
 		}
 	}
