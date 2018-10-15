@@ -3,58 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:view="clr-namespace:HRIS.View"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
 	<UserControl.Resources>
 		<ObjectDataProvider x:Key="RowList"
-		                    ObjectInstance="{StaticResource ColorGrid}"
+		                    ObjectInstance="{StaticResource HeatMapsController}"
 		                    MethodName="GetRows" />
 	</UserControl.Resources>
 
-	<DataGrid x:Name="tblMap" AutoGenerateColumns="False" IsReadOnly="True" CanUserReorderColumns="False" ItemsSource="{Binding Source={StaticResource RowList}}">
-		<DataGrid.Columns>
-			<!-- There are also ways to define row labels and have them bind to a property (such as the time of day)
-             This would be neater visually, but is not shown here. -->
-			<DataGridTextColumn Header="" Binding="{Binding Path=Time}" />
-
-			<DataGridTextColumn Header="Monday" Binding="{Binding Path=Values[0]}">
-				<DataGridTextColumn.ElementStyle>
-					<Style TargetType="{x:Type TextBlock}">
-						<Setter Property="Background" Value="{Binding Path=Colours[0]}"/>
-					</Style>
-				</DataGridTextColumn.ElementStyle>
-			</DataGridTextColumn>
-
-			<DataGridTextColumn Header="Tuesday" Binding="{Binding Path=Values[1]}">
-				<DataGridTextColumn.ElementStyle>
-					<Style TargetType="{x:Type TextBlock}">
-						<Setter Property="Background" Value="{Binding Path=Colours[1]}"/>
-					</Style>
-				</DataGridTextColumn.ElementStyle>
-			</DataGridTextColumn>
-			<DataGridTextColumn Header="Wednesday" Binding="{Binding Path=Values[2]}">
-				<DataGridTextColumn.ElementStyle>
-					<Style TargetType="{x:Type TextBlock}">
-						<Setter Property="Background" Value="{Binding Colours[2]}"/>
-					</Style>
-				</DataGridTextColumn.ElementStyle>
-			</DataGridTextColumn>
-			<DataGridTextColumn Header="Thursday" Binding="{Binding Values[3]}">
-				<DataGridTextColumn.ElementStyle>
-					<Style TargetType="{x:Type TextBlock}">
-						<Setter Property="Background" Value="{Binding Colours[3]}"/>
-					</Style>
-				</DataGridTextColumn.ElementStyle>
-			</DataGridTextColumn>
-			<DataGridTextColumn Header="Friday" Binding="{Binding Values[4]}">
-				<DataGridTextColumn.ElementStyle>
-					<Style TargetType="{x:Type TextBlock}">
-						<Setter Property="Background" Value="{Binding Colours[4]}"/>
-					</Style>
-				</DataGridTextColumn.ElementStyle>
-			</DataGridTextColumn>
-		</DataGrid.Columns>
-
-	</DataGrid>
+	<view:ColorGridControl Rows="{Binding Source={StaticResource RowList} }" />
 </UserControl>

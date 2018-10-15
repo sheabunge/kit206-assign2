@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,13 +20,16 @@ namespace HRIS.View {
 	/// Interaction logic for HeatMapTab.xaml
 	/// </summary>
 	public partial class HeatMapTab : UserControl {
-		ColorGrid controller { get; set; }
+		/// <summary>
+		/// Controller class responsible for this section of the application
+		/// </summary>
+		private readonly HeatMapController controller;
 
 		/// <summary>
-		/// Class constructor
+		/// Initialise this section of the application
 		/// </summary>
 		public HeatMapTab() {
-			controller = (ColorGrid) Application.Current.FindResource("ColorGrid");
+			controller = (HeatMapController) Application.Curent.FindResource("HeatMapsController");
 			InitializeComponent();
 		}
 	}
