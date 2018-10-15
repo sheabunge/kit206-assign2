@@ -9,7 +9,7 @@
 
 	<UserControl.Resources>
 		<ObjectDataProvider x:Key="RowList"
-		                    ObjectInstance="{StaticResource HeatMapsController}"
+		                    ObjectInstance="{StaticResource HeatMapController}"
 		                    MethodName="GetRows" />
 	</UserControl.Resources>
 

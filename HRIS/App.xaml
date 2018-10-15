@@ -7,7 +7,7 @@
 	<Application.Resources>
 		<control:StaffController x:Key="StaffController" />
 		<control:UnitController x:Key="UnitController" />
-		<control:HeatMapsController x:Key="HeatMapsController" />
+		<control:HeatMapController x:Key="HeatMapController" />
 
 		<SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
 

@@ -29,7 +29,7 @@ namespace HRIS.View {
 		/// Initialise this section of the application
 		/// </summary>
 		public HeatMapTab() {
-			controller = (HeatMapController) Application.Curent.FindResource("HeatMapsController");
+			controller = (HeatMapController) Application.Current.FindResource("HeatMapController");
 			InitializeComponent();
 		}
 	}
