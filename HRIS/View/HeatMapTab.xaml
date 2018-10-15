@@ -5,5 +5,49 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-	<Grid />
+	<DataGrid x:Name="tblMap" AutoGenerateColumns="False" IsReadOnly="True" CanUserReorderColumns="False">
+		<DataGrid.Columns>
+			<!-- There are also ways to define row labels and have them bind to a property (such as the time of day)
+             This would be neater visually, but is not shown here. -->
+			<DataGridTextColumn Header="Not a time cell" Binding="{Binding TimeOrSimilar}" />
+
+			<DataGridTextColumn Header="A" Binding="{Binding Values[0]}">
+				<DataGridTextColumn.ElementStyle>
+					<Style TargetType="{x:Type TextBlock}">
+						<Setter Property="Background" Value="{Binding Colours[0]}"/>
+					</Style>
+				</DataGridTextColumn.ElementStyle>
+			</DataGridTextColumn>
+
+			<DataGridTextColumn Header="B" Binding="{Binding Values[1]}">
+				<DataGridTextColumn.ElementStyle>
+					<Style TargetType="{x:Type TextBlock}">
+						<Setter Property="Background" Value="{Binding Colours[1]}"/>
+					</Style>
+				</DataGridTextColumn.ElementStyle>
+			</DataGridTextColumn>
+			<DataGridTextColumn Header="C" Binding="{Binding Values[2]}">
+				<DataGridTextColumn.ElementStyle>
+					<Style TargetType="{x:Type TextBlock}">
+						<Setter Property="Background" Value="{Binding Colours[2]}"/>
+					</Style>
+				</DataGridTextColumn.ElementStyle>
+			</DataGridTextColumn>
+			<DataGridTextColumn Header="D" Binding="{Binding Values[3]}">
+				<DataGridTextColumn.ElementStyle>
+					<Style TargetType="{x:Type TextBlock}">
+						<Setter Property="Background" Value="{Binding Colours[3]}"/>
+					</Style>
+				</DataGridTextColumn.ElementStyle>
+			</DataGridTextColumn>
+			<DataGridTextColumn Header="E" Binding="{Binding Values[4]}">
+				<DataGridTextColumn.ElementStyle>
+					<Style TargetType="{x:Type TextBlock}">
+						<Setter Property="Background" Value="{Binding Colours[4]}"/>
+					</Style>
+				</DataGridTextColumn.ElementStyle>
+			</DataGridTextColumn>
+		</DataGrid.Columns>
+
+	</DataGrid>
 </UserControl>
