@@ -10,11 +10,14 @@ namespace HRIS.Control {
 
 	}
 	class ColorGrid {
-		public ObservableCollection<RowData> GetVisibleList() {
+		public ObservableCollection<RowData> GetRows() {
 			RowData row = new RowData();
 			List<RowData> rows = new List<RowData>();
 			rows.Add(row);
 			return new ObservableCollection<RowData>(rows);
+		}
+
+		public ColorGrid() {
 		}
 	}
 }

@@ -7,12 +7,12 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
 	<UserControl.Resources>
-		<ObjectDataProvider x:Key="ColorGrid"
+		<ObjectDataProvider x:Key="RowList"
 		                    ObjectInstance="{StaticResource ColorGrid}"
 		                    MethodName="GetRows" />
 	</UserControl.Resources>
 
-			<DataGrid x:Name="tblMap" AutoGenerateColumns="False" IsReadOnly="True" CanUserReorderColumns="False">
+	<DataGrid x:Name="tblMap" AutoGenerateColumns="False" IsReadOnly="True" CanUserReorderColumns="False" ItemsSource="{Binding Source={StaticResource RowList}}">
 		<DataGrid.Columns>
 			<!-- There are also ways to define row labels and have them bind to a property (such as the time of day)
              This would be neater visually, but is not shown here. -->
