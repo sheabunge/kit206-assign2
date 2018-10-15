@@ -16,9 +16,9 @@
 		<DataGrid.Columns>
 			<!-- There are also ways to define row labels and have them bind to a property (such as the time of day)
              This would be neater visually, but is not shown here. -->
-			<DataGridTextColumn Header="Not a time cell" Binding="{Binding Path=Time}" />
+			<DataGridTextColumn Header="" Binding="{Binding Path=Time}" />
 
-			<DataGridTextColumn Header="A" Binding="{Binding Path=Values[0]}">
+			<DataGridTextColumn Header="Monday" Binding="{Binding Path=Values[0]}">
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="{x:Type TextBlock}">
 						<Setter Property="Background" Value="{Binding Path=Colours[0]}"/>
@@ -26,28 +26,28 @@
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>
 
-			<DataGridTextColumn Header="B" Binding="{Binding Path=Values[1]}">
+			<DataGridTextColumn Header="Tuesday" Binding="{Binding Path=Values[1]}">
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="{x:Type TextBlock}">
 						<Setter Property="Background" Value="{Binding Path=Colours[1]}"/>
 					</Style>
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>
-			<DataGridTextColumn Header="C" Binding="{Binding Path=Values[2]}">
+			<DataGridTextColumn Header="Wednesday" Binding="{Binding Path=Values[2]}">
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="{x:Type TextBlock}">
 						<Setter Property="Background" Value="{Binding Colours[2]}"/>
 					</Style>
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>
-			<DataGridTextColumn Header="D" Binding="{Binding Values[3]}">
+			<DataGridTextColumn Header="Thursday" Binding="{Binding Values[3]}">
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="{x:Type TextBlock}">
 						<Setter Property="Background" Value="{Binding Colours[3]}"/>
 					</Style>
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>
-			<DataGridTextColumn Header="E" Binding="{Binding Values[4]}">
+			<DataGridTextColumn Header="Friday" Binding="{Binding Values[4]}">
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="{x:Type TextBlock}">
 						<Setter Property="Background" Value="{Binding Colours[4]}"/>

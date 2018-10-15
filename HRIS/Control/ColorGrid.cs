@@ -8,6 +8,7 @@ using System.Windows.Media;
 
 namespace HRIS.Control {
 	enum CellColour {
+		White,
 		Red,
 		Orange,
 		Yellow,
@@ -23,6 +24,9 @@ namespace HRIS.Control {
 			for (int i = 0; i < colours.Length; i++) {
 				Brush next = null;
 				switch (colours[i]) {
+					case CellColour.White:
+						next = Brushes.White;
+						break;
 					case CellColour.Red:
 						next = Brushes.Red;
 						break;
@@ -39,9 +43,9 @@ namespace HRIS.Control {
 	}
 	class ColorGrid {
 		public ObservableCollection<RowData> GetRows() {
-			String[] values = { "A", "B", "C", "D", "E" };
+			String[] values = { "1", "1", "2", "5", "3" };
 			CellColour[] colours = { CellColour.Yellow, CellColour.Yellow, CellColour.Orange, CellColour.Red, CellColour.Orange };
-			RowData row = new RowData("T", values, colours);
+			RowData row = new RowData("09:00", values, colours);
 			List<RowData> rows = new List<RowData>();
 			rows.Add(row);
 			return new ObservableCollection<RowData>(rows);
