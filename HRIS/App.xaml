@@ -7,6 +7,7 @@
 	<Application.Resources>
 		<control:StaffController x:Key="StaffController" />
 		<control:UnitController x:Key="UnitController" />
+		<control:ColorGrid x:Key="ColorGrid" />
 
 		<SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
 
