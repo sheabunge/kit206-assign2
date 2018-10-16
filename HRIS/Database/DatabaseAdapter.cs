@@ -159,7 +159,7 @@ namespace HRIS.Database {
 
 				staff.Classes = new List<UnitClass>();
 				staff.UnitsTeaching = new List<Unit>();
-
+				.0000000000000000000000
 				var units = new Dictionary<String, Unit>();
 
 				while (reader.Read()) {

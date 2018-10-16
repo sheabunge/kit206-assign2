@@ -119,9 +119,9 @@ namespace HRIS.Control {
 						if (staff.Consultations.Start == staff.Classes.Start) {
 							rows.Add(new ColorGridRow(staff.Consultations.Start, "2", "CellColor.Red"));
 						} else if (!(rows.Contains(staff.Consultations.Start, "1", "CellColor.Green") || rows.Contains(staff.Consultations.Start, "2", "CellColor.Red"))){
-							rows.Add(new ColorGridRow(staff.Consultations.Start, "1", "CellColor.Green"));
+							rows.Add(new ColorGridRow(staff.Consultations.Start, "2", "CellColor.Green"));
 						} else {
-							rows.Add(new ColorGridRow(staff.Consultations.Start, "0", "CellColor.White"));
+							rows.Add(new ColorGridRow(staff.Consultations.Start, "2", "CellColor.White"));
 						}
 					}
 				}
