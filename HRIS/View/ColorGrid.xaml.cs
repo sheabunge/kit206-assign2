@@ -4,11 +4,11 @@ using System.Windows.Controls;
 
 namespace HRIS.View {
 	/// <summary>
-	/// Interaction logic for ColorGridControl.xaml
+	/// Interaction logic for ColorGrid.xaml
 	/// </summary>
-	public partial class ColorGridControl : UserControl {
+	public partial class ColorGrid : UserControl {
 		public static readonly DependencyProperty RowsProperty = DependencyProperty.Register(
-			"Rows", typeof(ObservableCollection<ColorGridRow>), typeof(ColorGridControl),
+			"Rows", typeof(ObservableCollection<ColorGridRow>), typeof(ColorGrid),
 			new PropertyMetadata(new ObservableCollection<ColorGridRow>(), OnRowsChanged)
 		);
 
@@ -17,12 +17,12 @@ namespace HRIS.View {
 			set => SetValue(RowsProperty, value);
 		}
 
-		public ColorGridControl() {
+		public ColorGrid() {
 			InitializeComponent();
 		}
 
 		private static void OnRowsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-			var control = (ColorGridControl) d;
+			var control = (ColorGrid) d;
 			control.OnRowsChanged(e);
 		}
 

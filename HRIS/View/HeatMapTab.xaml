@@ -18,14 +18,14 @@
 			<TabItem Header="Classes">
 				<TabItem.Content>
 					<ScrollViewer VerticalScrollBarVisibility="Auto">
-						<view:ColorGridControl Rows="{Binding Source={StaticResource RowList} }" />
+						<view:ColorGrid Rows="{Binding Source={StaticResource RowList} }" />
 					</ScrollViewer>
 				</TabItem.Content>
 			</TabItem>
 
 			<TabItem x:Name="UnitsTabItem" Header="Units">
 				<TabItem.Content>
-					<view:ColorGridControl Rows="{Binding Source={StaticResource RowList} }" />
+					<view:ColorGrid Rows="{Binding Source={StaticResource RowList} }" />
 				</TabItem.Content>
 			</TabItem>
 		</TabControl>
