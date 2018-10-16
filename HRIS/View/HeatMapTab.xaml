@@ -13,5 +13,21 @@
 		                    MethodName="GetRows" />
 	</UserControl.Resources>
 
-	<view:ColorGridControl Rows="{Binding Source={StaticResource RowList} }" />
+	<StackPanel>
+		<TabControl Margin="0, 0, 0, 10" TabStripPlacement="Left">
+			<TabItem Header="Classes">
+				<TabItem.Content>
+					<ScrollViewer VerticalScrollBarVisibility="Auto">
+						<view:ColorGridControl Rows="{Binding Source={StaticResource RowList} }" />
+					</ScrollViewer>
+				</TabItem.Content>
+			</TabItem>
+
+			<TabItem x:Name="UnitsTabItem" Header="Units">
+				<TabItem.Content>
+					<view:ColorGridControl Rows="{Binding Source={StaticResource RowList} }" />
+				</TabItem.Content>
+			</TabItem>
+		</TabControl>
+	</StackPanel>
 </UserControl>
