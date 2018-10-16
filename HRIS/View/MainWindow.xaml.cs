@@ -1,8 +1,5 @@
-﻿using HRIS.Control;
-using System;
+﻿using System;
 using System.Windows;
-using System.Windows.Controls;
-using HRIS.Teaching;
 
 namespace HRIS.View {
 	/// <summary>
