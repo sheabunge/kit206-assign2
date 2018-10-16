@@ -14,7 +14,7 @@
 			<DataGridTextColumn Header="Monday" Binding="{Binding Path=Values[0]}">
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="{x:Type TextBlock}">
-						<Setter Property="Background" Value="{Binding Path=Colours[0]}" />
+						<Setter Property="Background" Value="{Binding Path=Colors[0]}" />
 					</Style>
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>
@@ -22,28 +22,28 @@
 			<DataGridTextColumn Header="Tuesday" Binding="{Binding Path=Values[1]}">
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="{x:Type TextBlock}">
-						<Setter Property="Background" Value="{Binding Path=Colours[1]}" />
+						<Setter Property="Background" Value="{Binding Path=Colors[1]}" />
 					</Style>
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>
 			<DataGridTextColumn Header="Wednesday" Binding="{Binding Path=Values[2]}">
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="{x:Type TextBlock}">
-						<Setter Property="Background" Value="{Binding Colours[2]}" />
+						<Setter Property="Background" Value="{Binding Colors[2]}" />
 					</Style>
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>
 			<DataGridTextColumn Header="Thursday" Binding="{Binding Values[3]}">
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="{x:Type TextBlock}">
-						<Setter Property="Background" Value="{Binding Colours[3]}" />
+						<Setter Property="Background" Value="{Binding Colors[3]}" />
 					</Style>
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>
 			<DataGridTextColumn Header="Friday" Binding="{Binding Values[4]}">
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="{x:Type TextBlock}">
-						<Setter Property="Background" Value="{Binding Colours[4]}" />
+						<Setter Property="Background" Value="{Binding Colors[4]}" />
 					</Style>
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>

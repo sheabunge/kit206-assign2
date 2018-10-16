@@ -18,7 +18,7 @@ namespace HRIS.Control {
 		public ObservableCollection<ColorGridRow> GetRows() {
 			string[] values = {"1", "1", "2", "5", "3"};
 
-			CellColour[] colours = {CellColour.Yellow, CellColour.Yellow, CellColour.Orange, CellColour.Red, CellColour.Orange};
+			CellColor[] colours = {CellColor.Yellow, CellColor.Yellow, CellColor.Orange, CellColor.Red, CellColor.Orange};
 
 			var rows = new List<ColorGridRow> {
 				new ColorGridRow("09:00", values, colours)
