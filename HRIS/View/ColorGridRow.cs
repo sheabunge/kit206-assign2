@@ -37,29 +37,13 @@ namespace HRIS.View {
 		/// <param name="time"></param>
 		/// <param name="values"></param>
 		/// <param name="colors"></param>
-		public ColorGridRow(string time, string[] values, IReadOnlyList<CellColor> colors) {
+		public ColorGridRow(string time, string[] values, IReadOnlyList<Color> colors) {
 			Time = time;
 			Values = values;
 			Colors = new Brush[colors.Count];
 
 			for (var i = 0; i < colors.Count; i++) {
-				Brush next = null;
-				switch (colors[i]) {
-					case CellColor.White:
-						next = Brushes.White;
-						break;
-					case CellColor.Red:
-						next = Brushes.Red;
-						break;
-					case CellColor.Orange:
-						next = Brushes.Orange;
-						break;
-					case CellColor.Yellow:
-						next = Brushes.Yellow;
-						break;
-				}
-
-				Colors[i] = next;
+				Colors[i] = new Brush(colors[i]);
 			}
 		}
 	}
