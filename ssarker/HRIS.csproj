@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Teaching\ClassClash.cs" />
     <Compile Include="View\ColorGridRow.cs" />
     <Compile Include="Control\HeatMapController.cs" />
     <Compile Include="Database\DataStore.cs" />

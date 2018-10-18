@@ -103,5 +103,29 @@ namespace HRIS.Control {
 
 			selected.ToList().ForEach(VisibleList.Add);
 		}
+
+		public void StaffClash(Staff staff) {
+			CurrentlySelected = staff;
+
+			var rows = new List<ColorGridRow>();
+
+			if (staff.Consultations == null) {
+				_db.FetchStaffTeaching(CurrentlySelected);
+			}
+			foreach (var detail in staff.Consultations) {
+				var dayNum = 0;
+				while (dayNum < 6) {
+					if (staff.Consultations.Day == staff.Classes.Day == 1 ) {
+						if (staff.Consultations.Start == staff.Classes.Start) {
+							rows.Add(new ColorGridRow(staff.Consultations.Start, "2", "CellColor.Red"));
+						} else if (!(rows.Contains(staff.Consultations.Start, "1", "CellColor.Green") || rows.Contains(staff.Consultations.Start, "2", "CellColor.Red"))){
+							rows.Add(new ColorGridRow(staff.Consultations.Start, "2", "CellColor.Green"));
+						} else {
+							rows.Add(new ColorGridRow(staff.Consultations.Start, "2", "CellColor.White"));
+						}
+					}
+				}
+			}
+		}
 	}
 }
