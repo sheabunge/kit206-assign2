@@ -137,7 +137,7 @@ namespace HRIS.Control {
 					row.Values[day - FirstDay] = freq;
 
 					var color = full - nearEmpty;
-					var weight = (Single) (freq - 1) / (Single) threshold;
+					var weight = (Single) (freq - 1) / (Single) (threshold - 1);
 					if (weight <= 1.0) {
 						color *= weight;
 						color += nearEmpty;
