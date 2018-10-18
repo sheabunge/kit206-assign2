@@ -33,6 +33,11 @@ namespace HRIS.Control {
 		public string SearchText { get; set; }
 
 		/// <summary>
+		/// Currently selected unit in the model
+		/// </summary>
+		public Unit SelectedUnit { get; private set; }
+
+		/// <summary>
 		/// Complete list of classes associated with the currently selected Unit model
 		/// </summary>
 		public List<UnitClass> UnitClasses { get; private set; }
@@ -58,7 +63,7 @@ namespace HRIS.Control {
 		/// <summary>
 		/// Rows of data for the consultation times heat map
 		/// </summary>
-		private ObservableCollection<ColorGridRow> ClashMap { get; } = new ObservableCollection<ColorGridRow>();
+		public ObservableCollection<ColorGridRow> ClashMap { get; } = new ObservableCollection<ColorGridRow>();
 
 		/// <summary>
 		/// Method to retrieve the rows of data for the class times heat map
@@ -99,6 +104,7 @@ namespace HRIS.Control {
 		/// <param name="unit"></param>
 		public void SelectUnit(Unit unit) {
 			UnitClasses = _db.FetchUnitClasses(unit).OrderBy(c => c.StartDate).ToList();
+			SelectedUnit = unit;
 			VisibleUnitClasses.Clear();
 			UnitClasses.ForEach(VisibleUnitClasses.Add);
 		}
@@ -127,21 +133,53 @@ namespace HRIS.Control {
 			}
 		}
 
+		/// <summary>
+		/// Generate the clash map for the current unit and visible classes
+		/// </summary>
 		public void GenerateClashMap() {
 			const int firstHour = 9;
 			const int lastHour = 16;
-			const int firstDay = (int) DayOfWeek.Monday;
-			const int lastDay = (int) DayOfWeek.Friday;
 
 			ClashMap.Clear();
 
-			for (var hour = firstHour; hour < lastHour; hour++) {
+			if (SelectedUnit == null) {
+				return;
+			}
+
+			// begin our list of events from the visible unit classes
+			var events = new List<Event>(VisibleUnitClasses);
+
+			foreach (var e in VisibleUnitClasses) {
+				var staff = e.Staff;
+
+				// fetch the consultation times if necessary
+				if (staff.Consultations == null) {
+					_db.FetchStaffTeaching(e.Staff);
+				}
+
+				staff.Consultations.ForEach(events.Add);
+			}
+
+			var frequencies = new EventFrequencyTable(events);
+
+			for (var hour = firstHour; hour <= lastHour; hour++) {
 				var row = new ColorGridRow {
-					Time = DateTime.Today.AddHours(hour)
+					Time = DateTime.Today.AddHours(hour),
 				};
 
-				for (var day = firstDay; day <= lastDay; day++) {
+				for (var day = 0; day <= 5; day++) {
+					var freq = frequencies[day + 1, hour];
 
+					if (freq < 1) {
+						continue;
+					}
+
+					if (freq == 1) {
+						row.Colors[day] = UnitTimetableView.ActivityColor;
+					} else {
+						row.Colors[day] = UnitTimetableView.ClashColor;
+						row.Values[day] = "Clash";
+					}
 				}
 
 				ClashMap.Add(row);

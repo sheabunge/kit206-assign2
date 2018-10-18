@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using HRIS.Control;
 using HRIS.Teaching;
 
@@ -10,6 +11,16 @@ namespace HRIS.View {
 	/// </summary>
 	public partial class UnitTimetableView : UserControl {
 		private readonly UnitController controller;
+
+		/// <summary>
+		/// Color to use for occupied slots in the clash map
+		/// </summary>
+		public static SolidColorBrush ActivityColor => new SolidColorBrush(Colors.ForestGreen);
+
+		/// <summary>
+		/// Color to use for clashes in the clash map
+		/// </summary>
+		public static SolidColorBrush ClashColor => new SolidColorBrush(Colors.OrangeRed);
 
 		/// <summary>
 		/// Event handler triggered by a request to load the details of a staff member
@@ -23,6 +34,7 @@ namespace HRIS.View {
 			controller = (UnitController) Application.Current.FindResource("UnitController");
 			InitializeComponent();
 			UnitDetails.Visibility = Visibility.Hidden;
+			UnloadClashMap();
 		}
 
 		/// <summary>
@@ -68,6 +80,37 @@ namespace HRIS.View {
 		private void DeselectCell(object sender, RoutedEventArgs e) {
 			var cell = (DataGridCell) sender;
 			cell.IsSelected = false;
+		}
+
+		/// <summary>
+		/// Handle generation or hiding of the clash map table
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ToggleClashMap(object sender, RoutedEventArgs e) {
+			if (ClashMapContainer.Visibility == Visibility.Visible) {
+				UnloadClashMap();
+			} else {
+				LoadClashMap();
+			}
+		}
+
+		/// <summary>
+		/// Generate and show the clash map
+		/// </summary>
+		private void LoadClashMap() {
+			controller.GenerateClashMap();
+			ClashMapContainer.Visibility = Visibility.Visible;
+			ClashMapButton.Content = "Hide Clash Table";
+		}
+
+		/// <summary>
+		/// Unload and hide the clash map
+		/// </summary>
+		private void UnloadClashMap() {
+			controller.ClashMap.Clear();
+			ClashMapContainer.Visibility = Visibility.Collapsed;
+			ClashMapButton.Content = "Show Clash Table";
 		}
 	}
 }
