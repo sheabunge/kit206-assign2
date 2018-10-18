@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using HRIS.Database;
 using HRIS.Teaching;
 using HRIS.View;
@@ -98,8 +98,9 @@ namespace HRIS.Control {
 			var result = new ColorGridRow[HourRange];
 
 			for (var hour = FirstHour; hour <= LastHour; hour++) {
-				var values = new string[5];
-				var colors = new CellColor[5];
+				var row = new ColorGridRow {
+					Time = DateTime.Today.AddHours(hour),
+				};
 
 				for (var day = FirstDay; day <= LastDay; day++) {
 					var freq = frequencies[day, hour];
@@ -108,12 +109,11 @@ namespace HRIS.Control {
 						continue;
 					}
 
-					values[day - FirstDay] = freq.ToString();
-					colors[day - FirstDay] = CellColor.Yellow;
+					row.Values[day - FirstDay] = freq.ToString();
+					row.Colors[day - FirstDay] = new SolidColorBrush(Colors.GreenYellow);
 				}
 
-				var time = DateTime.Today + new TimeSpan(hour, 0, 0);
-				result[hour - FirstHour] = new ColorGridRow(time.ToString("h tt"), values, colors);
+				result[hour - FirstHour] = row;
 			}
 
 			return result;

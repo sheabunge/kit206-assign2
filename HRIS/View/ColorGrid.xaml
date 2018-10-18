@@ -9,7 +9,7 @@
 		<DataGrid.Columns>
 			<!-- There are also ways to define row labels and have them bind to a property (such as the time of day)
              This would be neater visually, but is not shown here. -->
-			<DataGridTextColumn Header="" Binding="{Binding Path=Time}" />
+			<DataGridTextColumn Header="" Binding="{Binding Path=Time, StringFormat=h tt}" />
 
 			<DataGridTextColumn Header="Monday" Binding="{Binding Path=Values[0]}">
 				<DataGridTextColumn.ElementStyle>
