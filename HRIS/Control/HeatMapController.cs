@@ -102,7 +102,7 @@ namespace HRIS.Control {
 				var colors = new CellColor[5];
 
 				for (var day = FirstDay; day <= LastDay; day++) {
-					var freq = frequencies[(DayOfWeek) day, hour];
+					var freq = frequencies[day, hour];
 
 					if (freq == 0) {
 						continue;
@@ -113,7 +113,7 @@ namespace HRIS.Control {
 				}
 
 				var time = DateTime.Today + new TimeSpan(hour, 0, 0);
-				result[hour - FirstHour] = new ColorGridRow(time.ToString("h:mm tt"), values, colors);
+				result[hour - FirstHour] = new ColorGridRow(time.ToString("h tt"), values, colors);
 			}
 
 			return result;

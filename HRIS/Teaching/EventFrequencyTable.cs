@@ -30,6 +30,14 @@ namespace HRIS.Teaching {
 		public int this[DayOfWeek day, int hour] => Frequency[(int) day, hour];
 
 		/// <summary>
+		/// Retrieve the number of events occuring during a given hour and day of the week
+		/// </summary>
+		/// <param name="day"></param>
+		/// <param name="hour"></param>
+		/// <returns></returns>
+		public int this[int day, int hour] => Frequency[day, hour];
+
+		/// <summary>
 		/// Construct the frequency table
 		/// </summary>
 		/// <param name="events"></param>
