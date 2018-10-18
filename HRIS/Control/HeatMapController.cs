@@ -119,7 +119,7 @@ namespace HRIS.Control {
 		/// </summary>
 		/// <param name="frequencies"></param>
 		/// <returns></returns>
-		private static IEnumerable<ColorGridRow> GenRows(EventFrequencyTable frequencies, Color full, Color nearEmpty, int threshold) {
+		private static IEnumerable<ColorGridRow> GenRows(EventFrequencyTable frequencies, Color nearEmpty, Color full, int threshold) {
 			var result = new ColorGridRow[HourRange];
 
 			for (var hour = FirstHour; hour <= LastHour; hour++) {
@@ -160,7 +160,7 @@ namespace HRIS.Control {
 		/// </summary>
 		/// <param name="events"></param>
 		/// <param name="dest"></param>
-		private void UpdateRowsOf(IEnumerable<Tuple<Event, Campus>> events, ICollection<ColorGridRow> dest, Color full, Color nearEmpty, int threshold) {
+		private void UpdateRowsOf(IEnumerable<Tuple<Event, Campus>> events, ICollection<ColorGridRow> dest, Color nearEmpty, Color full, int threshold) {
 			var selected =
 				from Tuple<Event, Campus> campusEvent in events
 				where CurrentCampusFilter == Campus.Any || CurrentCampusFilter == campusEvent.Item2
