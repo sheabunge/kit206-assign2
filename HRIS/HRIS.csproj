@@ -67,7 +67,7 @@
     <Compile Include="Teaching\Campus.cs" />
     <Compile Include="Teaching\Category.cs" />
     <Compile Include="Teaching\Event.cs" />
-    <Compile Include="Teaching\EventTable.cs" />
+    <Compile Include="Teaching\EventFrequencyTable.cs" />
     <Compile Include="Teaching\Staff.cs" />
     <Compile Include="Teaching\Unit.cs" />
     <Compile Include="Teaching\UnitClass.cs" />
