@@ -57,6 +57,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="View\ColorGrid.xaml.cs">
+      <DependentUpon>ColorGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ColorGridRow.cs" />
     <Compile Include="Control\HeatMapController.cs" />
     <Compile Include="Database\DataStore.cs" />
@@ -69,9 +72,6 @@
     <Compile Include="Teaching\Unit.cs" />
     <Compile Include="Teaching\UnitClass.cs" />
     <Compile Include="Database\DatabaseAdapter.cs" />
-    <Compile Include="View\ColorGridControl.xaml.cs">
-      <DependentUpon>ColorGridControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\HeatMapTab.xaml.cs">
       <DependentUpon>HeatMapTab.xaml</DependentUpon>
     </Compile>
@@ -134,7 +134,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="View\ColorGridControl.xaml">
+    <Page Include="View\ColorGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
