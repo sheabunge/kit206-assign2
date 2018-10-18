@@ -18,6 +18,8 @@
 		<Label Grid.Column="1" x:Name="NoneSelected"
 		       Content="Select a unit from the list to view its details." />
 
-		<view:UnitTimetableView Grid.Column="1" x:Name="UnitDetailsPanel" />
+		<ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+			<view:UnitTimetableView x:Name="UnitDetailsPanel" />
+		</ScrollViewer>
 	</Grid>
 </UserControl>

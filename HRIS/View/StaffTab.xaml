@@ -17,6 +17,8 @@
 		<Label x:Name="NoneSelected" Grid.Column="1"
 		       Content="Select a staff member from the list to view their details." />
 
-		<view:StaffDetailsView x:Name="StaffDetailsPanel" Grid.Column="1" />
+		<ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+			<view:StaffDetailsView x:Name="StaffDetailsPanel" />
+		</ScrollViewer>
 	</Grid>
 </UserControl>

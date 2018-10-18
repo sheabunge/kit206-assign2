@@ -10,9 +10,7 @@
 	<TabControl Margin="0, 0, 0, 10" x:Name="Navigation">
 		<TabItem x:Name="StaffTabItem" Header="Staff">
 			<TabItem.Content>
-				<ScrollViewer VerticalScrollBarVisibility="Auto">
-					<view:StaffTab x:Name="StaffTabContent" />
-				</ScrollViewer>
+				<view:StaffTab x:Name="StaffTabContent" />
 			</TabItem.Content>
 		</TabItem>
 
