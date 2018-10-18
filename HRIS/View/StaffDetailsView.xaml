@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:teaching="clr-namespace:HRIS.Teaching"
+             xmlns:teaching="clr-namespace:HRIS.Teaching"
+             xmlns:view="clr-namespace:HRIS.View"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="500">
 	<UserControl.Resources>
@@ -79,7 +80,7 @@
 				<Style TargetType="{x:Type StackPanel}">
 					<Style.Triggers>
 						<DataTrigger Binding="{Binding Path=Consultations.Count}" Value="0">
-							<Setter Property="Visibility" Value="Hidden" />
+							<Setter Property="Visibility" Value="Collapsed" />
 						</DataTrigger>
 					</Style.Triggers>
 				</Style>
@@ -114,7 +115,7 @@
 				<Style TargetType="{x:Type StackPanel}">
 					<Style.Triggers>
 						<DataTrigger Binding="{Binding Path=UnitsCoordinating.Count}" Value="0">
-							<Setter Property="Visibility" Value="Hidden" />
+							<Setter Property="Visibility" Value="Collapsed" />
 						</DataTrigger>
 					</Style.Triggers>
 				</Style>
@@ -130,7 +131,7 @@
 				<Style TargetType="{x:Type StackPanel}">
 					<Style.Triggers>
 						<DataTrigger Binding="{Binding Path=UnitsTeaching.Count}" Value="0">
-							<Setter Property="Visibility" Value="Hidden" />
+							<Setter Property="Visibility" Value="Collapsed" />
 						</DataTrigger>
 					</Style.Triggers>
 				</Style>
@@ -139,6 +140,16 @@
 			<Label Content="Units Teaching" Style="{StaticResource Heading}" />
 			<ListBox ItemsSource="{Binding Path=UnitsTeaching}" HorizontalAlignment="Left"
 			         x:Name="UnitsTeaching" ItemTemplate="{StaticResource LinkedUnits}" />
+		</StackPanel>
+
+		<StackPanel>
+			<StackPanel.Resources>
+				<ObjectDataProvider x:Key="AvalabilityTableRows"
+		                    ObjectInstance="{StaticResource StaffController}"
+		                    MethodName="GetAvalabilityTable" />
+			</StackPanel.Resources>
+			<Label Content="Avalability" Style="{StaticResource Heading}" />
+			<view:ColorGrid Rows="{Binding Source={StaticResource AvalabilityTableRows}}" />
 		</StackPanel>
 	</StackPanel>
 </UserControl>

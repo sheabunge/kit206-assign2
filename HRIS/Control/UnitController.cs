@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Media;
 using HRIS.Database;
 using HRIS.Teaching;
+using HRIS.View;
 
 namespace HRIS.Control {
 	/// <summary>
@@ -54,6 +56,17 @@ namespace HRIS.Control {
 
 
 		/// <summary>
+		/// Rows of data for the consultation times heat map
+		/// </summary>
+		private ObservableCollection<ColorGridRow> ClashMap { get; } = new ObservableCollection<ColorGridRow>();
+
+		/// <summary>
+		/// Method to retrieve the rows of data for the class times heat map
+		/// </summary>
+		/// <returns></returns>
+		public ObservableCollection<ColorGridRow> GetClashMap() => ClashMap;
+
+		/// <summary>
 		/// Class constructor; initialises class properties
 		/// </summary>
 		public UnitController() {
@@ -62,6 +75,9 @@ namespace HRIS.Control {
 			VisibleUnits = new ObservableCollection<Unit>(UnitsList);
 			SearchText = "";
 			VisibleUnitClasses = new ObservableCollection<UnitClass>();
+
+			var unit = new Unit("KIT102");
+			GenerateClashMap();
 		}
 
 		/// <summary>
@@ -111,6 +127,27 @@ namespace HRIS.Control {
 					select unitClass;
 
 				results.ToList().ForEach(VisibleUnitClasses.Add);
+			}
+		}
+
+		public void GenerateClashMap() {
+			const int firstHour = 9;
+			const int lastHour = 16;
+			const int firstDay = (int) DayOfWeek.Monday;
+			const int lastDay = (int) DayOfWeek.Friday;
+
+			ClashMap.Clear();
+
+			for (var hour = firstHour; hour < lastHour; hour++) {
+				var row = new ColorGridRow {
+					Time = DateTime.Today.AddHours(hour)
+				};
+
+				for (var day = firstDay; day <= lastDay; day++) {
+
+				}
+
+				ClashMap.Add(row);
 			}
 		}
 	}

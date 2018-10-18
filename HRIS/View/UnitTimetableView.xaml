@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:teaching="clr-namespace:HRIS.Teaching"
+             xmlns:view="clr-namespace:HRIS.View"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="500">
 
@@ -81,5 +82,14 @@
 				</DataGridHyperlinkColumn>
 			</DataGrid.Columns>
 		</DataGrid>
+
+		<StackPanel>
+			<StackPanel.Resources>
+				<ObjectDataProvider x:Key="ClashMapRows"
+		                    ObjectInstance="{StaticResource UnitController}"
+		                    MethodName="GetClashMap" />
+			</StackPanel.Resources>
+			<view:ColorGrid Rows="{Binding Source={StaticResource ClashMapRows}}" />
+		</StackPanel>
 	</StackPanel>
 </UserControl>

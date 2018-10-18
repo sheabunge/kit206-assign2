@@ -120,10 +120,10 @@ namespace HRIS.Teaching {
 				return events;
 			}
 
-			var results = from _event in events
-				where _event.Day == when.DayOfWeek &&
-				      _event.Start <= when.TimeOfDay && when.TimeOfDay <= _event.End
-				select _event;
+			var results = from e in events
+				where e.Day == when.DayOfWeek &&
+					e.Start <= when.TimeOfDay && ! (when.TimeOfDay >= e.End)
+				select e;
 
 			return results;
 		}

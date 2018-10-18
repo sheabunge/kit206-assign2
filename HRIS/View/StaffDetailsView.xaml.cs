@@ -38,6 +38,7 @@ namespace HRIS.View {
 				StaffDetails.Visibility = Visibility.Hidden;
 			} else {
 				controller.SelectItem(staff);
+				controller.GenerateAvalabilityTable();
 				StaffDetails.DataContext = staff;
 				StaffDetails.Visibility = Visibility.Visible;
 			}

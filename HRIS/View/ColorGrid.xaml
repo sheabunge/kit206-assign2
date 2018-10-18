@@ -5,26 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="450"
-             DataContext="{Binding RelativeSource={RelativeSource Self}}">
-	<DataGrid x:Name="TableMap" AutoGenerateColumns="False" IsReadOnly="True" CanUserReorderColumns="False"
+			 DataContext="{Binding RelativeSource={RelativeSource Self}}">
+	<DataGrid x:Name="TableMap" AutoGenerateColumns="False" IsReadOnly="True" IsEnabled="False" CanUserReorderColumns="False"
 	          HorizontalAlignment="Left" RowHeaderWidth="0" BorderThickness="0" Margin="5,5,5,5" GridLinesVisibility="None"
-	          ItemsSource="{Binding Rows}">
+	          ItemsSource="{Binding Rows}" ColumnWidth="{Binding CellSize}" RowHeight="{Binding CellSize}">
 		<DataGrid.Resources>
 			<Style TargetType="DataGridColumnHeader">
 				<Setter Property="Background" Value="Transparent" />
+				<Setter Property="Foreground" Value="Black" />
 				<Setter Property="Margin" Value="5,5,5,5" />
-				<Setter Property="HorizontalAlignment" Value="Center" />
 			</Style>
 			<Style TargetType="DataGridCell">
 				<Setter Property="BorderThickness" Value="0.5" />
 				<Setter Property="BorderBrush" Value="SlateGray" />
+				<Setter Property="Foreground" Value="Black" />
 			</Style>
 			<Style TargetType="Label">
 				<Setter Property="HorizontalContentAlignment" Value="Center" />
 				<Setter Property="VerticalContentAlignment" Value="Center" />
-			</Style>
-			<Style TargetType="DataGridRow">
-				<Setter Property="Height" Value="{Binding CellSize}" />
 			</Style>
 		</DataGrid.Resources>
 		<DataGrid.Columns>
@@ -32,13 +30,14 @@
 				<DataGridTextColumn.CellStyle>
 					<Style TargetType="DataGridCell">
 						<Setter Property="BorderThickness" Value="0" />
+						<Setter Property="Foreground" Value="Black" />
 					</Style>
 				</DataGridTextColumn.CellStyle>
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="TextBlock">
 						<Setter Property="HorizontalAlignment" Value="Right" />
-						<Setter Property="VerticalAlignment" Value="Center" />
-						<Setter Property="Margin" Value="5,5,5,5" />
+						<Setter Property="VerticalAlignment" Value="Top" />
+						<Setter Property="Margin" Value="5,0,5,10" />
 					</Style>
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>

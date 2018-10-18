@@ -1,9 +1,11 @@
 ﻿using HRIS.Database;
 using HRIS.Teaching;
+using HRIS.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Media;
 
 namespace HRIS.Control {
 	/// <summary>
@@ -39,6 +41,10 @@ namespace HRIS.Control {
 		/// Currently selected individual staff member
 		/// </summary>
 		public Staff CurrentlySelected { get; private set; }
+
+		public ObservableCollection<ColorGridRow> AvalabilityTable { get; } = new ObservableCollection<ColorGridRow>();
+
+		public ObservableCollection<ColorGridRow> GetAvalabilityTable() => AvalabilityTable;
 
 		/// <summary>
 		/// Method for retrieving the visible list of staff members
@@ -102,6 +108,54 @@ namespace HRIS.Control {
 				select staff;
 
 			selected.ToList().ForEach(VisibleList.Add);
+		}
+
+		/// <summary>
+		/// Generate the data for displaying a timetable of staff avalability
+		/// </summary>
+		public void GenerateAvalabilityTable() {
+			const int firstHour = 9;
+			const int lastHour = 16;
+			const int firstDay = (int) DayOfWeek.Monday;
+			const int lastDay = (int) DayOfWeek.Friday;
+
+			var teachingColor = Colors.CornflowerBlue;
+			var consultingColor = Colors.IndianRed;
+
+			AvalabilityTable.Clear();
+
+			if (CurrentlySelected == null) {
+				return;
+			}
+
+			var baseDateTime = DateTime.Today.AddDays(-(int) DateTime.Today.DayOfWeek + firstDay);
+
+			for (var hour = firstHour; hour <= lastHour; hour++) {
+				var time = baseDateTime.AddHours(hour);
+
+				var row = new ColorGridRow {
+					Time = time
+				};
+
+				for (var day = 0; day < 5; day++) {
+					Console.WriteLine(time);
+
+					var color = Colors.White;
+					var avalability = CurrentlySelected.Availability(time).Item1;
+
+					if (Availability.Teaching == avalability) {
+						color = teachingColor;
+					} else if (Availability.Consulting == avalability) {
+						color = consultingColor;
+					}
+
+					Console.WriteLine($"{time.DayOfWeek} is {color}");
+					row.Colors[day] = new SolidColorBrush(color);
+					time = time.AddDays(1);
+				}
+
+				AvalabilityTable.Add(row);
+			}
 		}
 	}
 }
