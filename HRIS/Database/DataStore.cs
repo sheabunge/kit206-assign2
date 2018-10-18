@@ -25,6 +25,8 @@ namespace HRIS.Database {
 		/// </summary>
 		private readonly Dictionary<string, Unit> units;
 
+		public IEnumerable<Staff> StaffMembers { get => staffMembers.Values; }
+	
 		/// <summary>
 		/// Class constructor
 		/// </summary>
@@ -68,5 +70,6 @@ namespace HRIS.Database {
 			units.Add(unit.Code, unit);
 			return unit;
 		}
+
 	}
 }
