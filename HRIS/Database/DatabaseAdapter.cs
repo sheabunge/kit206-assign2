@@ -158,7 +158,6 @@ namespace HRIS.Database {
 				reader = command.ExecuteReader();
 
 				staff.Classes = new List<UnitClass>();
-				staff.UnitsTeaching = new List<Unit>();
 
 				var units = new Dictionary<String, Unit>();
 
@@ -177,7 +176,7 @@ namespace HRIS.Database {
 					};
 
 					staff.Classes.Add(unitClass);
-					teachingUnitCodes.Add(unitClass.Unit.Code);
+					teachingUnitCodes.Add(unit.Code);
 				}
 
 				reader.Close();
@@ -187,6 +186,7 @@ namespace HRIS.Database {
 				command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
 				reader = command.ExecuteReader();
 
+				staff.UnitsTeaching = new List<Unit>();
 				staff.UnitsCoordinating = new List<Unit>();
 
 				while (reader.Read()) {
@@ -210,9 +210,8 @@ namespace HRIS.Database {
 				if (teachingUnitCodes.Count > 0) {
 					reader.Close();
 
-					command = new MySqlCommand("SELECT code, title FROM unit WHERE coordinator = @staffid AND code IN (@unitcodes)", Connection);
-					command.Parameters.AddWithValue("@staffid", staff.ID.ToString());
-					command.Parameters.AddWithValue("@unitcodes", String.Join(",", teachingUnitCodes));
+					var unitCodes = String.Join("','", teachingUnitCodes);
+					command = new MySqlCommand($"SELECT code, title FROM unit WHERE code IN ('${unitCodes}')", Connection);
 
 					reader = command.ExecuteReader();
 
