@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:teaching="clr-namespace:HRIS.Teaching"
              xmlns:view="clr-namespace:HRIS.View"
              mc:Ignorable="d"
@@ -29,14 +29,14 @@
 		<StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center" Orientation="Horizontal">
 			<Label>Show:</Label>
 			<ComboBox x:Name="CampusFilter" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right"
-				          ItemsSource="{Binding Source={StaticResource CampusValues}}" SelectedIndex="0" SelectionChanged="SelectCampus" />
+			          ItemsSource="{Binding Source={StaticResource CampusValues}}" SelectedIndex="0" SelectionChanged="SelectCampus" />
 		</StackPanel>
 		<TabControl Margin="0, 0, 0, 10">
 			<TabItem Header="Classes">
 				<TabItem.Content>
 					<ScrollViewer VerticalScrollBarVisibility="Auto">
 						<view:ColorGrid Rows="{Binding Source={StaticResource ClassRowList}}"
-						                HorizontalAlignment="Center" VerticalAlignment="Center" />
+						                HorizontalAlignment="Center" VerticalAlignment="Center" CellSize="50" />
 					</ScrollViewer>
 				</TabItem.Content>
 			</TabItem>
@@ -45,7 +45,7 @@
 				<TabItem.Content>
 					<ScrollViewer VerticalScrollBarVisibility="Auto">
 						<view:ColorGrid Rows="{Binding Source={StaticResource ConsultRowList}}"
-						                HorizontalAlignment="Center" VerticalAlignment="Center" />
+						                HorizontalAlignment="Center" VerticalAlignment="Center" CellSize="50" />
 					</ScrollViewer>
 				</TabItem.Content>
 			</TabItem>

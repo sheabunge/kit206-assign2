@@ -4,13 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="450">
+             d:DesignHeight="450" d:DesignWidth="450"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
 	<DataGrid x:Name="TableMap" AutoGenerateColumns="False" IsReadOnly="True" CanUserReorderColumns="False"
-	          HorizontalAlignment="Left" RowHeaderWidth="0" BorderThickness="0" Margin="5,5,5,5" GridLinesVisibility="None">
+	          HorizontalAlignment="Left" RowHeaderWidth="0" BorderThickness="0" Margin="5,5,5,5" GridLinesVisibility="None"
+	          ItemsSource="{Binding Rows}">
 		<DataGrid.Resources>
 			<Style TargetType="DataGridColumnHeader">
 				<Setter Property="Background" Value="Transparent" />
 				<Setter Property="Margin" Value="5,5,5,5" />
+				<Setter Property="HorizontalAlignment" Value="Center" />
 			</Style>
 			<Style TargetType="DataGridCell">
 				<Setter Property="BorderThickness" Value="0.5" />
@@ -20,25 +23,27 @@
 				<Setter Property="HorizontalContentAlignment" Value="Center" />
 				<Setter Property="VerticalContentAlignment" Value="Center" />
 			</Style>
+			<Style TargetType="DataGridRow">
+				<Setter Property="Height" Value="{Binding CellSize}" />
+			</Style>
 		</DataGrid.Resources>
 		<DataGrid.Columns>
-			<DataGridTextColumn Binding="{Binding Path=Time, StringFormat=h tt}">
+			<DataGridTextColumn Binding="{Binding Path=Time, StringFormat=h tt}" Width="Auto">
 				<DataGridTextColumn.CellStyle>
 					<Style TargetType="DataGridCell">
 						<Setter Property="BorderThickness" Value="0" />
-						<Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-						<Setter Property="TextBlock.HorizontalAlignment" Value="Center" />
 					</Style>
 				</DataGridTextColumn.CellStyle>
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="TextBlock">
 						<Setter Property="HorizontalAlignment" Value="Right" />
+						<Setter Property="VerticalAlignment" Value="Center" />
 						<Setter Property="Margin" Value="5,5,5,5" />
 					</Style>
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>
 
-			<DataGridTemplateColumn>
+			<DataGridTemplateColumn Width="{Binding CellSize}">
 				<DataGridTemplateColumn.CellTemplate>
 					<DataTemplate>
 						<Label Background="{Binding Path=Colors[0]}">
@@ -48,7 +53,7 @@
 				</DataGridTemplateColumn.CellTemplate>
 			</DataGridTemplateColumn>
 
-			<DataGridTemplateColumn>
+			<DataGridTemplateColumn Width="{Binding CellSize}">
 				<DataGridTemplateColumn.CellTemplate>
 					<DataTemplate>
 						<Label Background="{Binding Path=Colors[1]}">
@@ -58,7 +63,7 @@
 				</DataGridTemplateColumn.CellTemplate>
 			</DataGridTemplateColumn>
 
-			<DataGridTemplateColumn>
+			<DataGridTemplateColumn Width="{Binding CellSize}">
 				<DataGridTemplateColumn.CellTemplate>
 					<DataTemplate>
 						<Label Background="{Binding Path=Colors[2]}">
@@ -68,7 +73,7 @@
 				</DataGridTemplateColumn.CellTemplate>
 			</DataGridTemplateColumn>
 
-			<DataGridTemplateColumn>
+			<DataGridTemplateColumn Width="{Binding CellSize}">
 				<DataGridTemplateColumn.CellTemplate>
 					<DataTemplate>
 						<Label Background="{Binding Path=Colors[3]}">
@@ -78,7 +83,7 @@
 				</DataGridTemplateColumn.CellTemplate>
 			</DataGridTemplateColumn>
 
-			<DataGridTemplateColumn>
+			<DataGridTemplateColumn Width="{Binding CellSize}">
 				<DataGridTemplateColumn.CellTemplate>
 					<DataTemplate>
 						<Label Background="{Binding Path=Colors[4]}">

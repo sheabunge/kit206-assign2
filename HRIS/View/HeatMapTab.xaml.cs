@@ -20,6 +20,12 @@ namespace HRIS.View {
 			controller = (HeatMapController) Application.Current.FindResource("HeatMapController");
 			InitializeComponent();
 		}
+
+		/// <summary>
+		/// Update the timetable content when a campus location is selected
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void SelectCampus(object sender, SelectionChangedEventArgs e) {
 			controller.CurrentCampusFilter = (Campus) CampusFilter.SelectedItem;
 			controller.UpdateRows();
