@@ -16,15 +16,18 @@
 				<Setter Property="BorderThickness" Value="0.5" />
 				<Setter Property="BorderBrush" Value="SlateGray" />
 			</Style>
-			<DataTemplate x:Key="ColorGridCell">
-				
-			</DataTemplate>
+			<Style TargetType="Label">
+				<Setter Property="HorizontalContentAlignment" Value="Center" />
+				<Setter Property="VerticalContentAlignment" Value="Center" />
+			</Style>
 		</DataGrid.Resources>
 		<DataGrid.Columns>
-			<DataGridTextColumn Header="" Binding="{Binding Path=Time, StringFormat=h tt}">
+			<DataGridTextColumn Binding="{Binding Path=Time, StringFormat=h tt}">
 				<DataGridTextColumn.CellStyle>
 					<Style TargetType="DataGridCell">
 						<Setter Property="BorderThickness" Value="0" />
+						<Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+						<Setter Property="TextBlock.HorizontalAlignment" Value="Center" />
 					</Style>
 				</DataGridTextColumn.CellStyle>
 				<DataGridTextColumn.ElementStyle>
@@ -35,47 +38,55 @@
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>
 
-			<DataGridTextColumn Header="Monday" Binding="{Binding Path=Values[0]}">
-				<DataGridTextColumn.ElementStyle>
-					<Style TargetType="{x:Type TextBlock}">
-						<Setter Property="Background" Value="{Binding Path=Colors[0]}" />
-						<Setter Property="TextAlignment" Value="Center" />
-					</Style>
-				</DataGridTextColumn.ElementStyle>
-			</DataGridTextColumn>
+			<DataGridTemplateColumn>
+				<DataGridTemplateColumn.CellTemplate>
+					<DataTemplate>
+						<Label Background="{Binding Path=Colors[0]}">
+							<TextBlock Text="{Binding Path=Values[0]}" />
+						</Label>
+					</DataTemplate>
+				</DataGridTemplateColumn.CellTemplate>
+			</DataGridTemplateColumn>
 
-			<DataGridTextColumn Header="Tuesday" Binding="{Binding Path=Values[1]}">
-				<DataGridTextColumn.ElementStyle>
-					<Style TargetType="{x:Type TextBlock}">
-						<Setter Property="Background" Value="{Binding Path=Colors[1]}" />
-						<Setter Property="TextAlignment" Value="Center" />
-					</Style>
-				</DataGridTextColumn.ElementStyle>
-			</DataGridTextColumn>
-			<DataGridTextColumn Header="Wednesday" Binding="{Binding Path=Values[2]}">
-				<DataGridTextColumn.ElementStyle>
-					<Style TargetType="{x:Type TextBlock}">
-						<Setter Property="Background" Value="{Binding Colors[2]}" />
-						<Setter Property="TextAlignment" Value="Center" />
-					</Style>
-				</DataGridTextColumn.ElementStyle>
-			</DataGridTextColumn>
-			<DataGridTextColumn Header="Thursday" Binding="{Binding Values[3]}">
-				<DataGridTextColumn.ElementStyle>
-					<Style TargetType="{x:Type TextBlock}">
-						<Setter Property="Background" Value="{Binding Colors[3]}" />
-						<Setter Property="TextAlignment" Value="Center" />
-					</Style>
-				</DataGridTextColumn.ElementStyle>
-			</DataGridTextColumn>
-			<DataGridTextColumn Header="Friday" Binding="{Binding Values[4]}">
-				<DataGridTextColumn.ElementStyle>
-					<Style TargetType="{x:Type TextBlock}">
-						<Setter Property="Background" Value="{Binding Colors[4]}" />
-						<Setter Property="TextAlignment" Value="Center" />
-					</Style>
-				</DataGridTextColumn.ElementStyle>
-			</DataGridTextColumn>
+			<DataGridTemplateColumn>
+				<DataGridTemplateColumn.CellTemplate>
+					<DataTemplate>
+						<Label Background="{Binding Path=Colors[1]}">
+							<TextBlock Text="{Binding Path=Values[1]}" />
+						</Label>
+					</DataTemplate>
+				</DataGridTemplateColumn.CellTemplate>
+			</DataGridTemplateColumn>
+
+			<DataGridTemplateColumn>
+				<DataGridTemplateColumn.CellTemplate>
+					<DataTemplate>
+						<Label Background="{Binding Path=Colors[2]}">
+							<TextBlock Text="{Binding Path=Values[2]}" />
+						</Label>
+					</DataTemplate>
+				</DataGridTemplateColumn.CellTemplate>
+			</DataGridTemplateColumn>
+
+			<DataGridTemplateColumn>
+				<DataGridTemplateColumn.CellTemplate>
+					<DataTemplate>
+						<Label Background="{Binding Path=Colors[3]}">
+							<TextBlock Text="{Binding Path=Values[3]}" />
+						</Label>
+					</DataTemplate>
+				</DataGridTemplateColumn.CellTemplate>
+			</DataGridTemplateColumn>
+
+			<DataGridTemplateColumn>
+				<DataGridTemplateColumn.CellTemplate>
+					<DataTemplate>
+						<Label Background="{Binding Path=Colors[4]}">
+							<TextBlock Text="{Binding Path=Values[4]}" />
+						</Label>
+					</DataTemplate>
+				</DataGridTemplateColumn.CellTemplate>
+			</DataGridTemplateColumn>
 		</DataGrid.Columns>
 	</DataGrid>
 </UserControl>

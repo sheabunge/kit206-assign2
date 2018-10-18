@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Globalization;
 
 namespace HRIS.View {
 	/// <summary>
@@ -20,6 +21,10 @@ namespace HRIS.View {
 
 		public ColorGrid() {
 			InitializeComponent();
+
+			for (var day = 1; day < 6; day++) {
+				TableMap.Columns[day].Header = (DayOfWeek) day;
+			}
 		}
 
 		private static void OnRowsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
