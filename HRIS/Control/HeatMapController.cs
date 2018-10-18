@@ -80,6 +80,31 @@ namespace HRIS.Control {
 		private const int DayRange = LastDay - FirstDay + 1;
 
 		/// <summary>
+		/// Color to display when 1 class is on
+		/// </summary>
+		private readonly Color ClassLow = Color.FromRgb(32, 128, 32);
+
+		/// <summary>
+		/// Color to display when ClassThreshold classes are on
+		/// </summary>
+		private readonly Color ClassHigh = Color.FromRgb(64, 255, 64);
+
+		/// <summary>
+		/// Color to display when 1 staff member is consulting
+		/// </summary>
+		private readonly Color ConsultLow = Color.FromRgb(32, 128, 32);
+
+		/// <summary>
+		/// Color to display when more than 1 staff member is consulting
+		/// </summary>
+		private readonly Color ConsultHigh = Color.FromRgb(255, 0, 0);
+
+		/// <summary>
+		/// heat where heat map stops fading and displays everything the same
+		/// </summary>
+		private const int ClassThreshold = 5;
+
+		/// <summary>
 		/// Class constructor
 		/// </summary>
 		public HeatMapController() {
@@ -94,7 +119,7 @@ namespace HRIS.Control {
 		/// </summary>
 		/// <param name="frequencies"></param>
 		/// <returns></returns>
-		private static IEnumerable<ColorGridRow> GenRows(EventFrequencyTable frequencies) {
+		private static IEnumerable<ColorGridRow> GenRows(EventFrequencyTable frequencies, Color full, Color nearEmpty, int threshold) {
 			var result = new ColorGridRow[HourRange];
 
 			for (var hour = FirstHour; hour <= LastHour; hour++) {
@@ -109,8 +134,19 @@ namespace HRIS.Control {
 						continue;
 					}
 
-					row.Values[day - FirstDay] = freq.ToString();
-					row.Colors[day - FirstDay] = new SolidColorBrush(Colors.GreenYellow);
+					row.Values[day - FirstDay] = freq;
+
+					var color = full - nearEmpty;
+					var weight = (Single) (freq - 1) / (Single) threshold;
+					if (weight <= 1.0) {
+						color *= weight;
+						color += nearEmpty;
+					} else {
+						color = full;
+					}
+
+					color.A = 255;
+					row.Colors[day - FirstDay] = new SolidColorBrush(color);
 				}
 
 				result[hour - FirstHour] = row;
@@ -124,8 +160,7 @@ namespace HRIS.Control {
 		/// </summary>
 		/// <param name="events"></param>
 		/// <param name="dest"></param>
-		private void UpdateRowsOf(IEnumerable<Tuple<Event, Campus>> events, ICollection<ColorGridRow> dest) {
-
+		private void UpdateRowsOf(IEnumerable<Tuple<Event, Campus>> events, ICollection<ColorGridRow> dest, Color full, Color nearEmpty, int threshold) {
 			var selected =
 				from Tuple<Event, Campus> campusEvent in events
 				where CurrentCampusFilter == Campus.Any || CurrentCampusFilter == campusEvent.Item2
@@ -133,15 +168,15 @@ namespace HRIS.Control {
 
 			var frequencies = new EventFrequencyTable(selected);
 			dest.Clear();
-			GenRows(frequencies).ToList().ForEach(dest.Add);
+			GenRows(frequencies, full, nearEmpty, threshold).ToList().ForEach(dest.Add);
 		}
 
 		/// <summary>
 		/// Update the rows of all heat maps to match the current filters
 		/// </summary>
 		public void UpdateRows() {
-			UpdateRowsOf(ClassData, ClassRows);
-			UpdateRowsOf(ConsultationData, ConsultRows);
+			UpdateRowsOf(ClassData, ClassRows, ClassLow, ClassHigh, ClassThreshold);
+			UpdateRowsOf(ConsultationData, ConsultRows, ConsultLow, ConsultHigh, 2);
 		}
 	}
 }
