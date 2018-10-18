@@ -5,16 +5,41 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="450">
-	<DataGrid x:Name="TableMap" AutoGenerateColumns="False" IsReadOnly="True" CanUserReorderColumns="False">
+	<DataGrid x:Name="TableMap" AutoGenerateColumns="False" IsReadOnly="True" CanUserReorderColumns="False"
+	          HorizontalAlignment="Left" RowHeaderWidth="0" BorderThickness="0" Margin="5,5,5,5" GridLinesVisibility="None">
+		<DataGrid.Resources>
+			<Style TargetType="DataGridColumnHeader">
+				<Setter Property="Background" Value="Transparent" />
+				<Setter Property="Margin" Value="5,5,5,5" />
+			</Style>
+			<Style TargetType="DataGridCell">
+				<Setter Property="BorderThickness" Value="0.5" />
+				<Setter Property="BorderBrush" Value="SlateGray" />
+			</Style>
+			<DataTemplate x:Key="ColorGridCell">
+				
+			</DataTemplate>
+		</DataGrid.Resources>
 		<DataGrid.Columns>
-			<!-- There are also ways to define row labels and have them bind to a property (such as the time of day)
-             This would be neater visually, but is not shown here. -->
-			<DataGridTextColumn Header="" Binding="{Binding Path=Time, StringFormat=h tt}" />
+			<DataGridTextColumn Header="" Binding="{Binding Path=Time, StringFormat=h tt}">
+				<DataGridTextColumn.CellStyle>
+					<Style TargetType="DataGridCell">
+						<Setter Property="BorderThickness" Value="0" />
+					</Style>
+				</DataGridTextColumn.CellStyle>
+				<DataGridTextColumn.ElementStyle>
+					<Style TargetType="TextBlock">
+						<Setter Property="HorizontalAlignment" Value="Right" />
+						<Setter Property="Margin" Value="5,5,5,5" />
+					</Style>
+				</DataGridTextColumn.ElementStyle>
+			</DataGridTextColumn>
 
 			<DataGridTextColumn Header="Monday" Binding="{Binding Path=Values[0]}">
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="{x:Type TextBlock}">
 						<Setter Property="Background" Value="{Binding Path=Colors[0]}" />
+						<Setter Property="TextAlignment" Value="Center" />
 					</Style>
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>
@@ -23,6 +48,7 @@
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="{x:Type TextBlock}">
 						<Setter Property="Background" Value="{Binding Path=Colors[1]}" />
+						<Setter Property="TextAlignment" Value="Center" />
 					</Style>
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>
@@ -30,6 +56,7 @@
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="{x:Type TextBlock}">
 						<Setter Property="Background" Value="{Binding Colors[2]}" />
+						<Setter Property="TextAlignment" Value="Center" />
 					</Style>
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>
@@ -37,6 +64,7 @@
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="{x:Type TextBlock}">
 						<Setter Property="Background" Value="{Binding Colors[3]}" />
+						<Setter Property="TextAlignment" Value="Center" />
 					</Style>
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>
@@ -44,6 +72,7 @@
 				<DataGridTextColumn.ElementStyle>
 					<Style TargetType="{x:Type TextBlock}">
 						<Setter Property="Background" Value="{Binding Colors[4]}" />
+						<Setter Property="TextAlignment" Value="Center" />
 					</Style>
 				</DataGridTextColumn.ElementStyle>
 			</DataGridTextColumn>
