@@ -124,8 +124,8 @@ namespace HRIS.Control {
 			var result = new ColorGridRow[HourRange];
 
 			for (var hour = FirstHour; hour <= LastHour; hour++) {
-				var values = new string[5];
-				var colors = new Color[5];
+				var values = new string[DayRange];
+				var colors = new Color[DayRange];
 
 				for (var day = FirstDay; day <= LastDay; day++) {
 					var freq = frequencies[(DayOfWeek) day, hour];
