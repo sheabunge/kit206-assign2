@@ -1,24 +1,23 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace HRIS.Teaching {
 	public class EventTable {
 
-		private int[][] frequency { get; set; }
-
-		public int FrequencyAt(int hour, DayOfWeek dayofweek) => frequency[(int) dayofweek][hour];
+		private int[,] Frequency { get; set; }
 
 		const int HOURS = 24;
 
+		const int DAYS = 7;
+
+		public int FrequencyAt(int hour, DayOfWeek dayofweek) => Frequency[(int) dayofweek, hour];
+
 		public EventTable(IEnumerable<Event> events) {
-			frequency = new int[HOURS][];
-			for (int i = 0; i < HOURS; i++) {
-				frequency[i] = new int[7];
-			}
+			Frequency = new int[DAYS, HOURS];
 
 			foreach (var ev in events) {
 				for (var hour = Math.Floor(ev.Start.TotalHours); hour < Math.Ceiling(ev.End.TotalHours); hour++) {
-					frequency[(int) ev.Day][(int) hour]++;
+					Frequency[(int) ev.Day, (int) hour]++;
 				}
 			}
 		}
