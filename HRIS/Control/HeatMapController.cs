@@ -113,7 +113,7 @@ namespace HRIS.Control {
 				}
 
 				var time = DateTime.Today + new TimeSpan(hour, 0, 0);
-				result[hour - FirstHour] = new ColorGridRow(time.ToString("hh:mm tt"), values, colors);
+				result[hour - FirstHour] = new ColorGridRow(time.ToString("h:mm tt"), values, colors);
 			}
 
 			return result;
@@ -132,6 +132,7 @@ namespace HRIS.Control {
 				select campusEvent.Item1;
 
 			var frequencies = new EventFrequencyTable(selected);
+			dest.Clear();
 			GenRows(frequencies).ToList().ForEach(dest.Add);
 		}
 
