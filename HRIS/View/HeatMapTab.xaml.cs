@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using HRIS.Control;
+using HRIS.Teaching;
 
 namespace HRIS.View {
 	/// <summary>
@@ -18,6 +19,10 @@ namespace HRIS.View {
 		public HeatMapTab() {
 			controller = (HeatMapController) Application.Current.FindResource("HeatMapController");
 			InitializeComponent();
+		}
+		private void SelectCampus(object sender, SelectionChangedEventArgs e) {
+			controller.CurrentCampusFilter = (Campus) CampusFilter.SelectedItem;
+			controller.ApplyFilters();
 		}
 	}
 }
