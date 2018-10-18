@@ -25,26 +25,30 @@
 		</ObjectDataProvider>
 	</UserControl.Resources>
 
-	<StackPanel>
-		<DockPanel DockPanel.Dock="Top">
+	<DockPanel>
+		<StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center" Orientation="Horizontal">
 			<Label>Show:</Label>
 			<ComboBox x:Name="CampusFilter" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right"
 				          ItemsSource="{Binding Source={StaticResource CampusValues}}" SelectedIndex="0" SelectionChanged="SelectCampus" />
-		</DockPanel>
-		<TabControl Margin="0, 0, 0, 10" TabStripPlacement="Left">
+		</StackPanel>
+		<TabControl Margin="0, 0, 0, 10">
 			<TabItem Header="Classes">
 				<TabItem.Content>
 					<ScrollViewer VerticalScrollBarVisibility="Auto">
-						<view:ColorGrid Rows="{Binding Source={StaticResource ClassRowList} }" />
+						<view:ColorGrid Rows="{Binding Source={StaticResource ClassRowList}}"
+						                HorizontalAlignment="Center" VerticalAlignment="Center" />
 					</ScrollViewer>
 				</TabItem.Content>
 			</TabItem>
 
 			<TabItem Header="Consulting">
 				<TabItem.Content>
-					<view:ColorGrid Rows="{Binding Source={StaticResource ConsultRowList} }" />
+					<ScrollViewer VerticalScrollBarVisibility="Auto">
+						<view:ColorGrid Rows="{Binding Source={StaticResource ConsultRowList}}"
+						                HorizontalAlignment="Center" VerticalAlignment="Center" />
+					</ScrollViewer>
 				</TabItem.Content>
 			</TabItem>
 		</TabControl>
-	</StackPanel>
+	</DockPanel>
 </UserControl>
