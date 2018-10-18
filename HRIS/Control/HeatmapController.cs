@@ -9,27 +9,31 @@ namespace HRIS.Control {
 	/// </summary>
 	public class HeatMapController {
 		public Campus CurrentCampusFilter { get; set; }
+		ObservableCollection<ColorGridRow> ClassRows { get; set; }
+		ObservableCollection<ColorGridRow> ConsultRows { get; set; }
 
-		public ObservableCollection<ColorGridRow> GetClassRows() {
-			string[] values = { "1", "1", "2", "5", "3" };
+		public ObservableCollection<ColorGridRow> GetClassRows() => ClassRows;
+		public ObservableCollection<ColorGridRow> GetConsultRows() => ConsultRows;
+
+		public HeatMapController() {
+			ClassRows = new ObservableCollection<ColorGridRow>();
+			ConsultRows = new ObservableCollection<ColorGridRow>();
+			CurrentCampusFilter = Campus.Any;
+			ApplyFilters();
+		}
+		
+		public void ApplyFilters() {
+			string[] values = { CurrentCampusFilter.ToString(), "", "", "", "" };
 
 			CellColor[] colours = { CellColor.Yellow, CellColor.Yellow, CellColor.Orange, CellColor.Red, CellColor.Orange };
 
 			var rows = new List<ColorGridRow> {
 				new ColorGridRow("09:00", values, colours)
 			};
-
-			return new ObservableCollection<ColorGridRow>(rows);
-		}
-		public ObservableCollection<ColorGridRow> GetConsultRows() {
-			return GetClassRows();
-		}
-		public string[] GetCampusValues() {
-			string[] values = { "Hobart", "Launceston" };  // where is this meant to come from?
-			return values;
-		}
-
-		public void ApplyFilters() {
+			ClassRows.Clear();
+			rows.ForEach(ClassRows.Add);
+			ConsultRows.Clear();
+			rows.ForEach(ConsultRows.Add);
 		}
 	}
 }
