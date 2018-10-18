@@ -1,7 +1,6 @@
 ﻿<Application x:Class="HRIS.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:control="clr-namespace:HRIS.Control"
              StartupUri="View/MainWindow.xaml">
 	<Application.Resources>
@@ -35,5 +34,10 @@
 			</Style.Resources>
 		</Style>
 
+		<Style x:Key="RegularButton" TargetType="{x:Type Button}">
+			<Setter Property="HorizontalAlignment" Value="Left" />
+			<Setter Property="Margin" Value="0,15,0,0" />
+			<Setter Property="Padding" Value="5,2,5,2" />
+		</Style>
 	</Application.Resources>
 </Application>

@@ -167,6 +167,6 @@
 
 		</StackPanel>
 
-		<Button Content="Show Availability Table" Click="ToggleAvailabilityTable" HorizontalAlignment="Left" Margin="0,15,0,0" Padding="5,2,5,2" />
+		<Button Content="Show Availability Table" Click="ToggleAvailabilityTable" Style="{StaticResource RegularButton}" />
 	</StackPanel>
 </UserControl>

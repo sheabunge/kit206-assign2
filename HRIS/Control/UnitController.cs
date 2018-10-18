@@ -75,9 +75,6 @@ namespace HRIS.Control {
 			VisibleUnits = new ObservableCollection<Unit>(UnitsList);
 			SearchText = "";
 			VisibleUnitClasses = new ObservableCollection<UnitClass>();
-
-			var unit = new Unit("KIT102");
-			GenerateClashMap();
 		}
 
 		/// <summary>
