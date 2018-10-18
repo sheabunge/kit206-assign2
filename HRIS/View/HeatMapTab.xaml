@@ -10,9 +10,12 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
 	<UserControl.Resources>
-		<ObjectDataProvider x:Key="RowList"
+		<ObjectDataProvider x:Key="ClassRowList"
 		                    ObjectInstance="{StaticResource HeatMapController}"
-		                    MethodName="GetRows" />
+		                    MethodName="GetClassRows" />
+		<ObjectDataProvider x:Key="ConsultRowList"
+		                    ObjectInstance="{StaticResource HeatMapController}"
+		                    MethodName="GetConsultRows" />
 		<ObjectDataProvider x:Key="CampusValues"
 		                    ObjectType="{x:Type sys:Enum}"
 		                    MethodName="GetValues">
@@ -32,14 +35,14 @@
 			<TabItem Header="Classes">
 				<TabItem.Content>
 					<ScrollViewer VerticalScrollBarVisibility="Auto">
-						<view:ColorGrid Rows="{Binding Source={StaticResource RowList} }" />
+						<view:ColorGrid Rows="{Binding Source={StaticResource ClassRowList} }" />
 					</ScrollViewer>
 				</TabItem.Content>
 			</TabItem>
 
-			<TabItem x:Name="UnitsTabItem" Header="Units">
+			<TabItem Header="Consulting">
 				<TabItem.Content>
-					<view:ColorGrid Rows="{Binding Source={StaticResource RowList} }" />
+					<view:ColorGrid Rows="{Binding Source={StaticResource ConsultRowList} }" />
 				</TabItem.Content>
 			</TabItem>
 		</TabControl>

@@ -10,11 +10,7 @@ namespace HRIS.Control {
 	public class HeatMapController {
 		public Campus CurrentCampusFilter { get; set; }
 
-		/// <summary>
-		/// Generate a list of rows for displaying in the heat map grid
-		/// </summary>
-		/// <returns></returns>
-		public ObservableCollection<ColorGridRow> GetRows() {
+		public ObservableCollection<ColorGridRow> GetClassRows() {
 			string[] values = { "1", "1", "2", "5", "3" };
 
 			CellColor[] colours = { CellColor.Yellow, CellColor.Yellow, CellColor.Orange, CellColor.Red, CellColor.Orange };
@@ -24,6 +20,9 @@ namespace HRIS.Control {
 			};
 
 			return new ObservableCollection<ColorGridRow>(rows);
+		}
+		public ObservableCollection<ColorGridRow> GetConsultRows() {
+			return GetClassRows();
 		}
 		public string[] GetCampusValues() {
 			string[] values = { "Hobart", "Launceston" };  // where is this meant to come from?
