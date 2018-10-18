@@ -19,10 +19,10 @@ namespace HRIS.Control {
 			ClassRows = new ObservableCollection<ColorGridRow>();
 			ConsultRows = new ObservableCollection<ColorGridRow>();
 			CurrentCampusFilter = Campus.Any;
-			ApplyFilters();
+			UpdateRows();
 		}
 		
-		public void ApplyFilters() {
+		public void UpdateRows() {
 			string[] values = { CurrentCampusFilter.ToString(), "", "", "", "" };
 
 			CellColor[] colours = { CellColor.Yellow, CellColor.Yellow, CellColor.Orange, CellColor.Red, CellColor.Orange };

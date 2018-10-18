@@ -22,7 +22,7 @@ namespace HRIS.View {
 		}
 		private void SelectCampus(object sender, SelectionChangedEventArgs e) {
 			controller.CurrentCampusFilter = (Campus) CampusFilter.SelectedItem;
-			controller.ApplyFilters();
+			controller.UpdateRows();
 		}
 	}
 }
