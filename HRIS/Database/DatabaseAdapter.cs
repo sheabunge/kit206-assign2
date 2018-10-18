@@ -312,5 +312,47 @@ namespace HRIS.Database {
 
 			return classes;
 		}
+
+		/// <summary>
+		/// Fetch all records from an events table
+		/// </summary>
+		/// <param name="tableName">Table to fetch records from</param>
+		/// <returns>List of Event objects</returns>
+		private List<Event> FetchEvents(string tableName) {
+			MySqlDataReader reader = null;
+			var events = new List<Event>();
+
+			try {
+				Connection.Open();
+				var command = new MySqlCommand("SELECT start, end, day, 'class' FROM @table");
+				command.Parameters.AddWithValue("table", tableName);
+
+				reader = command.ExecuteReader();
+
+				while (reader.Read()) {
+					events.Add(new Event {
+						Start = reader.GetTimeSpan("start"),
+						End = reader.GetTimeSpan("end"),
+						Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
+					});
+				}
+
+			} finally {
+				reader?.Close();
+				Connection?.Close();
+			}
+
+			return events;
+		}
+
+		/// <summary>
+		/// Fetch all consultation events
+		/// </summary>
+		public List<Event> FetchAllConsultations => FetchEvents("consultation");
+
+		/// <summary>
+		/// Fetch all class events
+		/// </summary>
+		public List<Event> FetchAllClasses => FetchEvents("class");
 	}
 }

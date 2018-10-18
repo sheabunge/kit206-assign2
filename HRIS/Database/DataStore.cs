@@ -24,8 +24,6 @@ namespace HRIS.Database {
 		/// Unit objects are keyed by their code for quick retrieval
 		/// </summary>
 		private readonly Dictionary<string, Unit> units;
-
-		public IEnumerable<Staff> StaffMembers { get => staffMembers.Values; }
 	
 		/// <summary>
 		/// Class constructor
