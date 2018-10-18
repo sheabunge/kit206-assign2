@@ -37,6 +37,7 @@ namespace HRIS.View {
 			controller = (StaffController) Application.Current.FindResource("StaffController");
 			InitializeComponent();
 			StaffDetails.Visibility = Visibility.Hidden;
+			UnloadAvailabilityTable();
 		}
 
 		/// <summary>
@@ -44,6 +45,8 @@ namespace HRIS.View {
 		/// </summary>
 		/// <param name="staff">Staff object to use as model. null will reset the model</param>
 		public void SetModel(Staff staff) {
+			UnloadAvailabilityTable();
+
 			if (staff == null) {
 				// hide the details section if no staff member is selected
 				StaffDetails.Visibility = Visibility.Hidden;
@@ -80,15 +83,29 @@ namespace HRIS.View {
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void ToggleAvailabilityTable(object sender, RoutedEventArgs e) {
-			var generate = AvailibilityTableContainer.Visibility != Visibility.Visible;
-
-			if (generate) {
-				controller.GenerateAvalabilityTable();
+			if (AvailabilityTableContainer.Visibility == Visibility.Visible) {
+				UnloadAvailabilityTable();
+			} else {
+				LoadAvailabilityTable();
 			}
+		}
 
-			AvailibilityTableContainer.Visibility = generate ? Visibility.Visible : Visibility.Collapsed;
-			var button = (Button) sender;
-			button.Content = (generate ? "Hide" : "Show") + " Availability Table";
+		/// <summary>
+		/// Generate and show the availability table
+		/// </summary>
+		private void LoadAvailabilityTable() {
+			controller.GenerateAvalabilityTable();
+			AvailabilityTableContainer.Visibility = Visibility.Visible;
+			AvailabilityTableButton.Content = "Hide Availability Table";
+		}
+
+		/// <summary>
+		/// Unload and hide the availability table
+		/// </summary>
+		private void UnloadAvailabilityTable() {
+			controller.AvalabilityTable.Clear();
+			AvailabilityTableContainer.Visibility = Visibility.Collapsed;
+			AvailabilityTableButton.Content = "Show Availability Table";
 		}
 	}
 }

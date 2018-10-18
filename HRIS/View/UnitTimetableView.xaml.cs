@@ -42,6 +42,10 @@ namespace HRIS.View {
 		/// </summary>
 		/// <param name="unit">Unit object to use as model; null will reset the model</param>
 		public void SetModel(Unit unit) {
+			// reset controls
+			UnloadClashMap();
+			CampusFilter.SelectedIndex = 0;
+
 			if (unit == null) {
 				// hide the details section if no unit is selected
 				UnitDetails.Visibility = Visibility.Hidden;
@@ -60,6 +64,11 @@ namespace HRIS.View {
 		private void FilterClassesByCampus(object sender, SelectionChangedEventArgs e) {
 			if (CampusFilter.SelectedItem != null) {
 				controller.FilterClassesByCampus((Campus) CampusFilter.SelectedItem);
+
+				// refresh the clash map if it's loaded
+				if (ClashMapContainer != null && ClashMapContainer.Visibility == Visibility.Visible) {
+					controller.GenerateClashMap();
+				}
 			}
 		}
 

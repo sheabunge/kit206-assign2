@@ -142,16 +142,16 @@
 			         x:Name="UnitsTeaching" ItemTemplate="{StaticResource LinkedUnits}" />
 		</StackPanel>
 
-		<StackPanel Visibility="Collapsed" x:Name="AvailibilityTableContainer" Orientation="Horizontal" HorizontalAlignment="Left">
+		<StackPanel Visibility="Collapsed" x:Name="AvailabilityTableContainer" Orientation="Horizontal" HorizontalAlignment="Left">
 			<StackPanel.Resources>
-				<ObjectDataProvider x:Key="AvalabilityTableRows"
+				<ObjectDataProvider x:Key="AvailabilityTableRows"
 		                    ObjectInstance="{StaticResource StaffController}"
 		                    MethodName="GetAvalabilityTable" />
 			</StackPanel.Resources>
 
 			<StackPanel>
-				<Label Content="Avalability" Style="{StaticResource Heading}" />
-				<view:ColorGrid Rows="{Binding Source={StaticResource AvalabilityTableRows}}" />
+				<Label Content="Availability" Style="{StaticResource Heading}" />
+				<view:ColorGrid Rows="{Binding Source={StaticResource AvailabilityTableRows}}" />
 			</StackPanel>
 
 			<StackPanel VerticalAlignment="Bottom">
@@ -167,6 +167,6 @@
 
 		</StackPanel>
 
-		<Button Content="Show Availability Table" Click="ToggleAvailabilityTable" Style="{StaticResource RegularButton}" />
+		<Button x:Name="AvailabilityTableButton" Click="ToggleAvailabilityTable" Style="{StaticResource RegularButton}" />
 	</StackPanel>
 </UserControl>
