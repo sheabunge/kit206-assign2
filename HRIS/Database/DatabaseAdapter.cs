@@ -314,32 +314,30 @@ namespace HRIS.Database {
 		}
 
 		/// <summary>
-		/// Fetch all records from an events table
+		/// Read events from a database table into a list
 		/// </summary>
-		/// <param name="tableName">Table to fetch records from</param>
-		/// <returns>List of Event objects</returns>
-		private List<Event> FetchEvents(string tableName) {
+		/// <param name="command">Command to use for reading events</param>
+		/// <returns>List of events and campus locations</returns>
+		private List<Tuple<Event, Campus>> ReadEvents(MySqlCommand command) {
 			MySqlDataReader reader = null;
-			var events = new List<Event>();
+			var events = new List<Tuple<Event, Campus>>();
 
 			try {
-				Connection.Open();
-				var command = new MySqlCommand("SELECT start, end, day, 'class' FROM @table");
-				command.Parameters.AddWithValue("table", tableName);
-
 				reader = command.ExecuteReader();
 
 				while (reader.Read()) {
-					events.Add(new Event {
+					var eventObject = new Event {
 						Start = reader.GetTimeSpan("start"),
 						End = reader.GetTimeSpan("end"),
 						Day = ParseEnum<DayOfWeek>(reader.GetString("day")),
-					});
-				}
+					};
 
+					var campus = ParseEnum<Campus>(reader.GetString("campus"));
+
+					events.Add(Tuple.Create(eventObject, campus));
+				}
 			} finally {
 				reader?.Close();
-				Connection?.Close();
 			}
 
 			return events;
@@ -348,11 +346,27 @@ namespace HRIS.Database {
 		/// <summary>
 		/// Fetch all consultation events
 		/// </summary>
-		public List<Event> FetchAllConsultations => FetchEvents("consultation");
+		public List<Tuple<Event, Campus>> FetchAllConsultations() {
+			try {
+				Connection.Open();
+				var command = new MySqlCommand("SELECT start, end, day, campus FROM consultation JOIN staff ON (staff_id = id)", Connection);
+				return ReadEvents(command);
+			} finally {
+				Connection?.Close();
+			}
+		}
 
 		/// <summary>
 		/// Fetch all class events
 		/// </summary>
-		public List<Event> FetchAllClasses => FetchEvents("class");
+		public List<Tuple<Event, Campus>> FetchAllClasses() {
+			try {
+				Connection.Open();
+				var command = new MySqlCommand("SELECT start, end, day, campus FROM class", Connection);
+				return ReadEvents(command);
+			} finally {
+				Connection?.Close();
+			}
+		}
 	}
 }
