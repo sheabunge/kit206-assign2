@@ -210,9 +210,8 @@ namespace HRIS.Database {
 				if (teachingUnitCodes.Count > 0) {
 					reader.Close();
 
-					var unitCodes = String.Join("','", teachingUnitCodes);
+					var unitCodes = String.Join("','", teachingUnitCodes); // we need to pass this in directly as the unit codes must be quoted
 					command = new MySqlCommand($"SELECT code, title FROM unit WHERE code IN ('${unitCodes}')", Connection);
-
 					reader = command.ExecuteReader();
 
 					while (reader.Read()) {

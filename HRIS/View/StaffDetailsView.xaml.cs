@@ -38,7 +38,6 @@ namespace HRIS.View {
 				StaffDetails.Visibility = Visibility.Hidden;
 			} else {
 				controller.SelectItem(staff);
-				controller.GenerateAvalabilityTable();
 				StaffDetails.DataContext = staff;
 				StaffDetails.Visibility = Visibility.Visible;
 			}
@@ -62,6 +61,23 @@ namespace HRIS.View {
 		/// <param name="e">Arguments associated with the event</param>
 		private void LoadUnitTimetableHandler(object sender, RoutedEventArgs e) {
 			LoadUnitTimetableEvent?.Invoke(sender, e);
+		}
+
+		/// <summary>
+		/// Handle generation or hiding of the availability table
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ToggleAvailabilityTable(object sender, RoutedEventArgs e) {
+			var generate = AvailibilityTableContainer.Visibility != Visibility.Visible;
+
+			if (generate) {
+				controller.GenerateAvalabilityTable();
+			}
+
+			AvailibilityTableContainer.Visibility = generate ? Visibility.Visible : Visibility.Collapsed;
+			var button = (Button) sender;
+			button.Content = (generate ? "Hide" : "Show") + " Availability Table";
 		}
 	}
 }

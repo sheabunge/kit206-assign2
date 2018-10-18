@@ -42,9 +42,26 @@ namespace HRIS.Control {
 		/// </summary>
 		public Staff CurrentlySelected { get; private set; }
 
+		/// <summary>
+		/// Data for displaying in the avalability table
+		/// </summary>
 		public ObservableCollection<ColorGridRow> AvalabilityTable { get; } = new ObservableCollection<ColorGridRow>();
 
+		/// <summary>
+		/// Retrieve the datafor displaying in the avalability table
+		/// </summary>
+		/// <returns></returns>
 		public ObservableCollection<ColorGridRow> GetAvalabilityTable() => AvalabilityTable;
+
+		/// <summary>
+		/// Color to use for displaying teaching timeslots in the avalability table
+		/// </summary>
+		public readonly SolidColorBrush TeachingColor = new SolidColorBrush(Colors.RoyalBlue);
+
+		/// <summary>
+		/// Color to use for displaying consulting timeslots in the avalability table
+		/// </summary>
+		public readonly SolidColorBrush ConsultingColor = new SolidColorBrush(Colors.IndianRed);
 
 		/// <summary>
 		/// Method for retrieving the visible list of staff members
@@ -117,10 +134,6 @@ namespace HRIS.Control {
 			const int firstHour = 9;
 			const int lastHour = 16;
 			const int firstDay = (int) DayOfWeek.Monday;
-			const int lastDay = (int) DayOfWeek.Friday;
-
-			var teachingColor = Colors.CornflowerBlue;
-			var consultingColor = Colors.IndianRed;
 
 			AvalabilityTable.Clear();
 
@@ -132,25 +145,17 @@ namespace HRIS.Control {
 
 			for (var hour = firstHour; hour <= lastHour; hour++) {
 				var time = baseDateTime.AddHours(hour);
-
-				var row = new ColorGridRow {
-					Time = time
-				};
+				var row = new ColorGridRow { Time = time };
 
 				for (var day = 0; day < 5; day++) {
-					Console.WriteLine(time);
-
-					var color = Colors.White;
 					var avalability = CurrentlySelected.Availability(time).Item1;
 
 					if (Availability.Teaching == avalability) {
-						color = teachingColor;
+						row.Colors[day] = TeachingColor;
 					} else if (Availability.Consulting == avalability) {
-						color = consultingColor;
+						row.Colors[day] = ConsultingColor;
 					}
 
-					Console.WriteLine($"{time.DayOfWeek} is {color}");
-					row.Colors[day] = new SolidColorBrush(color);
 					time = time.AddDays(1);
 				}
 
