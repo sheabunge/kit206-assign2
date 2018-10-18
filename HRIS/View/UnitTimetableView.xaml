@@ -91,7 +91,7 @@
 			</StackPanel.Resources>
 
 			<Label Content="Clashes" Style="{StaticResource Heading}" />
-			<view:ColorGrid Rows="{Binding Source={StaticResource ClashMapRows}}" />
+			<view:ColorGrid Rows="{Binding Source={StaticResource ClashMapRows}}" CellSize="30" />
 		</StackPanel>
 
 		<Button x:Name="ClashMapButton" Content="" Click="ToggleClashMap" Style="{StaticResource RegularButton}" />

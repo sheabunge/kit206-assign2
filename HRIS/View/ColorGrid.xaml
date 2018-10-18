@@ -8,7 +8,7 @@
 			 DataContext="{Binding RelativeSource={RelativeSource Self}}">
 	<DataGrid x:Name="TableMap" AutoGenerateColumns="False" IsReadOnly="True" CanUserReorderColumns="False"
 	          HorizontalAlignment="Left" RowHeaderWidth="0" BorderThickness="0" Margin="5,5,5,5" GridLinesVisibility="None"
-	          ItemsSource="{Binding Rows}" ColumnWidth="{Binding CellSize}" RowHeight="{Binding CellSize}" SelectionChanged="DeselectCell">
+	          ItemsSource="{Binding Rows}" ColumnWidth="{Binding CellSize}" RowHeight="{Binding CellSize}">
 		<DataGrid.Resources>
 			<Style TargetType="DataGridColumnHeader">
 				<Setter Property="Background" Value="Transparent" />
@@ -17,6 +17,9 @@
 			<Style TargetType="DataGridCell">
 				<Setter Property="BorderThickness" Value="0.5" />
 				<Setter Property="BorderBrush" Value="SlateGray" />
+				<EventSetter Event="Selected" Handler="DeselectCell" />
+				<Setter Property="Width" Value="{Binding CellSize}" />
+				<Setter Property="Height" Value="{Binding CellSize}" />
 			</Style>
 			<Style TargetType="Label">
 				<Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -28,6 +31,7 @@
 				<DataGridTextColumn.CellStyle>
 					<Style TargetType="DataGridCell">
 						<Setter Property="BorderThickness" Value="0" />
+						<EventSetter Event="Selected" Handler="DeselectCell" />
 					</Style>
 				</DataGridTextColumn.CellStyle>
 				<DataGridTextColumn.ElementStyle>

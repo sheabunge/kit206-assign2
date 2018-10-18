@@ -32,7 +32,7 @@
 			          ItemsSource="{Binding Source={StaticResource CampusValues}}" SelectedIndex="0" SelectionChanged="SelectCampus" />
 		</StackPanel>
 		<TabControl Margin="0, 0, 0, 10">
-			<TabItem Header="Classes">
+			<TabItem Header="Unit Classes">
 				<TabItem.Content>
 					<ScrollViewer VerticalScrollBarVisibility="Auto">
 						<view:ColorGrid Rows="{Binding Source={StaticResource ClassRowList}}"
@@ -41,7 +41,7 @@
 				</TabItem.Content>
 			</TabItem>
 
-			<TabItem Header="Consulting">
+			<TabItem Header="Consultation Times">
 				<TabItem.Content>
 					<ScrollViewer VerticalScrollBarVisibility="Auto">
 						<view:ColorGrid Rows="{Binding Source={StaticResource ConsultRowList}}"

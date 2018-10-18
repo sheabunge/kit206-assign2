@@ -15,12 +15,12 @@ namespace HRIS.View {
 		/// <summary>
 		/// Color to use for occupied slots in the clash map
 		/// </summary>
-		public static SolidColorBrush ActivityColor => new SolidColorBrush(Colors.ForestGreen);
+		public static SolidColorBrush ActivityColor => new SolidColorBrush(Colors.LimeGreen);
 
 		/// <summary>
 		/// Color to use for clashes in the clash map
 		/// </summary>
-		public static SolidColorBrush ClashColor => new SolidColorBrush(Colors.OrangeRed);
+		public static SolidColorBrush ClashColor => new SolidColorBrush(Colors.IndianRed);
 
 		/// <summary>
 		/// Event handler triggered by a request to load the details of a staff member
