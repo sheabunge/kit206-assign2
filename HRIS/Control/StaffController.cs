@@ -54,16 +54,6 @@ namespace HRIS.Control {
 		public ObservableCollection<ColorGridRow> GetAvalabilityTable() => AvalabilityTable;
 
 		/// <summary>
-		/// Color to use for displaying teaching timeslots in the avalability table
-		/// </summary>
-		public readonly SolidColorBrush TeachingColor = new SolidColorBrush(Colors.RoyalBlue);
-
-		/// <summary>
-		/// Color to use for displaying consulting timeslots in the avalability table
-		/// </summary>
-		public readonly SolidColorBrush ConsultingColor = new SolidColorBrush(Colors.IndianRed);
-
-		/// <summary>
 		/// Method for retrieving the visible list of staff members
 		/// </summary>
 		/// <returns></returns>
@@ -151,9 +141,9 @@ namespace HRIS.Control {
 					var avalability = CurrentlySelected.Availability(time).Item1;
 
 					if (Availability.Teaching == avalability) {
-						row.Colors[day] = TeachingColor;
+						row.Colors[day] = StaffDetailsView.TeachingColor;
 					} else if (Availability.Consulting == avalability) {
-						row.Colors[day] = ConsultingColor;
+						row.Colors[day] = StaffDetailsView.ConsultingColor;
 					}
 
 					time = time.AddDays(1);

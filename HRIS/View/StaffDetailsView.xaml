@@ -142,14 +142,29 @@
 			         x:Name="UnitsTeaching" ItemTemplate="{StaticResource LinkedUnits}" />
 		</StackPanel>
 
-		<StackPanel Visibility="Collapsed" x:Name="AvailibilityTableContainer">
+		<StackPanel Visibility="Collapsed" x:Name="AvailibilityTableContainer" Orientation="Horizontal" HorizontalAlignment="Left">
 			<StackPanel.Resources>
 				<ObjectDataProvider x:Key="AvalabilityTableRows"
 		                    ObjectInstance="{StaticResource StaffController}"
 		                    MethodName="GetAvalabilityTable" />
 			</StackPanel.Resources>
-			<Label Content="Avalability" Style="{StaticResource Heading}" />
-			<view:ColorGrid Rows="{Binding Source={StaticResource AvalabilityTableRows}}" />
+
+			<StackPanel>
+				<Label Content="Avalability" Style="{StaticResource Heading}" />
+				<view:ColorGrid Rows="{Binding Source={StaticResource AvalabilityTableRows}}" />
+			</StackPanel>
+
+			<StackPanel VerticalAlignment="Bottom">
+				<StackPanel Orientation="Horizontal">
+					<Rectangle Width="15" Height="15" Fill="{Binding Path=(view:StaffDetailsView.TeachingColor)}" />
+					<Label Content="Teaching" />
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Rectangle Width="15" Height="15" Fill="{Binding Path=(view:StaffDetailsView.ConsultingColor)}" />
+					<Label Content="Consulting" />
+				</StackPanel>
+			</StackPanel>
+
 		</StackPanel>
 
 		<Button Content="Show Availability Table" Click="ToggleAvailabilityTable" HorizontalAlignment="Left" Margin="0,15,0,0" Padding="5,2,5,2" />

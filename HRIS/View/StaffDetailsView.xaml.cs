@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using HRIS.Control;
 using HRIS.Teaching;
 
@@ -13,6 +14,16 @@ namespace HRIS.View {
 		/// Controller class responsible for this section of the application
 		/// </summary>
 		private readonly StaffController controller;
+
+		/// <summary>
+		/// Color to use for displaying teaching timeslots in the avalability table
+		/// </summary>
+		public static SolidColorBrush TeachingColor => new SolidColorBrush(Colors.RoyalBlue);
+
+		/// <summary>
+		/// Color to use for displaying consulting timeslots in the avalability table
+		/// </summary>
+		public static SolidColorBrush ConsultingColor => new SolidColorBrush(Colors.IndianRed);
 
 		/// <summary>
 		/// Event handler that fires to redirect the user to a unit timetable
