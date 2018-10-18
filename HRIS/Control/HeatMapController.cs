@@ -83,22 +83,22 @@ namespace HRIS.Control {
 		/// <summary>
 		/// Color to display when 1 class is on
 		/// </summary>
-		private const Color ClassLow = Color.FromRgb(32, 128, 32);
+		private readonly Color ClassLow = Color.FromRgb(32, 128, 32);
 
 		/// <summary>
 		/// Color to display when ClassThreshold classes are on
 		/// </summary>
-		private const Color ClassHigh = Color.FromRgb(64, 255, 64);
+		private readonly Color ClassHigh = Color.FromRgb(64, 255, 64);
 
 		/// <summary>
 		/// Color to display when 1 staff member is consulting
 		/// </summary>
-		private const Color ConsultLow = Color.FromRgb(32, 128, 32);
+		private readonly Color ConsultLow = Color.FromRgb(32, 128, 32);
 
 		/// <summary>
 		/// Color to display when more than 1 staff member is consulting
 		/// </summary>
-		private const Color ConsultHigh = Color.FromRgb(255, 0, 0);
+		private readonly Color ConsultHigh = Color.FromRgb(255, 0, 0);
 
 		/// <summary>
 		/// heat where heat map stops fading and displays everything the same
@@ -136,7 +136,7 @@ namespace HRIS.Control {
 
 					values[day - FirstDay] = freq.ToString();
 					var color = full - nearEmpty;
-					var weight = (single) (freq - 1) / (single) threshold;
+					var weight = (Single) (freq - 1) / (Single) threshold;
 					if (weight <= 1.0) {
 						color *= weight;
 						color += nearEmpty;
@@ -167,7 +167,7 @@ namespace HRIS.Control {
 				select campusEvent.Item1;
 
 			var frequencies = new EventFrequencyTable(selected);
-			GenRows(frequencies).ToList().ForEach(dest.Add);
+			GenRows(frequencies, full, nearEmpty, threshold).ToList().ForEach(dest.Add);
 		}
 
 		/// <summary>
