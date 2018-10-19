@@ -136,9 +136,9 @@ namespace HRIS.Control {
 		/// </summary>
 		/// <param name="frequencies"></param>
 		/// <returns></returns>
-		private static IEnumerable<ColorGridRow> GenRows(EventFrequencyTable frequencies, Color nearEmpty, Color full, int minimum, int threshold) {
-			if (threshold == -1) {
-				threshold = frequencies.Max();
+		private static IEnumerable<ColorGridRow> GenRows(EventFrequencyTable frequencies, Color lowColor, Color highColor, int lowThreshold, int highThreshold) {
+			if (highThreshold == -1) {
+				highThreshold = frequencies.Max();
 			}
 			var result = new ColorGridRow[HourRange];
 
@@ -156,13 +156,13 @@ namespace HRIS.Control {
 
 					row.Values[day - FirstDay] = freq;
 
-					var color = full - nearEmpty;
-					var weight = (Single) (freq - minimum) / (Single) (threshold - minimum);
+					var color = highColor - lowColor;
+					var weight = (Single) (freq - lowThreshold) / (Single) (highThreshold - lowThreshold);
 					if (weight <= 1.0) {
 						color *= weight;
-						color += nearEmpty;
+						color += lowColor;
 					} else {
-						color = full;
+						color = highColor;
 					}
 
 					color.A = 255;
@@ -180,7 +180,7 @@ namespace HRIS.Control {
 		/// </summary>
 		/// <param name="events"></param>
 		/// <param name="dest"></param>
-		private void UpdateRowsOf(IEnumerable<Tuple<Event, Campus>> events, ICollection<ColorGridRow> dest, Color nearEmpty, Color full, int minimum, int threshold) {
+		private void UpdateRowsOf(IEnumerable<Tuple<Event, Campus>> events, ICollection<ColorGridRow> dest, Color lowColor, Color highColor, int lowThreshold, int highThreshold) {
 			var selected =
 				from Tuple<Event, Campus> campusEvent in events
 				where CurrentCampusFilter == Campus.Any || CurrentCampusFilter == campusEvent.Item2
@@ -188,7 +188,7 @@ namespace HRIS.Control {
 
 			var frequencies = new EventFrequencyTable(selected);
 			dest.Clear();
-			GenRows(frequencies, nearEmpty, full, minimum, threshold).ToList().ForEach(dest.Add);
+			GenRows(frequencies, lowColor, highColor, lowThreshold, highThreshold).ToList().ForEach(dest.Add);
 		}
 
 		/// <summary>
