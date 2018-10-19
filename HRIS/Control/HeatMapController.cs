@@ -121,10 +121,6 @@ namespace HRIS.Control {
 		/// </summary>
 		public Color PrimaryColor;
 
-		/// <summary>
-		/// heat where heat map stops fading and displays everything the same
-		/// </summary>
-		private const int ClassThreshold = 5;
 
 		/// <summary>
 		/// Class constructor
@@ -145,7 +141,10 @@ namespace HRIS.Control {
 		/// </summary>
 		/// <param name="frequencies"></param>
 		/// <returns></returns>
-		private static IEnumerable<ColorGridRow> GenRows(EventFrequencyTable frequencies, Color nearEmpty, Color full, int threshold) {
+		private static IEnumerable<ColorGridRow> GenRows(EventFrequencyTable frequencies, Color nearEmpty, Color full, int minimum, int threshold) {
+			if (threshold == -1) {
+				threshold = frequencies.Max();
+			}
 			var result = new ColorGridRow[HourRange];
 
 			for (var hour = FirstHour; hour <= LastHour; hour++) {
@@ -163,7 +162,7 @@ namespace HRIS.Control {
 					row.Values[day - FirstDay] = freq;
 
 					var color = full - nearEmpty;
-					var weight = (Single) (freq - 1) / (Single) (threshold - 1);
+					var weight = (Single) (freq - minimum) / (Single) (threshold - minimum);
 					if (weight <= 1.0) {
 						color *= weight;
 						color += nearEmpty;
@@ -186,7 +185,7 @@ namespace HRIS.Control {
 		/// </summary>
 		/// <param name="events"></param>
 		/// <param name="dest"></param>
-		private void UpdateRowsOf(IEnumerable<Tuple<Event, Campus>> events, ICollection<ColorGridRow> dest, Color nearEmpty, Color full, int threshold) {
+		private void UpdateRowsOf(IEnumerable<Tuple<Event, Campus>> events, ICollection<ColorGridRow> dest, Color nearEmpty, Color full, int minimum, int threshold) {
 			var selected =
 				from Tuple<Event, Campus> campusEvent in events
 				where CurrentCampusFilter == Campus.Any || CurrentCampusFilter == campusEvent.Item2
@@ -194,15 +193,15 @@ namespace HRIS.Control {
 
 			var frequencies = new EventFrequencyTable(selected);
 			dest.Clear();
-			GenRows(frequencies, full, nearEmpty, threshold).ToList().ForEach(dest.Add);
+			GenRows(frequencies, full, nearEmpty, minimum, threshold).ToList().ForEach(dest.Add);
 		}
 
 		/// <summary>
 		/// Update the rows of all heat maps to match the current filters
 		/// </summary>
 		public void UpdateRows() {
-			UpdateRowsOf(ClassData, ClassRows, ClassLow, ClassHigh, ClassThreshold);
-			UpdateRowsOf(ConsultationData, ConsultRows, ConsultLow, ConsultHigh, 2);
+			UpdateRowsOf(ClassData, ClassRows, ClassLow, ClassHigh, 0, -1);
+			UpdateRowsOf(ConsultationData, ConsultRows, ConsultLow, ConsultHigh, 1, 2);
 		}
 	}
 }
