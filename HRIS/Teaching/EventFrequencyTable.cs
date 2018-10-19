@@ -59,7 +59,7 @@ namespace HRIS.Teaching {
 			var max = 0;
 
 			for (var hour = 0; hour < HoursCount; hour++) {
-				for (var day = 0; day <DaysCount; day++) {
+				for (var day = 0; day < DaysCount; day++) {
 					var val = this[day, hour];
 
 					if (val > max) {

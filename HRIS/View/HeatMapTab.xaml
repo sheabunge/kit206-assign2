@@ -42,7 +42,7 @@
 				<ComboBox.ItemTemplate>
 					<DataTemplate>
 						<StackPanel Orientation="Horizontal">
-							<Border BorderThickness="0" Height="25" Width="20" Background="{Binding}" />
+							<Border BorderThickness="0" Height="15" Width="20" Background="{Binding}" />
 						</StackPanel>
 					</DataTemplate>
 				</ComboBox.ItemTemplate>
