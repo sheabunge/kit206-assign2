@@ -89,11 +89,14 @@ namespace HRIS.Control {
 		/// </summary>
 		public static readonly List<Color> ColorValues = new List<Color> {
 			Colors.BlueViolet,
+			Colors.Goldenrod,
 			Colors.ForestGreen,
 			Colors.IndianRed,
 			Colors.Fuchsia,
-			Colors.MediumSeaGreen,
-			Colors.Magenta,
+			Colors.Crimson,
+			Colors.MediumBlue,
+			Colors.Sienna,
+			Colors.DimGray,
 		};
 
 		/// <summary>
