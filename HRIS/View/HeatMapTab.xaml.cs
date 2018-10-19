@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using HRIS.Control;
 using HRIS.Teaching;
 
@@ -28,6 +29,17 @@ namespace HRIS.View {
 		/// <param name="e"></param>
 		private void SelectCampus(object sender, SelectionChangedEventArgs e) {
 			controller.CurrentCampusFilter = (Campus) CampusFilter.SelectedItem;
+			controller.UpdateRows();
+		}
+
+		/// <summary>
+		/// Update the timetable colors when a new color value is selected
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void SelectColor(object sender, SelectionChangedEventArgs e) {
+			var brush = (SolidColorBrush) e.AddedItems[0];
+			controller.PrimaryColor = brush.Color;
 			controller.UpdateRows();
 		}
 	}

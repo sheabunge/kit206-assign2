@@ -50,5 +50,25 @@ namespace HRIS.Teaching {
 				}
 			}
 		}
+
+		/// <summary>
+		/// Find the maximum frequency in the table
+		/// </summary>
+		/// <returns></returns>
+		public int Max() {
+			var max = 0;
+
+			for (var hour = 0; hour < HoursCount; hour++) {
+				for (var day = 0; day <DaysCount; day++) {
+					var val = this[day, hour];
+
+					if (val > max) {
+						max = val;
+					}
+				}
+			}
+
+			return max;
+		}
 	}
 }

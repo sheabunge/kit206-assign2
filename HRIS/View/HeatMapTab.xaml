@@ -16,6 +16,9 @@
 		<ObjectDataProvider x:Key="ConsultRowList"
 		                    ObjectInstance="{StaticResource HeatMapController}"
 		                    MethodName="GetConsultRows" />
+		<ObjectDataProvider x:Key="ColorOptions"
+		                    ObjectInstance="{StaticResource HeatMapController}"
+		                    MethodName="GetColorOptions" />
 		<ObjectDataProvider x:Key="CampusValues"
 		                    ObjectType="{x:Type sys:Enum}"
 		                    MethodName="GetValues">
@@ -31,6 +34,21 @@
 			<ComboBox x:Name="CampusFilter" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right"
 			          ItemsSource="{Binding Source={StaticResource CampusValues}}" SelectedIndex="0" SelectionChanged="SelectCampus" />
 		</StackPanel>
+
+		<StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center" Orientation="Horizontal">
+			<Label>Primary Colour:</Label>
+			<ComboBox x:Name="ColorPicker" VerticalAlignment="Center" HorizontalAlignment="Right"
+			          ItemsSource="{Binding Source={StaticResource ColorOptions}}" SelectedIndex="0" SelectionChanged="SelectColor">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<Border BorderThickness="0" Height="25" Width="20" Background="{Binding}" />
+						</StackPanel>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+		</StackPanel>
+
 		<TabControl Margin="0, 0, 0, 10">
 			<TabItem Header="Unit Classes">
 				<TabItem.Content>

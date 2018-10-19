@@ -82,22 +82,44 @@ namespace HRIS.Control {
 		/// <summary>
 		/// Color to display when 1 class is on
 		/// </summary>
-		private readonly Color ClassLow = Color.FromRgb(32, 128, 32);
+		private static readonly Color ClassLow = Color.FromRgb(32, 128, 32);
 
 		/// <summary>
 		/// Color to display when ClassThreshold classes are on
 		/// </summary>
-		private readonly Color ClassHigh = Color.FromRgb(64, 255, 64);
+		private static readonly Color ClassHigh = Color.FromRgb(64, 255, 64);
 
 		/// <summary>
 		/// Color to display when 1 staff member is consulting
 		/// </summary>
-		private readonly Color ConsultLow = Color.FromRgb(32, 128, 32);
+		private static readonly Color ConsultLow = Color.FromRgb(32, 128, 32);
 
 		/// <summary>
 		/// Color to display when more than 1 staff member is consulting
 		/// </summary>
-		private readonly Color ConsultHigh = Color.FromRgb(255, 0, 0);
+		private static readonly Color ConsultHigh = Color.FromRgb(255, 0, 0);
+
+		/// <summary>
+		/// List of available primary colors
+		/// </summary>
+		public static readonly List<Color> ColorValues = new List<Color> {
+			Colors.BlueViolet,
+			Colors.LightGoldenrodYellow,
+			Colors.ForestGreen,
+			Colors.IndianRed,
+			Colors.Fuchsia,
+		};
+
+		/// <summary>
+		/// Retrieve the list of available colors as brushes
+		/// </summary>
+		/// <returns></returns>
+		public static IEnumerable<Brush> GetColorOptions() => ColorValues.Select(color => new SolidColorBrush(color));
+
+		/// <summary>
+		/// Current base color used for the heat map grids
+		/// </summary>
+		public Color PrimaryColor;
 
 		/// <summary>
 		/// heat where heat map stops fading and displays everything the same
@@ -111,6 +133,10 @@ namespace HRIS.Control {
 			var db = new DatabaseAdapter();
 			ClassData = db.FetchAllClasses();
 			ConsultationData = db.FetchAllConsultations();
+
+			var random = new Random();
+			PrimaryColor = ColorValues[random.Next(ColorValues.Count)];
+
 			UpdateRows();
 		}
 
