@@ -80,21 +80,6 @@ namespace HRIS.Control {
 		private const int DayRange = LastDay - FirstDay + 1;
 
 		/// <summary>
-		/// Not actually displayed, used to calculate colors for different class numbers
-		/// </summary>
-		private static readonly Color EmptyCellColor = Color.FromRgb(255, 255, 255);
-
-		/// <summary>
-		/// Color to display when 1 staff member is consulting
-		/// </summary>
-		private static readonly Color ConsultLow = Color.FromRgb(32, 128, 32);
-
-		/// <summary>
-		/// Color to display when more than 1 staff member is consulting
-		/// </summary>
-		private static readonly Color ConsultHigh = Color.FromRgb(255, 0, 0);
-
-		/// <summary>
 		/// List of available primary colors
 		/// </summary>
 		public static readonly List<Color> ColorValues = new List<Color> {
@@ -116,6 +101,10 @@ namespace HRIS.Control {
 		/// </summary>
 		public Color PrimaryColor;
 
+		/// <summary>
+		/// Not actually displayed, used to calculate colors for different class numbers
+		/// </summary>
+		private static readonly Color EmptyCellColor = Color.FromRgb(255, 255, 255);
 
 		/// <summary>
 		/// Class constructor
@@ -134,12 +123,15 @@ namespace HRIS.Control {
 		/// <summary>
 		/// Generate rows for display in the heat map
 		/// </summary>
+		/// <param name="frequencies">Data to display</param>
+		/// <param name="lowColor"></param>
+		/// <param name="frequencies"></param>
+		/// <param name="frequencies"></param>
 		/// <param name="frequencies"></param>
 		/// <returns></returns>
-		private static IEnumerable<ColorGridRow> GenRows(EventFrequencyTable frequencies, Color lowColor, Color highColor, int lowThreshold, int highThreshold) {
-			if (highThreshold == -1) {
-				highThreshold = frequencies.Max();
-			}
+		private IEnumerable<ColorGridRow> GenRows(EventFrequencyTable frequencies) {
+			int threshold = frequencies.Max();
+
 			var result = new ColorGridRow[HourRange];
 
 			for (var hour = FirstHour; hour <= LastHour; hour++) {
@@ -156,13 +148,13 @@ namespace HRIS.Control {
 
 					row.Values[day - FirstDay] = freq;
 
-					var color = highColor - lowColor;
-					var weight = (Single) (freq - lowThreshold) / (Single) (highThreshold - lowThreshold);
+					var color = PrimaryColor - EmptyCellColor;
+					var weight = (Single) freq / (Single) threshold;
 					if (weight <= 1.0) {
 						color *= weight;
-						color += lowColor;
+						color += EmptyCellColor;
 					} else {
-						color = highColor;
+						color = PrimaryColor;
 					}
 
 					color.A = 255;
@@ -180,7 +172,7 @@ namespace HRIS.Control {
 		/// </summary>
 		/// <param name="events"></param>
 		/// <param name="dest"></param>
-		private void UpdateRowsOf(IEnumerable<Tuple<Event, Campus>> events, ICollection<ColorGridRow> dest, Color lowColor, Color highColor, int lowThreshold, int highThreshold) {
+		private void UpdateRowsOf(IEnumerable<Tuple<Event, Campus>> events, ICollection<ColorGridRow> dest) {
 			var selected =
 				from Tuple<Event, Campus> campusEvent in events
 				where CurrentCampusFilter == Campus.Any || CurrentCampusFilter == campusEvent.Item2
@@ -188,15 +180,15 @@ namespace HRIS.Control {
 
 			var frequencies = new EventFrequencyTable(selected);
 			dest.Clear();
-			GenRows(frequencies, lowColor, highColor, lowThreshold, highThreshold).ToList().ForEach(dest.Add);
+			GenRows(frequencies).ToList().ForEach(dest.Add);
 		}
 
 		/// <summary>
 		/// Update the rows of all heat maps to match the current filters
 		/// </summary>
 		public void UpdateRows() {
-			UpdateRowsOf(ClassData, ClassRows, EmptyCellColor, PrimaryColor, 0, -1);
-			UpdateRowsOf(ConsultationData, ConsultRows, ConsultLow, ConsultHigh, 1, 2);
+			UpdateRowsOf(ClassData, ClassRows);
+			UpdateRowsOf(ConsultationData, ConsultRows);
 		}
 	}
 }
