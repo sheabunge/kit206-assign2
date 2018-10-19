@@ -1,20 +1,20 @@
 ﻿<UserControl x:Class="HRIS.View.UnitListView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="200">
 	<UserControl.Resources>
 		<ObjectDataProvider x:Key="UnitsList"
 		                    ObjectInstance="{StaticResource UnitController}"
 		                    MethodName="GetVisibleList" />
 	</UserControl.Resources>
-	
+
 	<DockPanel Grid.Column="0" Margin="1,1,1,3">
 		<DockPanel DockPanel.Dock="Top">
 			<TextBox x:Name="SearchBox" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="5"
-				         TextChanged="FilterList">
+			         TextChanged="FilterList">
 				<TextBox.Style>
 					<Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
 						<Style.Resources>
@@ -38,10 +38,10 @@
 		</DockPanel>
 
 		<DataGrid x:Name="UnitsList" Margin="0,5,0,0"
-			          AutoGenerateColumns="False" RowHeaderWidth="0"
-			          IsReadOnly="True" GridLinesVisibility="None" SelectionMode="Single"
-			          ItemsSource="{Binding Source={StaticResource UnitsList}}"
-			          SelectionChanged="UnitSelectedHandler">
+		          AutoGenerateColumns="False" RowHeaderWidth="0"
+		          IsReadOnly="True" GridLinesVisibility="None" SelectionMode="Single"
+		          ItemsSource="{Binding Source={StaticResource UnitsList}}"
+		          SelectionChanged="UnitSelectedHandler">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Code" Binding="{Binding Path=Code}" />
 				<DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" />

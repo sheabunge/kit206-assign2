@@ -145,8 +145,8 @@
 		<StackPanel Visibility="Collapsed" x:Name="AvailabilityTableContainer" Orientation="Horizontal" HorizontalAlignment="Left">
 			<StackPanel.Resources>
 				<ObjectDataProvider x:Key="AvailabilityTableRows"
-		                    ObjectInstance="{StaticResource StaffController}"
-		                    MethodName="GetAvalabilityTable" />
+				                    ObjectInstance="{StaticResource StaffController}"
+				                    MethodName="GetAvalabilityTable" />
 			</StackPanel.Resources>
 
 			<StackPanel>

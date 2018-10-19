@@ -86,8 +86,8 @@
 		<StackPanel Visibility="Collapsed" x:Name="ClashMapContainer" HorizontalAlignment="Left">
 			<StackPanel.Resources>
 				<ObjectDataProvider x:Key="ClashMapRows"
-		                    ObjectInstance="{StaticResource UnitController}"
-		                    MethodName="GetClashMap" />
+				                    ObjectInstance="{StaticResource UnitController}"
+				                    MethodName="GetClashMap" />
 			</StackPanel.Resources>
 
 			<Label Content="Clashes" Style="{StaticResource Heading}" />

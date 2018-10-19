@@ -24,7 +24,7 @@ namespace HRIS.Database {
 		/// Unit objects are keyed by their code for quick retrieval
 		/// </summary>
 		private readonly Dictionary<string, Unit> units;
-	
+
 		/// <summary>
 		/// Class constructor
 		/// </summary>
@@ -68,6 +68,5 @@ namespace HRIS.Database {
 			units.Add(unit.Code, unit);
 			return unit;
 		}
-
 	}
 }

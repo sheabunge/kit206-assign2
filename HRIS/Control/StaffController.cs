@@ -135,7 +135,7 @@ namespace HRIS.Control {
 
 			for (var hour = firstHour; hour <= lastHour; hour++) {
 				var time = baseDateTime.AddHours(hour);
-				var row = new ColorGridRow { Time = time };
+				var row = new ColorGridRow {Time = time};
 
 				for (var day = 0; day < 5; day++) {
 					var avalability = CurrentlySelected.Availability(time).Item1;
