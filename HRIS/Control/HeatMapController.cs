@@ -80,14 +80,9 @@ namespace HRIS.Control {
 		private const int DayRange = LastDay - FirstDay + 1;
 
 		/// <summary>
-		/// Color to display when 1 class is on
+		/// Not actually displayed, used to calculate colors for different class numbers
 		/// </summary>
-		private static readonly Color ClassLow = Color.FromRgb(32, 128, 32);
-
-		/// <summary>
-		/// Color to display when ClassThreshold classes are on
-		/// </summary>
-		private static readonly Color ClassHigh = Color.FromRgb(64, 255, 64);
+		private static readonly Color EmptyCellColor = Color.FromRgb(255, 255, 255);
 
 		/// <summary>
 		/// Color to display when 1 staff member is consulting
@@ -193,14 +188,14 @@ namespace HRIS.Control {
 
 			var frequencies = new EventFrequencyTable(selected);
 			dest.Clear();
-			GenRows(frequencies, full, nearEmpty, minimum, threshold).ToList().ForEach(dest.Add);
+			GenRows(frequencies, nearEmpty, full, minimum, threshold).ToList().ForEach(dest.Add);
 		}
 
 		/// <summary>
 		/// Update the rows of all heat maps to match the current filters
 		/// </summary>
 		public void UpdateRows() {
-			UpdateRowsOf(ClassData, ClassRows, ClassLow, ClassHigh, 0, -1);
+			UpdateRowsOf(ClassData, ClassRows, EmptyCellColor, PrimaryColor, 0, -1);
 			UpdateRowsOf(ConsultationData, ConsultRows, ConsultLow, ConsultHigh, 1, 2);
 		}
 	}
