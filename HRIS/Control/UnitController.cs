@@ -103,7 +103,7 @@ namespace HRIS.Control {
 		/// </summary>
 		/// <param name="unit"></param>
 		public void SelectUnit(Unit unit) {
-			UnitClasses = _db.FetchUnitClasses(unit).OrderBy(c => c.StartDate).ToList();
+			UnitClasses = _db.FetchUnitClasses(unit).OrderBy(c => c.StartDate).ThenBy(c => c.EndDate).ToList();
 			SelectedUnit = unit;
 			VisibleUnitClasses.Clear();
 			UnitClasses.ForEach(VisibleUnitClasses.Add);
