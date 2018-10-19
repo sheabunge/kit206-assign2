@@ -84,7 +84,7 @@ namespace HRIS.Control {
 		/// </summary>
 		public static readonly List<Color> ColorValues = new List<Color> {
 			Colors.BlueViolet,
-			Colors.LightGoldenrodYellow,
+			Colors.Goldenrod,
 			Colors.ForestGreen,
 			Colors.IndianRed,
 			Colors.Fuchsia,
