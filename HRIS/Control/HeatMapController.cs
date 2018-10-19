@@ -80,14 +80,20 @@ namespace HRIS.Control {
 		private const int DayRange = LastDay - FirstDay + 1;
 
 		/// <summary>
+		/// Not actually displayed, used to calculate colors for different class numbers
+		/// </summary>
+		private static readonly Color EmptyCellColor = Colors.White;
+
+		/// <summary>
 		/// List of available primary colors
 		/// </summary>
 		public static readonly List<Color> ColorValues = new List<Color> {
 			Colors.BlueViolet,
-			Colors.Goldenrod,
 			Colors.ForestGreen,
 			Colors.IndianRed,
 			Colors.Fuchsia,
+			Colors.MediumSeaGreen,
+			Colors.Magenta,
 		};
 
 		/// <summary>
@@ -99,12 +105,7 @@ namespace HRIS.Control {
 		/// <summary>
 		/// Current base color used for the heat map grids
 		/// </summary>
-		public Color PrimaryColor;
-
-		/// <summary>
-		/// Not actually displayed, used to calculate colors for different class numbers
-		/// </summary>
-		private static readonly Color EmptyCellColor = Color.FromRgb(255, 255, 255);
+		public Color PrimaryColor = ColorValues[0];
 
 		/// <summary>
 		/// Class constructor
@@ -113,10 +114,6 @@ namespace HRIS.Control {
 			var db = new DatabaseAdapter();
 			ClassData = db.FetchAllClasses();
 			ConsultationData = db.FetchAllConsultations();
-
-			var random = new Random();
-			PrimaryColor = ColorValues[random.Next(ColorValues.Count)];
-
 			UpdateRows();
 		}
 
@@ -130,8 +127,8 @@ namespace HRIS.Control {
 		/// <param name="frequencies"></param>
 		/// <returns></returns>
 		private IEnumerable<ColorGridRow> GenRows(EventFrequencyTable frequencies) {
-			int threshold = frequencies.Max();
-
+			var lowThreshold = 0;
+			var highThreshold = frequencies.Max();
 			var result = new ColorGridRow[HourRange];
 
 			for (var hour = FirstHour; hour <= LastHour; hour++) {
@@ -149,7 +146,7 @@ namespace HRIS.Control {
 					row.Values[day - FirstDay] = freq;
 
 					var color = PrimaryColor - EmptyCellColor;
-					var weight = (Single) freq / (Single) threshold;
+					var weight = (float) (freq - lowThreshold) / (highThreshold - lowThreshold);
 					if (weight <= 1.0) {
 						color *= weight;
 						color += EmptyCellColor;

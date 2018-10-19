@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using HRIS.Control;
@@ -20,6 +21,9 @@ namespace HRIS.View {
 		public HeatMapTab() {
 			controller = (HeatMapController) Application.Current.FindResource("HeatMapController");
 			InitializeComponent();
+
+			var random = new Random();
+			ColorPicker.SelectedIndex = random.Next(ColorPicker.Items.Count);
 		}
 
 		/// <summary>
