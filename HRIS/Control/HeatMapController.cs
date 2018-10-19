@@ -121,10 +121,6 @@ namespace HRIS.Control {
 		/// Generate rows for display in the heat map
 		/// </summary>
 		/// <param name="frequencies">Data to display</param>
-		/// <param name="lowColor"></param>
-		/// <param name="frequencies"></param>
-		/// <param name="frequencies"></param>
-		/// <param name="frequencies"></param>
 		/// <returns></returns>
 		private IEnumerable<ColorGridRow> GenRows(EventFrequencyTable frequencies) {
 			var lowThreshold = 0;

@@ -122,7 +122,7 @@ namespace HRIS.Teaching {
 
 			var results = from e in events
 				where e.Day == when.DayOfWeek &&
-					e.Start <= when.TimeOfDay && ! (when.TimeOfDay >= e.End)
+				      e.Start <= when.TimeOfDay && !(when.TimeOfDay >= e.End)
 				select e;
 
 			return results;

@@ -1,5 +1,4 @@
-﻿
-namespace HRIS.Teaching {
+﻿namespace HRIS.Teaching {
 	/// <summary>
 	/// Represents the possible availability states of a staff member
 	/// </summary>
